@@ -1,0 +1,696 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{a6cebdb9-d835-4efb-b9ad-8fd41d16f768}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library">
+      <UniqueIdentifier>{6e23eb1f-8ec4-46c9-9dfe-9667647034c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\libpng">
+      <UniqueIdentifier>{8563af1a-324d-4dad-aec2-17a6f6de578f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\lua">
+      <UniqueIdentifier>{6092afe4-76c1-4ee7-a783-441e65723f24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\lua\lua_5_3_0">
+      <UniqueIdentifier>{68ad0aac-22d7-451d-aa16-64e68fac21a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{0115d1aa-ccf7-412a-b0f2-e9b0a2f107db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\gles2_0_renderer">
+      <UniqueIdentifier>{4fd39049-e02a-4848-832f-53d68dac485b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\glpi3d_renderer">
+      <UniqueIdentifier>{ce4b7a1f-ee92-4ca8-b649-06e0e75ad5b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\vulkan_renderer">
+      <UniqueIdentifier>{c6e2f250-4d81-49fb-b760-3a981e1a0ffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\gles2_0_renderer\geometry">
+      <UniqueIdentifier>{11cf1c95-3ab2-41d2-a281-28a24f487af4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\glpi3d_renderer\core">
+      <UniqueIdentifier>{6394617f-35f3-4573-a9df-85dfd7806146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\glpi3d_renderer\core\engine">
+      <UniqueIdentifier>{4f667991-9154-4a7c-8ae6-9cea95fa7644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\glpi3d_renderer\core\engine\WaveFrontObj">
+      <UniqueIdentifier>{578c7700-25a5-4c78-9d9a-565d679f0f77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sample">
+      <UniqueIdentifier>{a201ff89-ab2d-4099-8870-8c0661ec80ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sample\gles2_0_renderer">
+      <UniqueIdentifier>{e73650c0-47ee-43b5-8969-af7056c4d775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sample\glpi3d">
+      <UniqueIdentifier>{c9a079e9-c0b3-4ef7-bec9-473c080da717}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sample\glpi3d\model">
+      <UniqueIdentifier>{966d60a2-dec6-4dc9-bd16-08359b4a6a54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\ImageSupport">
+      <UniqueIdentifier>{a50fceda-370c-449c-9313-15d623cf3d8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\Interfaces">
+      <UniqueIdentifier>{124ad6fd-c974-4781-b763-df808a658cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\Plugins">
+      <UniqueIdentifier>{41eb7a1e-be7b-4388-9268-019d4594ff32}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Source\common\Application.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\Event.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\HMIRectangle.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\ImageManager.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\ModelEx.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\Object.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\ObjectRelative.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\Pixmap.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\Rectangle.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\Renderer.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\Scene.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\ImageBuffer\Image.h">
+      <Filter>common\ImageSupport</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\ImageBuffer\PngImage.h">
+      <Filter>common\ImageSupport</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\libpng\png.h">
+      <Filter>library\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\libpng\pngconf.h">
+      <Filter>library\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\libpng\pngdebug.h">
+      <Filter>library\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\libpng\pnginfo.h">
+      <Filter>library\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\libpng\pnglibconf.h">
+      <Filter>library\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\libpng\pngpriv.h">
+      <Filter>library\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\libpng\pngstruct.h">
+      <Filter>library\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lapi.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lauxlib.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lcode.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lctype.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\ldebug.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\ldo.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lfunc.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lgc.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\llex.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\llimits.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lmem.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lobject.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lopcodes.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lparser.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lprefix.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lstate.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lstring.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\ltable.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\ltm.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lua.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lua.hpp">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\luaconf.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lualib.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lundump.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lvm.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lzio.h">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Geometry\Ray.h">
+      <Filter>renderer\gles2_0_renderer\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Cache.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Constant.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20Pixmap.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20Rectangle.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20Renderer.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\GLutils.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Light.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Material.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\ProgramManager.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\ShaderManager.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Transform.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\scene_graph\Camera.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Camera.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Constant.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__FileBuffer.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Glutils.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Model.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Programmanager.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Renderer.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Scene.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Shadermanager.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Transform.h">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glpi3d\core\engine\WaveFrontOBJ\Wavefrontobj.h">
+      <Filter>renderer\glpi3d_renderer\core\engine\WaveFrontObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\luaSample1.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample0.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample1.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample2.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample3.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample4.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sampleimage.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sampleMultipleImage.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\glpi3d\glpi3dSample1.h">
+      <Filter>sample\glpi3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\glpi3d\glpi3dt_demoobjloader.h">
+      <Filter>sample\glpi3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\glpi3d\glpi3dt_demotriangle.h">
+      <Filter>sample\glpi3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\glpi3d\model\cube.h">
+      <Filter>sample\glpi3d\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\glpi3d\model\mercedesBenzClass.h">
+      <Filter>sample\glpi3d\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\glpi3d\model\suzzane.h">
+      <Filter>sample\glpi3d\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glew\include\GL\glew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glew\include\GL\glxew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\glew\include\GL\wglew.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Texture.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\MeshWaveFront\WaveFrontOBJ.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\MeshObject.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\Light.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\Material.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\MeshCustomScene.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\MeshDiffuse.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\MeshTex.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\MeshWithTex.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20MeshLoader.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\ILifeCycle.h">
+      <Filter>common\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\IMesh.h">
+      <Filter>common\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\IPixmap.h">
+      <Filter>common\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\IRectangle.h">
+      <Filter>common\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\IRenderable.h">
+      <Filter>common\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\IModel.h">
+      <Filter>common\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\GLES20Plugin.h">
+      <Filter>common\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\GLES31Plugin.h">
+      <Filter>common\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\GLPi3DPlugin.h">
+      <Filter>common\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\Plugin.h">
+      <Filter>common\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\VulkanPlugin.h">
+      <Filter>common\Plugins</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\WindMill.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\common\Event.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\HMIRectangle.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\ImageManager.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\ModelEx.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\Object.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\ObjectRelative.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\Pixmap.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\Rectangle.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\Renderer.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\Scene.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\ImageBuffer\Image.cpp">
+      <Filter>common\ImageSupport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\ImageBuffer\PngImage.cpp">
+      <Filter>common\ImageSupport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\png.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngerror.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngget.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngmem.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngpread.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngread.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngrio.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngrtran.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngrutil.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngset.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngtrans.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngwio.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngwrite.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngwtran.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\libpng\pngwutil.c">
+      <Filter>library\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lapi.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lauxlib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lbaselib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lbitlib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lcode.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lcorolib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lctype.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ldblib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ldebug.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ldo.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ldump.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lfunc.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lgc.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\linit.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\liolib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\llex.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lmathlib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lmem.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\loadlib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lobject.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lopcodes.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\loslib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lparser.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lstate.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lstring.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lstrlib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ltable.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ltablib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ltm.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lundump.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lutf8lib.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lvm.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lzio.c">
+      <Filter>library\lua\lua_5_3_0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\Geometry\Ray.cpp">
+      <Filter>renderer\gles2_0_renderer\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\Cache.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20Pixmap.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20Rectangle.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20Renderer.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\GLutils.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\Light.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\Material.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\ProgramManager.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\ShaderManager.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\Transform.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\scene_graph\Camera.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Camera.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__FileBuffer.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Glutils.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Model.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Programmanager.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Renderer.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Scene.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Shadermanager.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Transform.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glpi3d\core\engine\WaveFrontOBJ\Wavefrontobj.cpp">
+      <Filter>renderer\glpi3d_renderer\core\engine\WaveFrontObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\samples\glpi3d\glpi3dt_demoobjloader.cpp">
+      <Filter>sample\glpi3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\samples\glpi3d\glpi3dt_demotriangle.cpp">
+      <Filter>sample\glpi3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\main.cpp" />
+    <ClCompile Include="..\Source\common\Application.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\Texture.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\MeshWaveFront\WaveFrontOBJ.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\MeshObject.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\Light.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\Material.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20MeshLoader.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\glew\src\glew.c">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\GLES20Plugin.cpp">
+      <Filter>common\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\GLES31Plugin.cpp">
+      <Filter>common\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\GLPi3DPlugin.cpp">
+      <Filter>common\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\Plugin.cpp">
+      <Filter>common\Plugins</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\VulkanPlugin.cpp">
+      <Filter>common\Plugins</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F5684664-E321-4CFC-8F34-542502E10379}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>RenderConcepts</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;$(SolutionDir)Source\glpi3d\core\engine;$(SolutionDir)Libraries\SFML-2.2-windows-vc10-32-bit\SFML-2.2\include;$(SolutionDir)Source\gles2_0_renderer;$(SolutionDir)Libraries\zlib\zlib128-dll\include;$(SolutionDir)Source\common;E:\renderconcept\RenderConcept2010\RenderConcepts\Libraries\glew-1.12.0-win32\glew-1.12.0;$(SolutionDir)Libraries\glew-1.12.0\include;$(SolutionDir)Libraries\glew\includeXXXX;$(SolutionDir)Libraries\lua\lua_5_3_0\src;$(SolutionDir)Libraries\glm</IncludePath>
+    <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;$(SolutionDir)Libraries\zlib\zlib128-dll\lib;E:\renderconcept\RenderConcept2010\RenderConcepts\Libraries\glew-1.12.0-win32\glew-1.12.0\lib\Release\x64;E:\renderconcept\RenderConcept2010\RenderConcepts\Libraries\glew-1.12.0\lib\Release\Win32;$(SolutionDir)Libraries\glew\libXXXX;$(SolutionDir)Libraries\SFML-2.2-windows-vc10-32-bit\SFML-2.2\lib</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;opengl32.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Libraries\libpng\png.h" />
+    <ClInclude Include="..\Libraries\libpng\pngconf.h" />
+    <ClInclude Include="..\Libraries\libpng\pngdebug.h" />
+    <ClInclude Include="..\Libraries\libpng\pnginfo.h" />
+    <ClInclude Include="..\Libraries\libpng\pnglibconf.h" />
+    <ClInclude Include="..\Libraries\libpng\pngpriv.h" />
+    <ClInclude Include="..\Libraries\libpng\pngstruct.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lapi.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lauxlib.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lcode.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lctype.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\ldebug.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\ldo.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lfunc.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lgc.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\llex.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\llimits.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lmem.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lobject.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lopcodes.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lparser.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lprefix.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lstate.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lstring.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\ltable.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\ltm.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lua.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lua.hpp" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\luaconf.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lualib.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lundump.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lvm.h" />
+    <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lzio.h" />
+    <ClInclude Include="..\Source\common\Application.h" />
+    <ClInclude Include="..\Source\common\Event.h" />
+    <ClInclude Include="..\Source\common\GLES20Plugin.h" />
+    <ClInclude Include="..\Source\common\GLES31Plugin.h" />
+    <ClInclude Include="..\Source\common\GLPi3DPlugin.h" />
+    <ClInclude Include="..\Source\common\HMIRectangle.h" />
+    <ClInclude Include="..\Source\common\ILifeCycle.h" />
+    <ClInclude Include="..\Source\common\ImageBuffer\Image.h" />
+    <ClInclude Include="..\Source\common\ImageBuffer\PngImage.h" />
+    <ClInclude Include="..\Source\common\ImageManager.h" />
+    <ClInclude Include="..\Source\common\IMesh.h" />
+    <ClInclude Include="..\Source\common\IModel.h" />
+    <ClInclude Include="..\Source\common\IPixmap.h" />
+    <ClInclude Include="..\Source\common\IRectangle.h" />
+    <ClInclude Include="..\Source\common\IRenderable.h" />
+    <ClInclude Include="..\Source\common\Light.h" />
+    <ClInclude Include="..\Source\common\Material.h" />
+    <ClInclude Include="..\Source\common\MeshObject.h" />
+    <ClInclude Include="..\Source\common\MeshWaveFront\WaveFrontOBJ.h" />
+    <ClInclude Include="..\Source\common\ModelEx.h" />
+    <ClInclude Include="..\Source\common\Object.h" />
+    <ClInclude Include="..\Source\common\ObjectRelative.h" />
+    <ClInclude Include="..\Source\common\Pixmap.h" />
+    <ClInclude Include="..\Source\common\Plugin.h" />
+    <ClInclude Include="..\Source\common\Rectangle.h" />
+    <ClInclude Include="..\Source\common\Renderer.h" />
+    <ClInclude Include="..\Source\common\Scene.h" />
+    <ClInclude Include="..\Source\common\VulkanPlugin.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Cache.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Constant.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Geometry\Ray.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20MeshLoader.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20Pixmap.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20Rectangle.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20Renderer.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\GLutils.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Light.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Material.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\ProgramManager.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\scene_graph\Camera.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\ShaderManager.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Texture.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Transform.h" />
+    <ClInclude Include="..\Source\glew\include\GL\glew.h" />
+    <ClInclude Include="..\Source\glew\include\GL\glxew.h" />
+    <ClInclude Include="..\Source\glew\include\GL\wglew.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Camera.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Constant.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__FileBuffer.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Glutils.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Model.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Programmanager.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Renderer.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Scene.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Shadermanager.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Transform.h" />
+    <ClInclude Include="..\Source\glpi3d\core\engine\WaveFrontOBJ\Wavefrontobj.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\luaSample1.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\MeshCustomScene.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\MeshDiffuse.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\MeshTex.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\MeshWithTex.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample0.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample1.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample2.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample3.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sample4.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sampleimage.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sampleMultipleImage.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\WindMill.h" />
+    <ClInclude Include="..\Source\samples\glpi3d\glpi3dSample1.h" />
+    <ClInclude Include="..\Source\samples\glpi3d\glpi3dt_demoobjloader.h" />
+    <ClInclude Include="..\Source\samples\glpi3d\glpi3dt_demotriangle.h" />
+    <ClInclude Include="..\Source\samples\glpi3d\model\cube.h" />
+    <ClInclude Include="..\Source\samples\glpi3d\model\mercedesBenzClass.h" />
+    <ClInclude Include="..\Source\samples\glpi3d\model\suzzane.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Libraries\libpng\png.c" />
+    <ClCompile Include="..\Libraries\libpng\pngerror.c" />
+    <ClCompile Include="..\Libraries\libpng\pngget.c" />
+    <ClCompile Include="..\Libraries\libpng\pngmem.c" />
+    <ClCompile Include="..\Libraries\libpng\pngpread.c" />
+    <ClCompile Include="..\Libraries\libpng\pngread.c" />
+    <ClCompile Include="..\Libraries\libpng\pngrio.c" />
+    <ClCompile Include="..\Libraries\libpng\pngrtran.c" />
+    <ClCompile Include="..\Libraries\libpng\pngrutil.c" />
+    <ClCompile Include="..\Libraries\libpng\pngset.c" />
+    <ClCompile Include="..\Libraries\libpng\pngtrans.c" />
+    <ClCompile Include="..\Libraries\libpng\pngwio.c" />
+    <ClCompile Include="..\Libraries\libpng\pngwrite.c" />
+    <ClCompile Include="..\Libraries\libpng\pngwtran.c" />
+    <ClCompile Include="..\Libraries\libpng\pngwutil.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lapi.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lauxlib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lbaselib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lbitlib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lcode.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lcorolib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lctype.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ldblib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ldebug.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ldo.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ldump.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lfunc.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lgc.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\linit.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\liolib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\llex.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lmathlib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lmem.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\loadlib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lobject.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lopcodes.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\loslib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lparser.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lstate.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lstring.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lstrlib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ltable.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ltablib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\ltm.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lundump.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lutf8lib.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lvm.c" />
+    <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lzio.c" />
+    <ClCompile Include="..\Source\common\Application.cpp" />
+    <ClCompile Include="..\Source\common\Event.cpp" />
+    <ClCompile Include="..\Source\common\GLES20Plugin.cpp" />
+    <ClCompile Include="..\Source\common\GLES31Plugin.cpp" />
+    <ClCompile Include="..\Source\common\GLPi3DPlugin.cpp" />
+    <ClCompile Include="..\Source\common\HMIRectangle.cpp" />
+    <ClCompile Include="..\Source\common\ImageBuffer\Image.cpp" />
+    <ClCompile Include="..\Source\common\ImageBuffer\PngImage.cpp" />
+    <ClCompile Include="..\Source\common\ImageManager.cpp" />
+    <ClCompile Include="..\Source\common\Light.cpp" />
+    <ClCompile Include="..\Source\common\Material.cpp" />
+    <ClCompile Include="..\Source\common\MeshObject.cpp" />
+    <ClCompile Include="..\Source\common\MeshWaveFront\WaveFrontOBJ.cpp" />
+    <ClCompile Include="..\Source\common\ModelEx.cpp" />
+    <ClCompile Include="..\Source\common\Object.cpp" />
+    <ClCompile Include="..\Source\common\ObjectRelative.cpp" />
+    <ClCompile Include="..\Source\common\Pixmap.cpp" />
+    <ClCompile Include="..\Source\common\Plugin.cpp" />
+    <ClCompile Include="..\Source\common\Rectangle.cpp" />
+    <ClCompile Include="..\Source\common\Renderer.cpp" />
+    <ClCompile Include="..\Source\common\Scene.cpp" />
+    <ClCompile Include="..\Source\common\VulkanPlugin.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\Cache.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\Geometry\Ray.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20MeshLoader.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20Pixmap.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20Rectangle.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20Renderer.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\GLutils.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\Light.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\Material.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\ProgramManager.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\scene_graph\Camera.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\ShaderManager.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\Texture.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\Transform.cpp" />
+    <ClCompile Include="..\Source\glew\src\glew.c" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Camera.cpp" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__FileBuffer.cpp" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Glutils.cpp" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Model.cpp" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Programmanager.cpp" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Renderer.cpp" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Scene.cpp" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Shadermanager.cpp" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Transform.cpp" />
+    <ClCompile Include="..\Source\glpi3d\core\engine\WaveFrontOBJ\Wavefrontobj.cpp" />
+    <ClCompile Include="..\Source\main.cpp" />
+    <ClCompile Include="..\Source\samples\glpi3d\glpi3dt_demoobjloader.cpp" />
+    <ClCompile Include="..\Source\samples\glpi3d\glpi3dt_demotriangle.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
