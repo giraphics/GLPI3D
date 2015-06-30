@@ -107,20 +107,10 @@ void GLES20Pixmap::Render(bool (*customRender)())
    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-//void GLES20Pixmap::SetVertices(glm::vec3* vertex)
-//{
-//   vertices = (float*)&vertex[0];
-//}
-
 void GLES20Pixmap::SetVertices(std::vector<glm::vec3>* verticesList)
 {
 	gm.positions = verticesList;
 }
-
-//void GLES20Pixmap::SetTexCoords(glm::vec2* texCrds)
-//{
-//   texcor = (float*)&texCrds[0];
-//}
 
 void GLES20Pixmap::SetTexCoords(std::vector<glm::vec2>* texCoordList)
 {

@@ -19,10 +19,10 @@
 using namespace namespaceimage;
 
 
-class GRectangle : public IRectangle, public Model
+class GRectangle : public IRenderable, public Model
 {
 private:
-IRectangle* specificRectangle;
+IRenderable* specificRectangle;
 
 public:
    // Constructor for Rectangle

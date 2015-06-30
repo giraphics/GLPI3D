@@ -18,7 +18,7 @@
 
 using namespace std;
 
-class GLES20Pixmap : public IPixmap{
+class GLES20Pixmap : public IRenderable{
 
 public:
    GLES20Pixmap( Image* imageItem, TextureTypeEnum textureType = TWO_DIMENSIONAL_TEXTURE);

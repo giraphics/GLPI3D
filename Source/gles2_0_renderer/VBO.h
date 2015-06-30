@@ -4,22 +4,9 @@
 // Miscellenous classes for VA, VBO, IBO, FBO, vertex attribute, shader program
 
 #include "glutils.h"
+#include "IModel.h"
 #include <vector>
 #include <map>
-class GeometryBuffer{
-public:
-	GeometryBuffer();
-	~GeometryBuffer();
-private:
-	int Schemes;
-	int Interleaved;
-
-	std::map<void*, void*> a;
-
-	std::map<std::string, void*> da;
-	// VertexArray, VBO, VAO, Interleave, 
-
-};
 class GeometryMesh{
 public:
     // Store the geometry vertices
@@ -107,6 +94,40 @@ protected:
     };
 private:
     MemData*	memObj;
+};
+
+enum BufferScheme{
+	BUFFER_VA,
+	BUFFER_VBO,
+	BUFFER_VAO
+};
+
+class AttributeInfo{
+public:
+	AttributeInfo(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr);
+	~AttributeInfo();
+	std::string name;
+	void* dataArray;
+	int index;
+	GLenum type;
+	GLint itemNum;
+	size_t size;
+};
+
+class GeometryBuffer{
+public:
+	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VBO, bool isInterleaved = false);
+	~GeometryBuffer();
+	void addAttribute(AttributeInfo attr);
+	void init();
+private:
+	BufferScheme schemeBuf;
+	bool interleaved;
+	std::vector<AttributeInfo> attributeList;
+	IModel* parent;
+public:
+	VBO* vbo;
+	VAO* vao;
 };
 
 #endif

@@ -16,6 +16,9 @@ GLES20Rectangle::GLES20Rectangle()
 {
 	vbo = new VBO(GL_ARRAY_BUFFER);
 	vao = new VAO();
+	geoBuffer = new GeometryBuffer(this);
+	geoBuffer->vbo = vbo;
+	geoBuffer->vao = vao;
 }
 
 /*!
@@ -48,12 +51,21 @@ void GLES20Rectangle::Initialize()
 	mvp     = GetUniform( ProgramID, ( char* )"ModelViewProjectionMatrix" );
 	col     = GetUniform( ProgramID, (char *) "RectColor" );
 
+	//int a = offsetof(GeometryMesh, positions);
+	//int b = offsetof(GeometryMesh, normals);
+	//int c = offsetof(GeometryMesh, tangents);
+	//int d = offsetof(GeometryMesh, texCoords);
+	//int e = offsetof(GeometryMesh, texCoordsSec);
+
+	geoBuffer->addAttribute(AttributeInfo("VertexPosition", 3, gm.positions->size() , GL_FLOAT, &gm.positions[0]));
+	geoBuffer->addAttribute(AttributeInfo("VertexTexCoord", 2, gm.texCoords->size() , GL_FLOAT, &gm.texCoords[0]));
+	geoBuffer->init();
 	positionAttribHandle   = GetAttribute(ProgramID,(char*)"VertexPosition");
 	positionTextureHandle  = GetAttribute(ProgramID,(char*)"VertexTexCoord");
 	glUniform4fv( col, 1, color );
 
-	int sizeV = gm.positions->size() * sizeof(glm::vec3) * sizeof(float);
-	int sizeT = gm.texCoords->size() * sizeof(glm::vec2) * sizeof(float);
+	int sizeV = gm.positions->size() * sizeof(glm::vec3);// * sizeof(float);
+	int sizeT = gm.texCoords->size() * sizeof(glm::vec2);// * sizeof(float);
 	vbo->bind();
 	vbo->bufferData(sizeT+sizeV, 0, GL_STATIC_DRAW);
 	vbo->bufferSubData(0, sizeT, &(*gm.texCoords)[0]);
@@ -116,11 +128,15 @@ void GLES20Rectangle::Render(bool (*customRender)())
 
 void GLES20Rectangle::SetVertices(std::vector<glm::vec3>* verticesList)
 {
+//	int a = offsetof(GeometryMesh, positions);
+	//char* base = (char*)&gm;
+	//(std::vector<glm::vec3>*)(base+a) = verticesList;
 	gm.positions = verticesList;
 }
 
 void GLES20Rectangle::SetTexCoords(std::vector<glm::vec2>* texCoordList)
 {
+	int d = offsetof(GeometryMesh, texCoords);
 	gm.texCoords = texCoordList;
 }
 

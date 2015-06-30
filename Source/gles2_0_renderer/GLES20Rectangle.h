@@ -20,7 +20,7 @@
 
 using namespace std;
 //using namespace namespaceimage;
-class GLES20Rectangle : public IRectangle
+class GLES20Rectangle : public IRenderable
 {
     
 public:
@@ -53,6 +53,7 @@ private:
 
     float* color;
 	GeometryMesh gm;
+	GeometryBuffer* geoBuffer;
 	VBO* vbo;
 	VAO* vao;
     //GLuint vao;

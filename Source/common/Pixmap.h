@@ -17,10 +17,10 @@
 #include "ImageBuffer/PngImage.h"
 using namespace namespaceimage;
 
-class Pixmap : public IPixmap, public Model{
+class Pixmap : public IRenderable, public Model{
 
 private:
-IPixmap* specificPixmap;
+IRenderable* specificPixmap;
 
 public:
    // Initialize our Model class
