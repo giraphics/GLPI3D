@@ -63,8 +63,3 @@ void HMIRectangle::Render(bool (*customRender)())
    GRectangle::Render();
 }
 
-void HMIRectangle::SetVertices(glm::vec3* vtx)
-{
-   GRectangle::SetVertices(vtx);
-}
-

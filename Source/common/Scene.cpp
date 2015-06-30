@@ -8,7 +8,7 @@ Scene::Scene(std::string name, ObjectRelative* parentObj):ObjectRelative(name, p
     currentModel    = NULL;
 
     if(parentObj){
-        GLES20Renderer* renderEngine = dynamic_cast<GLES20Renderer*>(parentObj);
+        Renderer* renderEngine = dynamic_cast<Renderer*>(parentObj);
         if(renderEngine){
             renderEngine->addScene(this);
         }

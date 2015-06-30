@@ -4,7 +4,7 @@
 #define GetAttribute ProgramManager::GetInstance()->ProgramGetVertexAttribLocation
 #define GetUniform ProgramManager::GetInstance()->ProgramGetUniformLocation
 
-GLES20Pixmap::GLES20Pixmap(Image* imageItem/*, Scene* parent, Model* model, ModelType type*/, TextureTypeEnum textureType/*, std::string objectName*/)
+GLES20Pixmap::GLES20Pixmap(Image* imageItem, TextureTypeEnum textureType)
 {
    if (!imageItem){
       return;
@@ -22,7 +22,26 @@ GLES20Pixmap::GLES20Pixmap(Image* imageItem/*, Scene* parent, Model* model, Mode
 	//glCullFace(GL_BACK);
 //   glUniform1i(tex, 0);
 
-   //imageItem->deleteBits();
+   if(imageItem){
+	   imageItem->deleteBits();
+   }
+}
+
+GLES20Pixmap::GLES20Pixmap(unsigned int ID, TextureTypeEnum textureType)
+{
+	textureObj.setTextureID((GLuint)ID);
+	textureObj.setTargetType(getTarget(textureType));
+   // Present the texture 0 overrided in future we must allow the end user a provision to select the texture unit on fly.
+   // This should not be very complex I guess.
+   glActiveTexture (GL_TEXTURE0);
+   glBindTexture (getTarget(textureType), ID);
+
+   glEnable(GL_BLEND);
+   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+   //if(imageItem){
+	  // imageItem->deleteBits();
+   //}
 }
 
 
@@ -47,10 +66,22 @@ void GLES20Pixmap::Initialize()
 
    positionAttribHandle   = GetAttribute(ProgramID,(char*)"VertexPosition");
    positionTextureHandle  = GetAttribute(ProgramID,(char*)"VertexTexCoord");
-   glEnableVertexAttribArray(positionAttribHandle);
-   glEnableVertexAttribArray(positionTextureHandle);
-   glUniform4fv( col, 1, color );
-   glUniform1i(tex, 0);
+   
+   if(positionAttribHandle >= 0){
+		glEnableVertexAttribArray(positionAttribHandle);
+   }
+
+   if(positionTextureHandle >= 0){
+		glEnableVertexAttribArray(positionTextureHandle);
+   }
+
+   if(col >= 0){
+		glUniform4fv( col, 1, color );
+   }
+
+   if(tex >= 0){
+		glUniform1i(tex, 0);
+   }
    return;
 }
 
@@ -70,20 +101,30 @@ void GLES20Pixmap::Render(bool (*customRender)())
    glActiveTexture (GL_TEXTURE0);
    glUniform1i(tex, 0);
    glUniformMatrix4fv(mvp, 1, GL_FALSE, (float*)&tempMatrix[0]);
-   glVertexAttribPointer(positionTextureHandle, 2, GL_FLOAT, GL_FALSE, 0, texcor);
-   glVertexAttribPointer(positionAttribHandle, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+   glVertexAttribPointer(positionTextureHandle, 2, GL_FLOAT, GL_FALSE, 0, &(*gm.texCoords)[0]);
+   glVertexAttribPointer(positionAttribHandle, 3, GL_FLOAT, GL_FALSE, 0, &(*gm.positions)[0]);
    // Draw triangle
    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-void GLES20Pixmap::SetVertices(glm::vec3* vertex)
+//void GLES20Pixmap::SetVertices(glm::vec3* vertex)
+//{
+//   vertices = (float*)&vertex[0];
+//}
+
+void GLES20Pixmap::SetVertices(std::vector<glm::vec3>* verticesList)
 {
-   vertices = (float*)&vertex[0];
+	gm.positions = verticesList;
 }
 
-void GLES20Pixmap::SetTexCoords(glm::vec2* texCrds)
+//void GLES20Pixmap::SetTexCoords(glm::vec2* texCrds)
+//{
+//   texcor = (float*)&texCrds[0];
+//}
+
+void GLES20Pixmap::SetTexCoords(std::vector<glm::vec2>* texCoordList)
 {
-   texcor = (float*)&texCrds[0];
+	gm.texCoords = texCoordList;
 }
 
 void GLES20Pixmap::SetColor(glm::vec4* colors)

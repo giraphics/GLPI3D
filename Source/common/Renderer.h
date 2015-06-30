@@ -6,7 +6,7 @@
 #include <SFML/OpenGL.hpp>
 #include "ILifeCycle.h"
 
-class Renderer : public ILifeCycle, public Object
+class Renderer : public ILifeCycle, public ObjectRelative
 {
 protected:
     //! Scene List
@@ -29,10 +29,10 @@ public:
     void Render(bool (*customRender)()=NULL);
 
     //! Cache the scene
-    void addScene( Scene* scene);
+    virtual void addScene( Scene* scene);
 
     //! Remove the scene
-    bool removeScene( Scene* scene);
+    virtual bool removeScene( Scene* scene);
 
     //! Get Scene by Name
     Scene* getScene(char* name);

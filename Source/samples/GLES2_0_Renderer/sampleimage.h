@@ -11,18 +11,30 @@
 void SampleImage(){
    float width  = 1.0f;
    float height = 1.0f;
-   glm::vec3 tempVtx[4] = {
-      glm::vec3( 0.0f,  0.0f,   0.0f ),
-      glm::vec3( width, 0.0f,   0.0f ),
-      glm::vec3( 0.0f,  height, 0.0f ),
-      glm::vec3( width, height, 0.0f )
-   };
-   glm::vec2 texCoords[4] = {
-      glm::vec2(0.0f, 1.0f),
-      glm::vec2(1.0f, 1.0f),
-      glm::vec2(0.0f, 0.0f),
-      glm::vec2(1.0f, 0.0f),
-  };
+  // glm::vec3 tempVtx[4] = {
+  //    glm::vec3( 0.0f,  0.0f,   0.0f ),
+  //    glm::vec3( width, 0.0f,   0.0f ),
+  //    glm::vec3( 0.0f,  height, 0.0f ),
+  //    glm::vec3( width, height, 0.0f )
+  // };
+  // glm::vec2 texCoords[4] = {
+  //    glm::vec2(0.0f, 1.0f),
+  //    glm::vec2(1.0f, 1.0f),
+  //    glm::vec2(0.0f, 0.0f),
+  //    glm::vec2(1.0f, 0.0f),
+  //};
+
+   std::vector<glm::vec3> vertices;
+   vertices.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
+   vertices.push_back(glm::vec3( width, 0.0f,   0.0f ));
+   vertices.push_back(glm::vec3( 0.0f,  height,   0.0f ));
+   vertices.push_back(glm::vec3( width,  height,   0.0f ));
+   
+   std::vector<glm::vec2> textureCoords;
+   textureCoords.push_back(glm::vec2(0.0f, 1.0f));
+   textureCoords.push_back(glm::vec2(1.0f, 1.0f));
+   textureCoords.push_back(glm::vec2(0.0f, 0.0f));
+   textureCoords.push_back(glm::vec2(1.0f, 0.0f));
 
    Application application;
 
@@ -58,8 +70,8 @@ void SampleImage(){
    pixmap->SetName(std::string("My image"));
 
    // Set the vertex information
-   pixmap->SetVertices(tempVtx);
-   pixmap->SetTexCoords(texCoords);
+   pixmap->SetVertices(&vertices);
+   pixmap->SetTexCoords(&textureCoords);
 
    pixmap->Scale(15.0, 15.0, 15.0);
    pixmap->Translate(0.0, -height / 2, 0.0);

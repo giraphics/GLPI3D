@@ -5,11 +5,9 @@
 #include "MeshObject.h"
 #include "gles2_0_renderer/scene_graph/Camera.h"
 #include "Plugin.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
 
-#define VERTEX_SHADER_PRG_DIFFUSE2        (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\DiffuseVertex.glsl"
-#define FRAGMENT_SHADER_DIFFUSE2      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\DiffuseFragment.glsl"
+#define VERTEX_SHADER_PRG_PHONG        (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\PhongVertex.glsl"
+#define FRAGMENT_SHADER_PHONG      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\PhongFragment.glsl"
 
 // The custom scene allow to simply the scene management 
 // by moving it to the seperate module.
@@ -46,15 +44,9 @@ CustomScene::CustomScene(std::string name, ObjectRelative* parentObj):Scene(name
 
 void CustomScene::Initialize()
 {
-    // Create scene's camera view.
-    //camera = new Camera("Camera1", this);
-    //camera->SetClearBitFieldMask(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //camera->SetPosition(glm::vec3 (10.00000, 10.0, 10.00000));
-    //camera->SetTarget(glm::vec3 (0.0, 0.0,0.0));
    camera = new Camera("PerespectiveCameraMesh", this);
    camera->SetPosition(glm::vec3(0.0, 5.0, 25.0));
    camera->SetTarget(glm::vec3(0.0, 0.0, 0.0));
-   //camera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
 
     this->addCamera(camera);
     Scene::Initialize();
@@ -125,7 +117,7 @@ WindMill::~WindMill()
 WindMill::WindMill(Scene* scene, Model* model, ModelType type, std::string objectName):Model(scene, model, type, objectName)
 {
    ProgramManager* ProgramManagerObj = ProgramManager::GetInstance();
-   unsigned int ProgramID = ProgramManagerObj->LoadShader("Meshshader", VERTEX_SHADER_PRG_DIFFUSE2, FRAGMENT_SHADER_DIFFUSE2)->ProgramID;
+   unsigned int ProgramID = ProgramManagerObj->LoadShader("Meshshader", VERTEX_SHADER_PRG_PHONG, FRAGMENT_SHADER_PHONG)->ProgramID;
 
 	// Base
     Base =  new MeshObject("../Resource/Models/CubeWithNormal.obj", scene, this, MESH, "Base");
@@ -185,6 +177,10 @@ void CustomSceneDemo(){
    }
 
    scene = new CustomScene("MeshScene");
+
+   Light light(Material(MaterialWhite), glm::vec4(0.0, 0.0, 10.0, 0.0));
+   scene->addLight(&light);
+
    WindMill windMillObject( scene, NULL, MESH, "WindMillObj");
    scene->addModel( &windMillObject);
 

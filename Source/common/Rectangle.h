@@ -40,10 +40,10 @@ public:
    void Update( float t ){}
 
    // Set the vertex information for the rectangle
-   void SetVertices(glm::vec3* vertices);
+   void SetVertices(std::vector<glm::vec3>* verticesList);
 
    // Set the texture coordinate information for the rectangle
-   void SetTexCoords(glm::vec2* texCoords);
+   void SetTexCoords(std::vector<glm::vec2>* texCoordList);
 
    // Set the Model View Projection matrix
    void SetMVP(float*){}

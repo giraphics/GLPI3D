@@ -5,11 +5,9 @@
 #include "MeshObject.h"
 #include "gles2_0_renderer/scene_graph/Camera.h"
 #include "Plugin.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
 
-#define VERTEX_SHADER_PRG_DIFFUSE2        (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\DiffuseVertex.glsl"
-#define FRAGMENT_SHADER_DIFFUSE2      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\DiffuseFragment.glsl"
+#define VERTEX_SHADER_PRG_GOURAUD	(char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\GouraudVertex.glsl"
+#define FRAGMENT_SHADER_GOURAUD		(char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\GouraudFragment.glsl"
 
 void WindMillDemo(){
    Application application;
@@ -32,6 +30,8 @@ void WindMillDemo(){
    }
 
    scene = new Scene("MeshScene");
+   Light light(Material(MaterialWhite), glm::vec4(0.0, 0.0, 10.0, 0.0));
+   scene->addLight(&light);
 
    camera = new Camera("PerespectiveCameraMesh", scene);
    camera->SetPosition(glm::vec3(0.0, 5.0, 25.0));
@@ -39,7 +39,7 @@ void WindMillDemo(){
    camera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
 
    ProgramManager* ProgramManagerObj = ProgramManager::GetInstance();
-   unsigned int ProgramID = ProgramManagerObj->LoadShader("Meshshader", VERTEX_SHADER_PRG_DIFFUSE2, FRAGMENT_SHADER_DIFFUSE2)->ProgramID;
+   unsigned int ProgramID = ProgramManagerObj->LoadShader("Meshshader", VERTEX_SHADER_PRG_GOURAUD, FRAGMENT_SHADER_GOURAUD)->ProgramID;
    
 	MeshObject* Base         = NULL;
 	MeshObject* Stand        = NULL;

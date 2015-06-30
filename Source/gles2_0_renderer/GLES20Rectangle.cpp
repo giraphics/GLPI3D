@@ -12,8 +12,10 @@
 	\return None
 
 */
-GLES20Rectangle::GLES20Rectangle( /*Scene* parent, Model* model, ModelType type, std::string objectName*/)
+GLES20Rectangle::GLES20Rectangle()
 {
+	vbo = new VBO(GL_ARRAY_BUFFER);
+	vao = new VAO();
 }
 
 /*!
@@ -25,6 +27,11 @@ GLES20Rectangle::GLES20Rectangle( /*Scene* parent, Model* model, ModelType type,
 */
 GLES20Rectangle::~GLES20Rectangle()
 {
+	delete vbo;
+	vbo = NULL;
+
+	delete vao;
+	vao = NULL;
 }
 
 /*!
@@ -44,19 +51,24 @@ void GLES20Rectangle::Initialize()
 	positionAttribHandle   = GetAttribute(ProgramID,(char*)"VertexPosition");
 	positionTextureHandle  = GetAttribute(ProgramID,(char*)"VertexTexCoord");
 	glUniform4fv( col, 1, color );
-	int sizeT = 8*sizeof(float);
-	int sizeV = 12*sizeof(float);
 
-	glGenBuffers(1, &vid);
+	int sizeV = gm.positions->size() * sizeof(glm::vec3) * sizeof(float);
+	int sizeT = gm.texCoords->size() * sizeof(glm::vec2) * sizeof(float);
+	vbo->bind();
+	vbo->bufferData(sizeT+sizeV, 0, GL_STATIC_DRAW);
+	vbo->bufferSubData(0, sizeT, &(*gm.texCoords)[0]);
+	vbo->bufferSubData(sizeT, sizeV, &(*gm.positions)[0]);
+	/*glGenBuffers(1, &vid);
 	glBindBuffer(GL_ARRAY_BUFFER, vid);
 	glBufferData(GL_ARRAY_BUFFER, sizeT+sizeV, 0, GL_STATIC_DRAW);
 
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeT, texcor);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeT, sizeV, vertices);
-	
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vid);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeT, &(*gm.texCoords)[0]);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeT, sizeV, &(*gm.positions)[0]);*/
+	vao->bind();
+	//glGenVertexArrays(1, &vao);
+	//glBindVertexArray(vao);
+	//glBindBuffer(GL_ARRAY_BUFFER, vid);
+	vbo->bind();
 	if(positionAttribHandle >= 0){
 		glEnableVertexAttribArray(positionAttribHandle);
 		glVertexAttribPointer(positionAttribHandle, 3, GL_FLOAT, GL_FALSE, 0, (void*)sizeT);
@@ -67,8 +79,10 @@ void GLES20Rectangle::Initialize()
 		glVertexAttribPointer(positionTextureHandle, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	}
 
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindVertexArray(0);
+	vao->unbind();
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	vbo->unbind();
 
 	return;
 }
@@ -85,7 +99,8 @@ void GLES20Rectangle::Render(bool (*customRender)())
 	tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
 
 	glUseProgram(ProgramID);
-    glBindVertexArray(vao);
+    //glBindVertexArray(vao);
+	vao->bind();
     glUniformMatrix4fv(mvp, 1, GL_FALSE, (float*)&tempMatrix[0]);
     glUniform4fv( col, 1, color );
 
@@ -99,19 +114,14 @@ void GLES20Rectangle::Render(bool (*customRender)())
    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-//void GLES20Rectangle::SetMVP(float* MVPM)
-//{
-//   MVPMatrix = MVPM;
-//}
-
-void GLES20Rectangle::SetVertices(glm::vec3* vertex)
+void GLES20Rectangle::SetVertices(std::vector<glm::vec3>* verticesList)
 {
-   vertices = (float*)&vertex[0];
+	gm.positions = verticesList;
 }
 
-void GLES20Rectangle::SetTexCoords(glm::vec2* texCrds)
+void GLES20Rectangle::SetTexCoords(std::vector<glm::vec2>* texCoordList)
 {
-   texcor = (float*)&texCrds[0];
+	gm.texCoords = texCoordList;
 }
 
 void GLES20Rectangle::SetColor(glm::vec4* colors)

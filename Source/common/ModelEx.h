@@ -20,7 +20,7 @@ class ProgramManager;
 class Model : public ILifeCycle, public IModel, public ObjectRelative, public GestureEvent
 {
 public:
-    Model(Scene*	SceneHandler, Model* model, ModelType type, std::string objectName = "");
+    Model(Scene* SceneHandler, Model* model, ModelType type, std::string objectName = "");
     
    virtual ~Model();
    /*!
@@ -65,9 +65,11 @@ public:
 
     void SetMaterial(Material mat){ materialObj = mat; }
     
-    const Material& GetMaterial(){ return materialObj; }
+    Material* GetMaterial(){ return &materialObj; }
     
     void setSceneHandler(Scene* sceneHandle);
+
+	Scene* scene(){ return SceneHandler; }
     
     void SetCenter(glm::vec3 centerPoint){center = centerPoint;}
     

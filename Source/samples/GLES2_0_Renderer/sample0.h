@@ -5,26 +5,25 @@
 #include "Common/HMIRectangle.h"
 #include "gles2_0_renderer/scene_graph/Camera.h"
 #include "Plugin.h"
-
+#include <list>
 #define VERTEX_SHADER_PRG        (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleVertex.glsl"
 #define FRAGMENT_SHADER_PRG      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleFragment.glsl"
 
 void Sample0(){
    float width  = 100.0f;
    float height = 100.0f;
-   glm::vec3 tempVtx[4] = {
-      glm::vec3( 0.0f,  0.0f,   0.0f ),
-      glm::vec3( width, 0.0f,   0.0f ),
-      glm::vec3( 0.0f,  height, 0.0f ),
-      glm::vec3( width, height, 0.0f )
-   };
 
-   glm::vec2 texCoords[4] = {
-      glm::vec2(0.0f, 1.0f),
-      glm::vec2(1.0f, 1.0f),
-      glm::vec2(0.0f, 0.0f),
-      glm::vec2(1.0f, 0.0f),
-   };
+   std::vector<glm::vec3> vertices;
+   vertices.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
+   vertices.push_back(glm::vec3( width, 0.0f,   0.0f ));
+   vertices.push_back(glm::vec3( 0.0f,  height,   0.0f ));
+   vertices.push_back(glm::vec3( width,  height,   0.0f ));
+   
+   std::vector<glm::vec2> textureCoords;
+   textureCoords.push_back(glm::vec2(0.0f, 1.0f));
+   textureCoords.push_back(glm::vec2(1.0f, 1.0f));
+   textureCoords.push_back(glm::vec2(0.0f, 0.0f));
+   textureCoords.push_back(glm::vec2(1.0f, 0.0f));
 
    Application application;
 
@@ -62,11 +61,12 @@ void Sample0(){
    rectangleItem2->SetProgram(ProgramID);
 
    // Set the vertex information
-   rectangleItem->SetVertices(tempVtx);
-   rectangleItem2->SetVertices(tempVtx);
+   rectangleItem->SetVertices(&vertices);
+   rectangleItem2->SetVertices(&vertices);
 
-   rectangleItem->SetTexCoords(texCoords);
-   rectangleItem2->SetTexCoords(texCoords);
+   // Set the texture coordinate information
+   rectangleItem->SetTexCoords(&textureCoords);
+   rectangleItem2->SetTexCoords(&textureCoords);
 
    // Set Color information
    rectangleItem->SetColor(&glm::vec4(0.0, 0.0, 1.0, 1.0));

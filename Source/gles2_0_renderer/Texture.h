@@ -38,10 +38,13 @@ public:
                            );
     
     GLuint getTextureID() { return texID; }
+
+	void setTextureID(GLuint ID) { texID = ID; } // For FBO, FBO create the texture outside and bing it to the FBO
     
     void deleteTexture();
     
     GLenum getTargetType() { return target; }
+    void   setTargetType(GLenum targetTyp) { target = targetTyp; } // For FBO, FBO create the texture outside and bing it to the FBO
 
 	GLint getInternalFormat(Image* imageItem);
 

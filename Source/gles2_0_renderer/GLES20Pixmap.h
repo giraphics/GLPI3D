@@ -14,6 +14,7 @@
 #include "Rectangle.h"
 #include "IPixmap.h"
 #include "Texture.h"
+#include "VBO.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ class GLES20Pixmap : public IPixmap{
 
 public:
    GLES20Pixmap( Image* imageItem, TextureTypeEnum textureType = TWO_DIMENSIONAL_TEXTURE);
+   GLES20Pixmap( unsigned int ID, TextureTypeEnum textureType );
    
    virtual ~GLES20Pixmap();
 
@@ -31,9 +33,9 @@ public:
 
 	void Update( float t ){}
 
-	void SetVertices(glm::vec3* vertex);
+	void SetVertices(std::vector<glm::vec3>* verticesList);
 
-	void SetTexCoords(glm::vec2* texCrds);
+	void SetTexCoords(std::vector<glm::vec2>* texCoordList);
 
 	void SetColor(glm::vec4* colors);
 
@@ -45,9 +47,10 @@ private:
 	// Keep the member variables multiple of 32 as much 
 	// as possible to avoid explicit packing and alignment 
     GLint mvp, col, positionAttribHandle, positionTextureHandle;    
-	float* vertices, *texcor, *color;
+	float* color;
 	Texture textureObj;
     GLint tex;
+	GeometryMesh gm;
 };
 
 #endif // GLES20PIXMAP_H

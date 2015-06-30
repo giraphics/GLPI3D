@@ -3,7 +3,7 @@
 
 MeshObject::MeshObject(const char* meshPath, Scene* parent, Model* model, ModelType type, std::string objectName) : Model(parent, model, type, objectName)
 {
-	Mesh* inMesh = waveFrontObjectModel.ParseObjModel(meshPath, true);
+	Mesh* inMesh = waveFrontObjectModel.ParseObjModel(meshPath, !true);
 	inMesh->indexCount = waveFrontObjectModel.IndexTotal();
 	specificMesh = new GLES20MeshLoader( inMesh, this);
 }	

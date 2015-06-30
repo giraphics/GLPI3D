@@ -10,21 +10,21 @@
 #define FRAGMENT_SHADER_DIFFUSE      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\DiffuseFragment.glsl"
 
 void DiffuseMeshSample(){
-   float width  = 100.0f;
-   float height = 100.0f;
-   glm::vec3 tempVtx[4] = {
-      glm::vec3( 0.0f,  0.0f,   0.0f ),
-      glm::vec3( width, 0.0f,   0.0f ),
-      glm::vec3( 0.0f,  height, 0.0f ),
-      glm::vec3( width, height, 0.0f )
-   };
+   //float width  = 100.0f;
+   //float height = 100.0f;
+   //glm::vec3 tempVtx[4] = {
+   //   glm::vec3( 0.0f,  0.0f,   0.0f ),
+   //   glm::vec3( width, 0.0f,   0.0f ),
+   //   glm::vec3( 0.0f,  height, 0.0f ),
+   //   glm::vec3( width, height, 0.0f )
+   //};
 
-   glm::vec2 texCoords[4] = {
-      glm::vec2(0.0f, 1.0f),
-      glm::vec2(1.0f, 1.0f),
-      glm::vec2(0.0f, 0.0f),
-      glm::vec2(1.0f, 0.0f),
-   };
+   //glm::vec2 texCoords[4] = {
+   //   glm::vec2(0.0f, 1.0f),
+   //   glm::vec2(1.0f, 1.0f),
+   //   glm::vec2(0.0f, 0.0f),
+   //   glm::vec2(1.0f, 0.0f),
+   //};
 
    Application application;
 
@@ -37,8 +37,8 @@ void DiffuseMeshSample(){
    
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
-	   //renderer = plugin->createRenderer(2000, 1200);
-	   renderer = plugin->createRenderer(400, 300);
+	   renderer = plugin->createRenderer(2000, 1200);
+	   //renderer = plugin->createRenderer(400, 300);
    }
 
    if (!renderer){
@@ -46,6 +46,9 @@ void DiffuseMeshSample(){
    }
 
    scene = new Scene("MeshScene");
+
+   Light light(Material(MaterialSilver), glm::vec4(0.0, 0.0, 10.0, 0.0));
+   scene->addLight(&light);
 
    camera = new Camera("PerespectiveCameraMesh", scene);
    camera->SetPosition(glm::vec3(0.0, 5.0, 10.1));
@@ -58,7 +61,7 @@ void DiffuseMeshSample(){
    
    meshObj->SetName(std::string("My Mesh 41"));
    meshObj->SetProgram(ProgramID);
-
+   meshObj->SetMaterial(Material(MaterialWhite));
 
    meshObj->Scale(.01, .01, .01);
    scene->addModel(meshObj);

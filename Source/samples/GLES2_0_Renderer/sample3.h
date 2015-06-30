@@ -11,19 +11,18 @@
 void SampleParentChild(){
    float width  = 1.0f;
    float height = 1.0f;
-   glm::vec3 tempVtx[4] = {
-      glm::vec3( 0.0f,  0.0f,   0.0f ),
-      glm::vec3( width, 0.0f,   0.0f ),
-      glm::vec3( 0.0f,  height, 0.0f ),
-      glm::vec3( width, height, 0.0f )
-   };
 
-   glm::vec2 texCoords[4] = {
-      glm::vec2(0.0f, 1.0f),
-      glm::vec2(1.0f, 1.0f),
-      glm::vec2(0.0f, 0.0f),
-      glm::vec2(1.0f, 0.0f),
-   };
+   std::vector<glm::vec3> vertices;
+   vertices.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
+   vertices.push_back(glm::vec3( width, 0.0f,   0.0f ));
+   vertices.push_back(glm::vec3( 0.0f,  height,   0.0f ));
+   vertices.push_back(glm::vec3( width,  height,   0.0f ));
+   
+   std::vector<glm::vec2> textureCoords;
+   textureCoords.push_back(glm::vec2(0.0f, 1.0f));
+   textureCoords.push_back(glm::vec2(1.0f, 1.0f));
+   textureCoords.push_back(glm::vec2(0.0f, 0.0f));
+   textureCoords.push_back(glm::vec2(1.0f, 0.0f));
 
    Application application;
 
@@ -70,9 +69,11 @@ void SampleParentChild(){
          rectangleItem->SetName(std::string("My Rectangle 1"));
          recthandles.push_back(rectangleItem);
 
-         // Set the vertex information
-         rectangleItem->SetVertices(tempVtx);
-		 rectangleItem->SetTexCoords(texCoords);
+		 // Set the vertex information
+		 rectangleItem->SetVertices(&vertices);
+
+		 // Set the texture coordinate information
+		 rectangleItem->SetTexCoords(&textureCoords);
          rectangleItem->Translate(width*j, height*i, 0);
          rectangleItem->SetCenter(glm::vec3(width/2, height/2, 0.0));
 

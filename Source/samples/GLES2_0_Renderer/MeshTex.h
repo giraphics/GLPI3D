@@ -19,28 +19,43 @@
 void MeshRectSample(){
    float width  = 100.0f;
    float height = 100.0f;
-   glm::vec3 tempVtx[4] = {
-      glm::vec3( 0.0f,  0.0f,   0.0f ),
-      glm::vec3( width, 0.0f,   0.0f ),
-      glm::vec3( 0.0f,  height, 0.0f ),
-      glm::vec3( width, height, 0.0f )
-   };
+   //glm::vec3 tempVtx[4] = {
+   //   glm::vec3( 0.0f,  0.0f,   0.0f ),
+   //   glm::vec3( width, 0.0f,   0.0f ),
+   //   glm::vec3( 0.0f,  height, 0.0f ),
+   //   glm::vec3( width, height, 0.0f )
+   //};
+   std::vector<glm::vec3> vertices;
+   vertices.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
+   vertices.push_back(glm::vec3( width, 0.0f,   0.0f ));
+   vertices.push_back(glm::vec3( 0.0f,  height,   0.0f ));
+   vertices.push_back(glm::vec3( width,  height,   0.0f ));
 
    float pixWidth  = 1.0f;
    float pixHeight = 1.0f;
-   glm::vec3 tempPixVtx[4] = {
-      glm::vec3( 0.0f,  0.0f,   0.0f ),
-      glm::vec3( pixWidth, 0.0f,   0.0f ),
-      glm::vec3( 0.0f,  pixHeight, 0.0f ),
-      glm::vec3( pixWidth, pixHeight, 0.0f )
-   };
+   //glm::vec3 tempPixVtx[4] = {
+   //   glm::vec3( 0.0f,  0.0f,   0.0f ),
+   //   glm::vec3( pixWidth, 0.0f,   0.0f ),
+   //   glm::vec3( 0.0f,  pixHeight, 0.0f ),
+   //   glm::vec3( pixWidth, pixHeight, 0.0f )
+   //};
+   std::vector<glm::vec3> tempPixVtx;
+   tempPixVtx.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
+   tempPixVtx.push_back(glm::vec3( pixWidth, 0.0f,   0.0f ));
+   tempPixVtx.push_back(glm::vec3( 0.0f,  pixHeight,   0.0f ));
+   tempPixVtx.push_back(glm::vec3( pixWidth,  pixHeight,   0.0f ));
 
-   glm::vec2 texCoords[4] = {
-      glm::vec2(0.0f, 1.0f),
-      glm::vec2(1.0f, 1.0f),
-      glm::vec2(0.0f, 0.0f),
-      glm::vec2(1.0f, 0.0f),
-   };
+   //glm::vec2 texCoords[4] = {
+   //   glm::vec2(0.0f, 1.0f),
+   //   glm::vec2(1.0f, 1.0f),
+   //   glm::vec2(0.0f, 0.0f),
+   //   glm::vec2(1.0f, 0.0f),
+   //};
+   std::vector<glm::vec2> texCoords;
+   texCoords.push_back(glm::vec2(0.0f, 1.0f));
+   texCoords.push_back(glm::vec2(1.0f, 1.0f));
+   texCoords.push_back(glm::vec2(0.0f, 0.0f));
+   texCoords.push_back(glm::vec2(1.0f, 0.0f));
 
    Application application;
 
@@ -96,8 +111,8 @@ void MeshRectSample(){
    rectangleItem->SetProgram(ProgramID);
 
    // Set the vertex information
-   rectangleItem->SetVertices(tempVtx);
-   rectangleItem->SetTexCoords(texCoords);
+   rectangleItem->SetVertices(&vertices);
+   rectangleItem->SetTexCoords(&texCoords);
 
    // Set Color information
    rectangleItem->SetColor(&glm::vec4(0.0, 0.50, .30, 1.0));
@@ -110,8 +125,8 @@ void MeshRectSample(){
    rectangleItem->SetProgram(ProgramID);
 
    // Set the vertex information
-   rectangleItem->SetVertices(tempVtx);
-   rectangleItem->SetTexCoords(texCoords);
+   rectangleItem->SetVertices(&vertices);
+   rectangleItem->SetTexCoords(&texCoords);
    
    // Set Color information
    rectangleItem->SetColor(&glm::vec4(8.0, 3.0, 4.0, 1.0));

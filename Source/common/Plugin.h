@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "Renderer.h"
 
+// Parminder: Checkif Plugin can be derived from Object Relative
 class Plugin :public ILifeCycle, public Object
 {
 public:

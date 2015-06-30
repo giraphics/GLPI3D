@@ -25,10 +25,7 @@ public:
     // Render the Model class
     void Render(bool (*customRender)()=NULL);
 
-    void SetVertices(glm::vec3* vertices);
-
 protected:
-//	ProgramManager* ProgramManagerObj;
 };
 
 #endif // HMI_Rectangle_H

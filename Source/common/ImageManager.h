@@ -8,6 +8,7 @@
 #include <string>
 #include <map>
 #include "ImageBuffer/Image.h"
+using namespace namespaceimage;
 
 class ImageManager
 {
@@ -16,9 +17,10 @@ private:
    ~ImageManager();
 
 public:
-   std::map<std::string, namespaceimage::Image*> imageMap;
+   std::map<std::string, Image*> imageMap;
    static ImageManager* GetInstance();
    static void DeleteInstance();
+   static Image* GetImage(const char* fileName);
 
 private:
    // Static singleton object

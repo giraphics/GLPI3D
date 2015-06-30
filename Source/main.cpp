@@ -20,6 +20,10 @@
    #include "samples\GLES2_0_Renderer\MeshCustomScene.h"
    #include "samples\GLES2_0_Renderer\WindMill.h"
    #include "samples\GLES2_0_Renderer\MeshWithTex.h"
+   #include "samples\GLES2_0_Renderer\SampleMenu.h"
+   #include "samples\GLES2_0_Renderer\FrameBufferObj.h"
+   #include "samples\GLES2_0_Renderer\CubeFBO.h"
+   #include "samples\GLES2_0_Renderer\LightMaterial.h"
 #endif
 
 ////////////////////////////////////////////////////////////
@@ -41,11 +45,33 @@ int main()
    SamplePerspctivePlusParentChild();
    SampleImage();
    SampleMultipleImage();
+	
+   // Simple Diffuse mesh demonstrator
    DiffuseMeshSample();
+
+   // Mesh with texture + Diffuse shader
    MeshSample();
+   
+   // Multiple scenes in one renderer + Ortho + prespective
    MeshRectSample();
+
+   // Use simple object and produce transformation graph + Gouraud shading
    WindMillDemo();
+   
+   // Custom Scene and Custom modeling. + Phong Shading
    CustomSceneDemo();
+
+   // Light and Material Demo
+   LighMaterailDemo();
+
+   // Sample texture Menu
+   SampleMenu();
+
+   // Frame Buffer Object Demo
+   FBODemo();
+
+   // Cube Frame Buffer Object Demo
+   CubeFBODemo();
 #endif
 
    return EXIT_SUCCESS;

@@ -115,3 +115,12 @@ void Image::setImageColorType(ImageColorType colorType)
    memData.imgColorType = colorType;
 }
 
+bool Image::deleteBits(){
+	if(!memData.bitsraw){
+		return true;
+	}
+
+	free(memData.bitsraw); 
+	memData.bitsraw = NULL; 
+	return true; 
+}

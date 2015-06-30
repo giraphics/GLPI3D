@@ -15,6 +15,7 @@
 #include <string>
 #include "ImageBuffer/Image.h"
 #include "ImageBuffer/PngImage.h"
+using namespace namespaceimage;
 
 class Pixmap : public IPixmap, public Model{
 
@@ -31,13 +32,10 @@ public:
    void Update( float t ){}
 
    // Set the vertex information for the rectangle
-   void SetVertices(glm::vec3* vertices);
+   void SetVertices(std::vector<glm::vec3>* verticesList);
 
    // Set the texture coordinate information for the rectangle
-   void SetTexCoords(glm::vec2* texCoords);
-
-   // Set the Model View Projection matrix
-   //void SetMVP(float*){}
+   void SetTexCoords(std::vector<glm::vec2>* texCoordList);
 
    // Set the color or rectangle
    void SetColor(glm::vec4* color);
@@ -45,6 +43,8 @@ public:
    void SetProgram(unsigned int ID);
 public:
    Pixmap(const char* imagePath, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType = TWO_DIMENSIONAL_TEXTURE, std::string objectName = "");
+   Pixmap(Image* imgItem, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType = TWO_DIMENSIONAL_TEXTURE, std::string objectName = "");
+   Pixmap(unsigned int ID, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType = TWO_DIMENSIONAL_TEXTURE, std::string objectName = "");
    void SetImage(const char*){}
    virtual ~Pixmap();
 

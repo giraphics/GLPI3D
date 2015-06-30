@@ -122,7 +122,7 @@ public:
 	unsigned char* bits();
 
    //! Delete the bits raw buffer 
-   bool deleteBits(){ free(memData.bitsraw); memData.bitsraw = NULL; return true; }
+   bool deleteBits();
 
 	//! Return the image height
 	int imageHeight();

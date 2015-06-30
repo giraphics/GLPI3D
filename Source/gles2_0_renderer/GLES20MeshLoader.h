@@ -53,6 +53,12 @@ private:
     // Object for wavefront model parser
     OBJMesh waveFrontObjectModel;
 	
+	void processTexture();
+
+	void ApplyMaterial();
+	
+	void ApplyLight();
+	
 	// Mesh data structure holding temparary array of geometry
 	Mesh* meshModel;
 
@@ -71,8 +77,19 @@ private:
 	GLint Tex;
 	GLuint vertexBuffer;
 
+	char MaterialAmbient;	
+	char MaterialSpecular;	
+	char MaterialDiffuse;	
+	char LightAmbient;	
+	char LightSpecular;		
+	char LightDiffuse;	
+	char ShininessFactor;	
+	char LightPosition;		
+	Material* matObj;
+
 protected:
 	float* MVPMatrix;
+	Model* parentModel;
 };
 
 #endif // GLES20MESHLOADER_H

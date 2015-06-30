@@ -8,6 +8,7 @@
 #include "glutils.h"
 #include "IModel.h"
 #include "ILifeCycle.h"
+#include <vector>
 
 class IRenderable : public IModel, public ILifeCycle
 {
@@ -18,8 +19,8 @@ public:
     // Destructor for IRenderable
    virtual ~IRenderable(){}
 
-   virtual void SetVertices(glm::vec3* vertices) = 0;
-   virtual void SetTexCoords(glm::vec2* texCoords) = 0;
+   virtual void SetVertices(std::vector<glm::vec3>* verticesList) = 0;
+   virtual void SetTexCoords(std::vector<glm::vec2>* texCoordList) = 0;
    virtual void SetColor(glm::vec4* color) = 0;
 };
 #endif // IRENDERABLE_H

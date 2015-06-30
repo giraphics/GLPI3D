@@ -6,28 +6,20 @@
 #include "GLES20Pixmap.h"
 #include "ImageManager.h"
 
-// Move this map solution to better place, global is not a good solution, its a temporary solution for now.
-map<std::string, namespaceimage::Image*>::const_iterator it;
-
 Pixmap::Pixmap(const char* imagePath, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType, std::string objectName) :Model(parent, model, type, objectName)
 {
-   Image* imageItem = NULL;
-   ImageManager* imageManagerObject = ImageManager::GetInstance();
-   it = imageManagerObject->imageMap.find(imagePath);
-   if( it != imageManagerObject->imageMap.end()){
-      imageItem = (*it).second;
-   }
-   else{   // Load the image here and pass the Image pointer to the Pixmap
-      imageItem = new PngImage(); // This hardcoding need to be fixed, the image should be loaded on the basis of fileextension.
-      imageItem->loadImage(imagePath);
-      imageManagerObject->imageMap[imagePath] = imageItem;
-   }
+   Image* imageItem = ImageManager::GetInstance()->GetImage(imagePath);
    specificPixmap = new GLES20Pixmap(imageItem, textureType/*, parent, model, type, textureType, objectName*/);
+}
 
-   //glDisable(GL_CULL_FACE);
-   //glEnable(GL_CULL_FACE);
-   //glCullFace(GL_FRONT);
-   //glFrontFace(GL_CCW);
+Pixmap::Pixmap(Image* imageItem, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType, std::string objectName):Model(parent, model, type, objectName)
+{
+   specificPixmap = new GLES20Pixmap(imageItem, textureType);
+}
+
+Pixmap::Pixmap(unsigned int ID, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType, std::string objectName):Model(parent, model, type, objectName)
+{
+   specificPixmap = new GLES20Pixmap(ID, textureType);
 }
 
 Pixmap::~Pixmap()
@@ -75,15 +67,12 @@ void Pixmap::Render(bool (*customRender)())
     TransformObj->TransformPopMatrix();  // Parent Child Level
 }
 
-void Pixmap::SetVertices(glm::vec3* vtx)
-{
-    memcpy(verticesRectangle, vtx, sizeof(glm::vec3)*4);
-    specificPixmap->SetVertices(verticesRectangle);
+void Pixmap::SetVertices(std::vector<glm::vec3>* verticesList){
+    specificPixmap->SetVertices(verticesList);
 }
 
-void Pixmap::SetTexCoords(glm::vec2* tex){
-   memcpy(texCoordinatesRectangle, tex, sizeof(glm::vec2)*4);
-   specificPixmap->SetTexCoords(texCoordinatesRectangle);
+void Pixmap::SetTexCoords(std::vector<glm::vec2>* texCoordList){
+	specificPixmap->SetTexCoords(texCoordList);
 }
 
 void Pixmap::SetColor(glm::vec4* color){

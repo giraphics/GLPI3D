@@ -16,6 +16,7 @@
 #include "Scene.h"
 #include "IRectangle.h"
 #include "Pixmap.h"
+#include "VBO.h"
 
 using namespace std;
 //using namespace namespaceimage;
@@ -37,11 +38,9 @@ public:
 
 	void Update( float t ){}
 
-	//void SetMVP(float* MVPM);
+	void SetVertices(std::vector<glm::vec3>* verticesList);
 
-	void SetVertices(glm::vec3* vertex);
-
-	void SetTexCoords(glm::vec2* texCrds);
+	void SetTexCoords(std::vector<glm::vec2>* texCoordList);
 
 	void SetColor(glm::vec4* colors);
 
@@ -52,12 +51,12 @@ private:
     GLint positionAttribHandle;
     GLint positionTextureHandle;
 
-	float* vertices;
-    float* texcor;
     float* color;
-
-    GLuint vao;
-    GLuint vid;
+	GeometryMesh gm;
+	VBO* vbo;
+	VAO* vao;
+    //GLuint vao;
+    //GLuint vid;
 };
 #endif // GLES20Rectangle_H
  
