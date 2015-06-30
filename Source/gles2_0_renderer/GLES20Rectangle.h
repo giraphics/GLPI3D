@@ -25,7 +25,7 @@ class GLES20Rectangle : public IRenderable
     
 public:
     // Constructor for Rectangle
-    GLES20Rectangle( /*Scene* parent, Model* model, ModelType type, std::string objectName = ""*/);
+    GLES20Rectangle();
 
 	// Destructor for ObjLoader
     virtual ~GLES20Rectangle();
@@ -48,16 +48,10 @@ public:
 private:
     GLint mvp;
     GLint col;
-    GLint positionAttribHandle;
-    GLint positionTextureHandle;
 
     float* color;
-	GeometryMesh gm;
+	//GeometryMesh gm;
 	GeometryBuffer* geoBuffer;
-	VBO* vbo;
-	VAO* vao;
-    //GLuint vao;
-    //GLuint vid;
 };
 #endif // GLES20Rectangle_H
  

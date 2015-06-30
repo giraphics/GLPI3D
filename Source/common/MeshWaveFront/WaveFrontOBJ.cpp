@@ -150,14 +150,14 @@ bool OBJMesh::CalculateTangents()
     {
         objMeshModel.tangents[i] = vec4(glm::normalize( tan1Accum[i] ),1.0);
         // It is advise to store the BiTangents into an array also instead of calclating at fly time in vertex shader.
-        printf("\nT: %f, %f, %f", objMeshModel.tangents[i].x, objMeshModel.tangents[i].y, objMeshModel.tangents[i].z);
+        //printf("\nT: %f, %f, %f", objMeshModel.tangents[i].x, objMeshModel.tangents[i].y, objMeshModel.tangents[i].z);
     }
 
     for(int i = 0; i < objMeshModel.vecFaceIndex.size(); i++)
     {
         int index = objMeshModel.vecFaceIndex.at(i + 0).vertexIndex;
         objMeshModel.vertices[i].tangent = objMeshModel.tangents.at(index);
-        printf("\nP: %f, %f, %f", objMeshModel.vertices[i].tangent.x, objMeshModel.vertices[i].tangent.y, objMeshModel.vertices[i].tangent.z);
+        //printf("\nP: %f, %f, %f", objMeshModel.vertices[i].tangent.x, objMeshModel.vertices[i].tangent.y, objMeshModel.vertices[i].tangent.z);
     }
 
     tan1Accum.clear();

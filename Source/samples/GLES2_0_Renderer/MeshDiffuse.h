@@ -10,22 +10,6 @@
 #define FRAGMENT_SHADER_DIFFUSE      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\DiffuseFragment.glsl"
 
 void DiffuseMeshSample(){
-   //float width  = 100.0f;
-   //float height = 100.0f;
-   //glm::vec3 tempVtx[4] = {
-   //   glm::vec3( 0.0f,  0.0f,   0.0f ),
-   //   glm::vec3( width, 0.0f,   0.0f ),
-   //   glm::vec3( 0.0f,  height, 0.0f ),
-   //   glm::vec3( width, height, 0.0f )
-   //};
-
-   //glm::vec2 texCoords[4] = {
-   //   glm::vec2(0.0f, 1.0f),
-   //   glm::vec2(1.0f, 1.0f),
-   //   glm::vec2(0.0f, 0.0f),
-   //   glm::vec2(1.0f, 0.0f),
-   //};
-
    Application application;
 
    // Create a clock for measuring the time elapsed

@@ -46,11 +46,12 @@ public:
 private:
 	// Keep the member variables multiple of 32 as much 
 	// as possible to avoid explicit packing and alignment 
-    GLint mvp, col, positionAttribHandle, positionTextureHandle;    
+    GLint mvp, col/*, positionAttribHandle, positionTextureHandle*/;    
 	float* color;
 	Texture textureObj;
     GLint tex;
-	GeometryMesh gm;
+
+	GeometryBuffer* geoBuffer;
 };
 
 #endif // GLES20PIXMAP_H

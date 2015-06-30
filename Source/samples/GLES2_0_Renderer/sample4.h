@@ -9,21 +9,6 @@
 #define FRAGMENT_SHADER_PRG4      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleFragment.glsl"
 
 void SamplePerspctivePlusParentChild(){
-   //float width  = 1.0f;
-   //float height = 1.0f;
-   //glm::vec3 tempVtx[4] = {
-   //   glm::vec3( 0.0f,  0.0f,   0.0f ),
-   //   glm::vec3( width, 0.0f,   0.0f ),
-   //   glm::vec3( 0.0f,  height, 0.0f ),
-   //   glm::vec3( width, height, 0.0f )
-   //};
-
-   //glm::vec2 texCoords[4] = {
-   //   glm::vec2(0.0f, 1.0f),
-   //   glm::vec2(1.0f, 1.0f),
-   //   glm::vec2(0.0f, 0.0f),
-   //   glm::vec2(1.0f, 0.0f),
-   //};
    float width  = 1.0f;
    float height = 1.0f;
 

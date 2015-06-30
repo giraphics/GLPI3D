@@ -21,7 +21,7 @@ void WindMillDemo(){
    
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
-	   renderer = plugin->createRenderer(1280, 720);
+	   renderer = plugin->createRenderer(2000, 1200);
 	   //renderer = plugin->createRenderer(400, 300);
    }
 

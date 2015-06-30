@@ -97,9 +97,9 @@ private:
 };
 
 enum BufferScheme{
-	BUFFER_VA,
-	BUFFER_VBO,
-	BUFFER_VAO
+	BUFFER_VA = 0,
+	BUFFER_VBO = 1,
+	BUFFER_VAO = 2,
 };
 
 class AttributeInfo{
@@ -109,6 +109,7 @@ public:
 	std::string name;
 	void* dataArray;
 	int index;
+	int attributeLocation;
 	GLenum type;
 	GLint itemNum;
 	size_t size;
@@ -116,18 +117,24 @@ public:
 
 class GeometryBuffer{
 public:
-	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VBO, bool isInterleaved = false);
+	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VAO, bool isInterleaved = false);
 	~GeometryBuffer();
 	void addAttribute(AttributeInfo attr);
 	void init();
+	void bind();
+    void unbind();
+    void sendAttributeData();
+	GeometryMesh* geometry();
 private:
 	BufferScheme schemeBuf;
 	bool interleaved;
 	std::vector<AttributeInfo> attributeList;
 	IModel* parent;
-public:
 	VBO* vbo;
 	VAO* vao;
+
+public:
+	GeometryMesh geometryData;
 };
 
 #endif
