@@ -38,12 +38,20 @@ int main()
    GLPISample();
 #else
    //Lua_Sample1();
-   Sample0();  // HUD View, Simple
-   Sample1();  // HUD View
-   SamplePerespective();  // Perespective view
-   SampleParentChild();
+   SimpleAndHMIRectangle();  // HUD View, Simple, HMI rectangle overide render
+
+   // HUD View, Window filled with interpolated color rectangles
+   FilledWindow();			 
+   
+   // Perespective view
+   SamplePerespective();	 
+   
+   // Parent child Transformation and Camera view
    SamplePerspctivePlusParentChild();
+   
+   // Perspective Image rotating about its own axises
    SampleImage();
+   
    SampleMultipleImage();
 	
    // Simple Diffuse mesh demonstrator

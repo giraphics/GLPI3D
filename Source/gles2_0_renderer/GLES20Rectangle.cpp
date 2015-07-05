@@ -81,12 +81,10 @@ void GLES20Rectangle::Render(bool (*customRender)())
 void GLES20Rectangle::SetVertices(std::vector<glm::vec3>* verticesList)
 {
 	geoBuffer->geometry()->positions = verticesList;
-//	gm.positions = verticesList;
 }
 
 void GLES20Rectangle::SetTexCoords(std::vector<glm::vec2>* texCoordList)
 {
-//	gm.texCoords = texCoordList;
 	geoBuffer->geometry()->texCoords = texCoordList;
 }
 

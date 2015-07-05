@@ -8,7 +8,10 @@
 #define VERTEX_SHADER_PRG1        (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleVertex.glsl"
 #define FRAGMENT_SHADER_PRG1      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleFragment.glsl"
 
-void Sample1(){
+// Demo Description: Use's HUD projection system
+// Fill the screen with interpolated colored triangles.
+// Each rect is set with new center to rotate about (50, 50) translation axises.
+void FilledWindow(){
    float width  = 100.0f;
    float height = 100.0f;
 

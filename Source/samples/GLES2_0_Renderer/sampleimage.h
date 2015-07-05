@@ -53,9 +53,9 @@ void SampleImage(){
 
    ProgramManager* ProgramManagerObj = ProgramManager::GetInstance();
    unsigned int ProgramID = ProgramManagerObj->LoadShader("Texture", TEX_VERTEX_SHADER_PRG, TEX_FRAGMENT_SHADER_PRG )->ProgramID;
-   pixmap = new Pixmap("../Resource/Icons/continental.png",scene, parent, PIXMAP, TWO_DIMENSIONAL_TEXTURE,"");
+   pixmap = new Pixmap("../Resource/Icons/continental.png",scene, parent, PIXMAP, TWO_DIMENSIONAL_TEXTURE,"My image");
    pixmap->SetProgram(ProgramID);
-   pixmap->SetName(std::string("My image"));
+   //pixmap->SetName(std::string("My image"));
 
    // Set the vertex information
    pixmap->SetVertices(&vertices);

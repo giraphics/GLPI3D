@@ -12,7 +12,6 @@
 
 HMIRectangle::HMIRectangle( Scene* parent, Model* model, ModelType type,std::string objectName ):GRectangle(parent, model, type, objectName)
 {
-//   ProgramManagerObj = ProgramManager::GetInstance();
 }
 
 
@@ -43,8 +42,6 @@ void HMIRectangle::Initialize()
 static bool triangleCall()
 {
    // Draw triangle
-   //glUniformMatrix4fv( mvp, 1, GL_FALSE,MVPMatrix );
-   //glUniform4fv( col, 1, color );
    glDrawArrays(GL_LINE_STRIP, 0, 4);
    return true;
 }

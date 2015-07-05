@@ -14,7 +14,7 @@
 #include "Rectangle.h"
 #include "IPixmap.h"
 #include "Texture.h"
-#include "VBO.h"
+#include "Geometry.h"
 
 using namespace std;
 

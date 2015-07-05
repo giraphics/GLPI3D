@@ -16,7 +16,7 @@
 #include "Scene.h"
 #include "IRectangle.h"
 #include "Pixmap.h"
-#include "VBO.h"
+#include "Geometry.h"
 
 using namespace std;
 //using namespace namespaceimage;

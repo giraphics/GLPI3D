@@ -9,7 +9,11 @@
 #define VERTEX_SHADER_PRG        (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleVertex.glsl"
 #define FRAGMENT_SHADER_PRG      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleFragment.glsl"
 
-void Sample0(){
+// Demo Description: In this demo, there are two rectangle are drawn.
+// rectangleItem (Blue color)   : using GRectangle class from Graphics.
+// rectangleItem2 (Green color) : using HMIRectangle class, this class overrides the render method and perform rotation.
+// HUD scene in screen coordiante system.
+void SimpleAndHMIRectangle(){
    float width  = 100.0f;
    float height = 100.0f;
 
@@ -48,15 +52,13 @@ void Sample0(){
    hudCamera  = new CameraHUD("hudCamera", hudScene);
    hudCamera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
    
-   ProgramManager* ProgramManagerObj = NULL;
-   ProgramManagerObj = ProgramManager::GetInstance();
-   unsigned int ProgramID = ProgramManagerObj->LoadShader("square", VERTEX_SHADER_PRG, FRAGMENT_SHADER_PRG )->ProgramID;
+   unsigned int ProgramID = ProgramManager::GetInstance()->LoadShader("square", VERTEX_SHADER_PRG, FRAGMENT_SHADER_PRG )->ProgramID;
    rectangleItem = new GRectangle(hudScene, NULL, BUTTON,"");
-   rectangleItem->SetName(std::string("My Rectangle 1"));
+   rectangleItem->SetName(std::string("My Rectangle Generic"));
    rectangleItem->SetProgram(ProgramID);
 
    rectangleItem2 = new HMIRectangle(hudScene, rectangleItem, BUTTON,"");
-   rectangleItem2->SetName(std::string("My Rectangle 1"));
+   rectangleItem2->SetName(std::string("My Rectangle HMI"));
    rectangleItem2->SetParent(rectangleItem);
    rectangleItem2->SetProgram(ProgramID);
 
@@ -78,12 +80,11 @@ void Sample0(){
    
    // Intialize the application
    application.Initialize();
-   /////////////////////////////////
+   
    while(renderer->getWindow()->isOpen()){
       application.Render();
    }
    ProgramManager::DeleteInstance();
-   ProgramManagerObj = NULL;
 }
 
 
