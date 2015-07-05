@@ -48,7 +48,7 @@ public:
 private:
     GLint mvp;
     GLint col;
-
+	UniformMatrix4fv* mvpUniform;
     float* color;
 	//GeometryMesh gm;
 	GeometryBuffer* geoBuffer;

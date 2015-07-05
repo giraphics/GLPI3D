@@ -155,6 +155,7 @@
     <ClInclude Include="..\Source\gles2_0_renderer\Texture.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\Transform.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\Geometry.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Uniforms.h" />
     <ClInclude Include="..\Source\glew\include\GL\glew.h" />
     <ClInclude Include="..\Source\glew\include\GL\glxew.h" />
     <ClInclude Include="..\Source\glew\include\GL\wglew.h" />
@@ -280,6 +281,7 @@
     <ClCompile Include="..\Source\gles2_0_renderer\Texture.cpp" />
     <ClCompile Include="..\Source\gles2_0_renderer\Transform.cpp" />
     <ClCompile Include="..\Source\gles2_0_renderer\Geometry.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\Uniforms.cpp" />
     <ClCompile Include="..\Source\glew\src\glew.c" />
     <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Camera.cpp" />
     <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__FileBuffer.cpp" />

@@ -2,6 +2,7 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <GL/glew.h>
+#include <conio.h>
 //#define OLDENGINE 1
 //#define OLDENGINE
 #ifdef OLDENGINE
@@ -85,4 +86,85 @@ int main()
    return EXIT_SUCCESS;
 }
 
+void test()
+{
+	char selection = getch();
+	do{
+	switch(selection){
+		case 'a':
+			// HUD View, Simple, HMI rectangle overide render
+			SimpleAndHMIRectangle();  
+		break;
 
+		case 'b':
+			// HUD View, Window filled with interpolated color rectangles
+			FilledWindow();			 
+		break;
+		
+		case 'c':
+			// Perespective view
+			SamplePerespective();
+		break;
+
+		case 'd':
+			// Parent child Transformation and Camera view
+			SamplePerspctivePlusParentChild();
+		break;
+
+		case 'e':
+			// Perspective Image rotating about its own axises
+			SampleImage();
+	    break;
+		
+		case 'f':
+			SampleMultipleImage();
+		break;
+		
+		case 'g':
+			// Simple Diffuse mesh demonstrator
+			DiffuseMeshSample();
+		break;
+		
+		case 'h':
+			// Mesh with texture + Diffuse shader
+			MeshSample();
+		break;
+   
+		case 'i':
+			// Multiple scenes in one renderer + Ortho + prespective
+			MeshRectSample();
+		break;
+
+		case 'j':
+			// Use simple object and produce transformation graph + Gouraud shading
+			WindMillDemo();
+		break;
+   
+		case 'k':
+			// Custom Scene and Custom modeling. + Phong Shading
+			CustomSceneDemo();
+		break;
+		case 'l':
+			// Light and Material Demo
+			LighMaterailDemo();
+		break;
+
+		case 'm':
+			// Sample texture Menu
+			SampleMenu();
+		break;
+
+		case 'n':
+			// Frame Buffer Object Demo
+			FBODemo();
+		break;
+
+		case 'o':
+			// Cube Frame Buffer Object Demo
+			CubeFBODemo();
+		break;
+	}
+	}
+	while(selection = getch());
+
+}

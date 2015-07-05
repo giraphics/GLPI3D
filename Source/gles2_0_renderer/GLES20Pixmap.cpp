@@ -71,8 +71,9 @@ void GLES20Pixmap::Initialize()
 
 	//positionAttribHandle   = GetAttribute(ProgramID,(char*)"VertexPosition");
 	//positionTextureHandle  = GetAttribute(ProgramID,(char*)"VertexTexCoord");
-	geoBuffer->addAttribute(AttributeInfo("VertexPosition", 3, geoBuffer->geometry()->positions->size() , GL_FLOAT, &(*geoBuffer->geometry()->positions)[0]));
-	geoBuffer->addAttribute(AttributeInfo("VertexTexCoord", 2, geoBuffer->geometry()->texCoords->size() , GL_FLOAT, &(*geoBuffer->geometry()->texCoords)[0]));
+	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, geoBuffer->geometry()->positions->size() , GL_FLOAT, &(*geoBuffer->geometry()->positions)[0]));
+	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, geoBuffer->geometry()->texCoords->size() , GL_FLOAT, &(*geoBuffer->geometry()->texCoords)[0]));
+	//geoBuffer->addUniform("VertexTexCoord", 2, geoBuffer->geometry()->texCoords->size() , GL_FLOAT, &(*geoBuffer->geometry()->texCoords)[0]);
 	geoBuffer->init();
    
 	//if(positionAttribHandle >= 0){

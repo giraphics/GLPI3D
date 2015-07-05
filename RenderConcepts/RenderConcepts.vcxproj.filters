@@ -419,6 +419,9 @@
     <ClInclude Include="..\Source\gles2_0_renderer\Geometry.h">
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Uniforms.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\common\Event.cpp">
@@ -717,6 +720,9 @@
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\gles2_0_renderer\Geometry.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\Uniforms.cpp">
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClCompile>
   </ItemGroup>

@@ -5,6 +5,7 @@
 
 #include "glutils.h"
 #include "IModel.h"
+#include "Uniforms.h"
 #include <vector>
 #include <map>
 class GeometryMesh{
@@ -102,10 +103,10 @@ enum BufferScheme{
 	BUFFER_VAO = 2,
 };
 
-class AttributeInfo{
+class Attribute{
 public:
-	AttributeInfo(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr);
-	~AttributeInfo();
+	Attribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr);
+	~Attribute();
 	std::string name;
 	void* dataArray;
 	int index;
@@ -119,7 +120,9 @@ class GeometryBuffer{
 public:
 	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VAO, bool isInterleaved = false);
 	~GeometryBuffer();
-	void addAttribute(AttributeInfo attr);
+	//void addAttribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr);
+	void addAttribute(Attribute* attributeItem);
+	void addUniform(Uniform* uniformItem);
 	void init();
 	void bind();
     void unbind();
@@ -128,7 +131,8 @@ public:
 private:
 	BufferScheme schemeBuf;
 	bool interleaved;
-	std::vector<AttributeInfo> attributeList;
+	std::vector<Attribute*> attributeList;
+	std::vector<Uniform*> uniformList;
 	IModel* parent;
 	VBO* vbo;
 	VAO* vao;

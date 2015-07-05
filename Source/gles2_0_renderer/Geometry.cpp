@@ -72,7 +72,7 @@ void VAO::unbind()
 	glBindVertexArray(0);
 }
 
-AttributeInfo::AttributeInfo(std::string nm, GLint itemPerElement, size_t sz, GLenum typeInfo, void* arr)
+Attribute::Attribute(std::string nm, GLint itemPerElement, size_t sz, GLenum typeInfo, void* arr)
 {
 	name		= nm;
 	dataArray	= arr;
@@ -82,7 +82,7 @@ AttributeInfo::AttributeInfo(std::string nm, GLint itemPerElement, size_t sz, GL
 	itemNum		= itemPerElement;
 }
 	
-AttributeInfo::~AttributeInfo()
+Attribute::~Attribute()
 {
 }
 
@@ -123,11 +123,28 @@ GeometryBuffer::~GeometryBuffer()
 		delete vao;
 		vao = NULL;
 	}
+
+	for(int i=0; i<attributeList.size(); i++){
+		delete attributeList.at(i);
+	}
+
+	for(int i=0; i<uniformList.size(); i++){
+		delete uniformList.at(i);
+	}	
 }
 
-void GeometryBuffer::addAttribute(AttributeInfo attr)
+//void GeometryBuffer::addAttribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr)
+//{
+//	attributeList.push_back(new Attribute(name, itemPerElement, size, typeInfo, arr));
+//}
+
+void GeometryBuffer::addAttribute(Attribute* attributeItem)
 {
-	attributeList.push_back(attr);
+	attributeList.push_back(attributeItem);
+}
+
+void GeometryBuffer::addUniform(Uniform* uniformItem){
+	uniformList.push_back(uniformItem);
 }
 
 void GeometryBuffer::sendAttributeData()
@@ -147,8 +164,8 @@ void GeometryBuffer::sendAttributeData()
 		default:
 		{
 			for(int i=0; i<attributeList.size(); i++){
-				if(attributeList[i].attributeLocation >= 0){
-					glVertexAttribPointer(attributeList[i].attributeLocation, attributeList[i].itemNum, attributeList[i].type, GL_FALSE, 0, (void*)attributeList[i].dataArray);
+				if(attributeList[i]->attributeLocation >= 0){
+					glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->dataArray);
 				}
 			}
 		}
@@ -161,10 +178,12 @@ void GeometryBuffer::init()
 {
 	unsigned int ProgramID = parent->GetProgram();
 	glUseProgram(ProgramID);
+
+	// Treat the Attributes
 	int total = 0;
 	for(int i=0; i<attributeList.size(); i++){
-		attributeList[i].index = total;
-		total += attributeList[i].size * attributeList[i].itemNum * sizeof(attributeList[i].type);
+		attributeList[i]->index = total;
+		total += attributeList[i]->size * attributeList[i]->itemNum * sizeof(attributeList[i]->type);
 	}
 
 	switch(schemeBuf){
@@ -175,18 +194,18 @@ void GeometryBuffer::init()
 			size_t from = 0;
 			size_t to	= 0;
 			for(int i=0; i<attributeList.size(); i++){
-				to = attributeList[i].size * attributeList[i].itemNum * sizeof(attributeList[i].type);
-				vbo->bufferSubData(from, to, attributeList[i].dataArray);
+				to = attributeList[i]->size * attributeList[i]->itemNum * sizeof(attributeList[i]->type);
+				vbo->bufferSubData(from, to, attributeList[i]->dataArray);
 				from = to;
 			}
 
 			vao->bind();
 			vbo->bind();
 			for(int i=0; i<attributeList.size(); i++){
-				attributeList[i].attributeLocation = GetAttribute(ProgramID,(char*)attributeList[i].name.c_str());
-				if(attributeList[i].attributeLocation >= 0){
-					glEnableVertexAttribArray(attributeList[i].attributeLocation);
-					glVertexAttribPointer(attributeList[i].attributeLocation, attributeList[i].itemNum, attributeList[i].type, GL_FALSE, 0, (void*)attributeList[i].index);
+				attributeList[i]->attributeLocation = GetAttribute(ProgramID,(char*)attributeList[i]->name.c_str());
+				if(attributeList[i]->attributeLocation >= 0){
+					glEnableVertexAttribArray(attributeList[i]->attributeLocation);
+					glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->index);
 				}
 			}
 			vbo->unbind();
@@ -200,13 +219,19 @@ void GeometryBuffer::init()
 		default:
 		{
 			for(int i=0; i<attributeList.size(); i++){
-				attributeList[i].attributeLocation = GetAttribute(ProgramID,(char*)attributeList[i].name.c_str());
-				if(attributeList[i].attributeLocation >= 0){
-					glEnableVertexAttribArray(attributeList[i].attributeLocation);
+				attributeList[i]->attributeLocation = GetAttribute(ProgramID,(char*)attributeList[i]->name.c_str());
+				if(attributeList[i]->attributeLocation >= 0){
+					glEnableVertexAttribArray(attributeList[i]->attributeLocation);
 				}
 			}
 		}
 		break;
+	}
+
+	// Treat Uniforms
+	//uniformList
+	for(int i=0; i<uniformList.size(); i++){
+		uniformList[i]->uniformLocation = GetUniform(ProgramID,(char*)uniformList[i]->name.c_str());
 	}
 }
 

@@ -41,11 +41,12 @@ void GLES20Rectangle::Initialize()
 {
 	glUseProgram( ProgramID );
 
-	mvp     = GetUniform( ProgramID, ( char* )"ModelViewProjectionMatrix" );
+	//mvp     = GetUniform( ProgramID, ( char* )"ModelViewProjectionMatrix" );
 	col     = GetUniform( ProgramID, (char *) "RectColor" );
 
-	geoBuffer->addAttribute(AttributeInfo("VertexTexCoord", 2, geoBuffer->geometry()->texCoords->size() , GL_FLOAT, &(*geoBuffer->geometry()->texCoords)[0]));
-	geoBuffer->addAttribute(AttributeInfo("VertexPosition", 3, geoBuffer->geometry()->positions->size() , GL_FLOAT, &(*geoBuffer->geometry()->positions)[0]));
+	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, geoBuffer->geometry()->texCoords->size() , GL_FLOAT, &(*geoBuffer->geometry()->texCoords)[0]));
+	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, geoBuffer->geometry()->positions->size() , GL_FLOAT, &(*geoBuffer->geometry()->positions)[0]));
+	geoBuffer->addUniform(mvpUniform = new UniformMatrix4fv("ModelViewProjectionMatrix"));
 	geoBuffer->init();
 	glUniform4fv( col, 1, color );
 	return;
@@ -65,7 +66,8 @@ void GLES20Rectangle::Render(bool (*customRender)())
 	glUseProgram(ProgramID);
 
 	geoBuffer->bind();
-    glUniformMatrix4fv(mvp, 1, GL_FALSE, (float*)&tempMatrix[0]);
+    //glUniformMatrix4fv(mvp, 1, GL_FALSE, (float*)&tempMatrix[0]);
+	mvpUniform->SetValue((GLfloat*)&tempMatrix[0]);
     glUniform4fv( col, 1, color );
 
     // Draw triangle
