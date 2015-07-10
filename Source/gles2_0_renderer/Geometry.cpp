@@ -86,19 +86,29 @@ Attribute::~Attribute()
 {
 }
 
-GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, bool isInterleaved)
+void drawArray11(){}
+GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, bool isInterleaved, DrawingScheme drawScheme)
 {
 	parent		= prnt;
 	interleaved = isInterleaved;
 	schemeBuf	= scheme;
+	schemeDraw	= drawScheme;
 	vbo			= NULL;
+	ibo			= NULL;
 	vao			= NULL;
+	primitiveType = GL_TRIANGLE_STRIP;
 
 	switch(schemeBuf){
 		case BUFFER_VAO:
 		{
 			vbo = new VBO(GL_ARRAY_BUFFER);
 			vao = new VAO();
+			if(schemeDraw == DRAW_ELEMENT){
+				ibo = new VBO(GL_ELEMENT_ARRAY_BUFFER);
+			}
+			else{
+				ibo = NULL;
+			}
 		}
 		break;
 		case BUFFER_VBO:
@@ -110,6 +120,15 @@ GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, bool isInterle
 		{
 		}
 	};
+
+	// Here, we store the function pointer of DrawArray or DrawElement command
+	// This allows to avoid 'if' checks during the  
+	if(schemeDraw == DRAW_ELEMENT){
+		drawMethod = &GeometryBuffer::drawElement;
+	}
+	else{
+		drawMethod = &GeometryBuffer::drawArray;
+	}
 }
 
 GeometryBuffer::~GeometryBuffer()
@@ -133,11 +152,6 @@ GeometryBuffer::~GeometryBuffer()
 	}	
 }
 
-//void GeometryBuffer::addAttribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr)
-//{
-//	attributeList.push_back(new Attribute(name, itemPerElement, size, typeInfo, arr));
-//}
-
 void GeometryBuffer::addAttribute(Attribute* attributeItem)
 {
 	attributeList.push_back(attributeItem);
@@ -147,31 +161,53 @@ void GeometryBuffer::addUniform(Uniform* uniformItem){
 	uniformList.push_back(uniformItem);
 }
 
-void GeometryBuffer::sendAttributeData()
+void GeometryBuffer::setIndices(Indices* indexItem){
+	indexList = indexItem;
+}
+
+GLenum GeometryBuffer::GetPrimitiveMode(PrimitiveScheme primitiveMode)
+{
+	switch(primitiveMode)
+{
+		case PRIMITIVE_POINTS:
+			return GL_POINTS;
+			break;
+	
+		case PRIMITIVE_LINES:
+			return GL_LINES;
+			break;
+	
+		case PRIMITIVE_LINE_LOOP:
+			return GL_LINE_LOOP;
+			break;
+	
+		case PRIMITIVE_LINE_STRIP:
+			return GL_LINE_STRIP;
+			break;
+	
+		case PRIMITIVE_TRIANGLES:
+			return GL_TRIANGLES;
+			break;
+
+		case PRIMITIVE_TRIANGLE_STRIP:
+			return GL_TRIANGLE_STRIP;
+		break;
+	
+		case PRIMITIVE_TRIANGLE_FAN:
+			return GL_TRIANGLE_FAN;
+		break;
+		default:
+			return GL_TRIANGLE_STRIP;
+			break;
+				}
+			}
+void GeometryBuffer::initUniforms()
 {
 	unsigned int ProgramID = parent->GetProgram();
 	glUseProgram(ProgramID);
-
-	switch(schemeBuf){
-		case BUFFER_VAO:
-		{
+	for(int i=0; i<uniformList.size(); i++){
+		uniformList[i]->SetUniformLocation(GetUniform(ProgramID,(char*)uniformList[i]->GetName().c_str()));
 		}
-		break;
-		case BUFFER_VBO:
-		{
-		}
-		break;
-		default:
-		{
-			for(int i=0; i<attributeList.size(); i++){
-				if(attributeList[i]->attributeLocation >= 0){
-					glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->dataArray);
-				}
-			}
-		}
-		break;
-	}
-
 }
 
 void GeometryBuffer::init()
@@ -179,6 +215,10 @@ void GeometryBuffer::init()
 	unsigned int ProgramID = parent->GetProgram();
 	glUseProgram(ProgramID);
 
+	// HANDLE ATTRIBUTES
+	switch(schemeBuf){
+		case BUFFER_VAO:
+		{
 	// Treat the Attributes
 	int total = 0;
 	for(int i=0; i<attributeList.size(); i++){
@@ -186,9 +226,6 @@ void GeometryBuffer::init()
 		total += attributeList[i]->size * attributeList[i]->itemNum * sizeof(attributeList[i]->type);
 	}
 
-	switch(schemeBuf){
-		case BUFFER_VAO:
-		{
 			vbo->bind();
 			vbo->bufferData(total, 0, GL_STATIC_DRAW);
 			size_t from = 0;
@@ -197,6 +234,15 @@ void GeometryBuffer::init()
 				to = attributeList[i]->size * attributeList[i]->itemNum * sizeof(attributeList[i]->type);
 				vbo->bufferSubData(from, to, attributeList[i]->dataArray);
 				from = to;
+			}
+			vbo->unbind();
+
+			if(schemeDraw == DRAW_ELEMENT){ // Use the ibo if drawing scheme is DrawElement
+				ibo->bind();
+				unsigned short indexSize = indexList->size * sizeof(indexList->type);
+				ibo->bufferData(indexSize, 0, GL_STATIC_DRAW);
+				ibo->bufferSubData(0, indexSize, indexList->dataArray);
+				ibo->unbind();
 			}
 
 			vao->bind();
@@ -207,6 +253,10 @@ void GeometryBuffer::init()
 					glEnableVertexAttribArray(attributeList[i]->attributeLocation);
 					glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->index);
 				}
+			}
+
+			if(schemeDraw == DRAW_ELEMENT){
+				ibo->bind();
 			}
 			vbo->unbind();
 			vao->unbind();
@@ -228,13 +278,17 @@ void GeometryBuffer::init()
 		break;
 	}
 
-	// Treat Uniforms
-	//uniformList
-	for(int i=0; i<uniformList.size(); i++){
-		uniformList[i]->uniformLocation = GetUniform(ProgramID,(char*)uniformList[i]->name.c_str());
-	}
+	// HANDLE UNIFORMS
+	initUniforms();
+	//for(int i=0; i<uniformList.size(); i++){
+	//	uniformList[i]->SetUniformLocation(GetUniform(ProgramID,(char*)uniformList[i]->GetName().c_str()));
+	//}
+
+	// HANDLE INDICES
+
 }
 
+// In my opinion the update should be bring inside the bind function.
 void GeometryBuffer::bind()
 {
 	switch(schemeBuf){
@@ -250,6 +304,11 @@ void GeometryBuffer::bind()
 		break;
 		default:
 		{
+			for(int i=0; i<attributeList.size(); i++){
+				if(attributeList[i]->attributeLocation >= 0){
+					glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->dataArray);
+				}
+			}
 		}
 	};
 }
@@ -273,6 +332,23 @@ void GeometryBuffer::unbind()
 	};
 }
 
-GeometryMesh* GeometryBuffer::geometry(){
-	return &geometryData;
+void GeometryBuffer::update()
+{
+	unsigned int ProgramID = parent->GetProgram();
+	glUseProgram(ProgramID);
+	for(int i=0; i<uniformList.size(); i++){
+		uniformList[i]->update();
+	}
+}
+
+void GeometryBuffer::draw(){
+	(this->*drawMethod)();
+}
+
+void GeometryBuffer::drawArray(){
+	glDrawArrays(primitiveType, 0, geometryData.positions->size());
+}
+
+void GeometryBuffer::drawElement(){
+	glDrawElements(primitiveType, indexList->size, indexList->type, (void*)geometryData.geometryIndices->size());
 }

@@ -32,7 +32,7 @@ public:
     std::vector<glm::vec3>* binormals;
 
     // Store the Index information
-    std::vector<unsigned int>* geometryIndices;
+    std::vector<unsigned short>* geometryIndices;
 
 public:
     GeometryMesh()
@@ -103,6 +103,21 @@ enum BufferScheme{
 	BUFFER_VAO = 2,
 };
 
+enum DrawingScheme{
+	DRAW_ARRAY = 0,
+	DRAW_ELEMENT = 1,
+};
+
+enum PrimitiveScheme{
+	PRIMITIVE_POINTS = 0,
+	PRIMITIVE_LINES = 1,
+	PRIMITIVE_LINE_LOOP = 2,
+	PRIMITIVE_LINE_STRIP = 3,
+	PRIMITIVE_TRIANGLES = 4,
+	PRIMITIVE_TRIANGLE_STRIP = 5,
+	PRIMITIVE_TRIANGLE_FAN = 6,
+};
+
 class Attribute{
 public:
 	Attribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr);
@@ -116,27 +131,52 @@ public:
 	size_t size;
 };
 
+class Indices{
+public:
+	Indices(size_t indexCount, GLenum typeInfo, void* arr){ size = indexCount; type = typeInfo; dataArray = arr; }
+	~Indices(){}
+	void* dataArray;
+	int index;
+	GLenum type;
+	size_t size;
+};
+
 class GeometryBuffer{
 public:
-	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VAO, bool isInterleaved = false);
+	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VAO, bool isInterleaved = false, DrawingScheme draw = DRAW_ARRAY);
 	~GeometryBuffer();
 	//void addAttribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr);
 	void addAttribute(Attribute* attributeItem);
 	void addUniform(Uniform* uniformItem);
+	void setIndices(Indices* indexItem);
+	void setDrawingPrimitive(PrimitiveScheme primitiveMode){ primitiveType = GetPrimitiveMode(primitiveMode); }
 	void init();
+	void initUniforms();
 	void bind();
     void unbind();
-    void sendAttributeData();
-	GeometryMesh* geometry();
+    void update();
+    void draw();
+    //void sendAttributeData();
+	inline GeometryMesh* geometry(){ return &geometryData; }
 private:
+	void (GeometryBuffer::*drawMethod)();
+    void drawArray();
+    void drawElement();
+	GLenum GetPrimitiveMode(PrimitiveScheme primitiveMode);
 	BufferScheme schemeBuf;
+	DrawingScheme schemeDraw;
+	GLenum primitiveType;
 	bool interleaved;
 	std::vector<Attribute*> attributeList;
 	std::vector<Uniform*> uniformList;
+	Indices* indexList;
 	IModel* parent;
 	VBO* vbo;
+	VBO* ibo;
 	VAO* vao;
 
+	GLsizei startIndex;
+	GLsizei itemCount;
 public:
 	GeometryMesh geometryData;
 };

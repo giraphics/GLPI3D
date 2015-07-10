@@ -11,6 +11,7 @@
 #include "ImageBuffer/PngImage.h"
 #include "ImageManager.h"
 #include "Texture.h"
+#include "Geometry.h"
 
 using namespace std;
 using namespace MeshNameSpace;
@@ -72,24 +73,46 @@ private:
 
 	int stride;
 	GLvoid* offsetNormal, *offsetTexCoord, *offsetTangent;
-	char MVP, MV;
-	GLint NormalMatrix;
-	GLint Tex;
+	//char MVP, MV;
+	//GLint NormalMatrix;
+	//GLint Tex;
 	GLuint vertexBuffer;
 
-	char MaterialAmbient;	
-	char MaterialSpecular;	
-	char MaterialDiffuse;	
-	char LightAmbient;	
-	char LightSpecular;		
-	char LightDiffuse;	
-	char ShininessFactor;	
-	char LightPosition;		
+	//char MaterialAmbient;	
+	//char MaterialSpecular;	
+	//char MaterialDiffuse;	
+	//char LightAmbient;	
+	//char LightSpecular;		
+	//char LightDiffuse;	
+	//char ShininessFactor;	
+	//char LightPosition;		
 	Material* matObj;
 
 protected:
 	float* MVPMatrix;
 	Model* parentModel;
+private:
+	GeometryBuffer* geoBuffer;
+	Uniform3f*		MaterialAmbientUniform;	
+	Uniform3f*		MaterialSpecularUniform;	
+	Uniform3f*		MaterialDiffuseUniform;	
+	Uniform3f*		LightAmbientUniform;	
+	Uniform3f*		LightSpecularUniform;		
+	Uniform3f*		LightDiffuseUniform;	
+	Uniform1f*		ShininessFactorUniform;	
+	Uniform3fv*		LightPositionUniform;		
+
+	UniformMatrix4fv*	MVPUniform;
+	UniformMatrix4fv*	MVUniform;
+	UniformMatrix3fv*	NormalMatrixUniform;
+	Uniform1i*			TexUniform;
+	GLint textureUnit;
+
+	//glm::vec3 ambientTemp, diffuseTemp, specularTemp;
+	//glm::vec3 positionTemp;
+	//glm::vec3 ambientMat, diffuseMat, specularMat;
+
+
 };
 
 #endif // GLES20MESHLOADER_H

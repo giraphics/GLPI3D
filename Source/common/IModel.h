@@ -52,6 +52,7 @@ protected:
 	// This is a temporary matrix which is use to store temporary calculation like MVP, MV, normalMatrix 
 	// and send to the shader program. This way we avoid any temporary local matrices on the stack.
 	glm::mat4 tempMatrix;
+	glm::mat4 tempMVPMatrix;
 
 	// Store the ID of the current shader program handle locally in class object
 	unsigned int ProgramID;

@@ -12,6 +12,7 @@
 #include "glutils.h"
 #include "Renderer.h"
 #include "Scene.h"
+#include "Geometry.h"
 #include <string>
 #include "ImageBuffer/Image.h"
 #include "ImageBuffer/PngImage.h"
@@ -26,7 +27,7 @@ IRenderable* specificRectangle;
 
 public:
    // Constructor for Rectangle
-   GRectangle( Scene* parent, Model* model, ModelType type, std::string objectName = "");
+   GRectangle( Scene* parent, Model* model, ModelType type, std::string objectName = "",BufferScheme bufScheme = BUFFER_VAO, bool isInterleaved = false, DrawingScheme drawScheme = DRAW_ARRAY);
 
    // Destructor for ObjLoader
    virtual ~GRectangle();

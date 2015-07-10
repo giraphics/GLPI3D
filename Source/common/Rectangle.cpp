@@ -8,9 +8,10 @@
 	\return None
 
 */
-GRectangle::GRectangle(Scene* parent, Model* model, ModelType type, std::string objectName) :Model(parent, model, type, objectName)
+GRectangle::GRectangle(Scene* parent, Model* model, ModelType type, std::string objectName,
+	BufferScheme bufScheme, bool isInterleaved, DrawingScheme drawScheme) :Model(parent, model, type, objectName)
 {
-   specificRectangle = new GLES20Rectangle(/*parent, model, type,objectName*/);
+   specificRectangle = new GLES20Rectangle(bufScheme, isInterleaved, drawScheme);
 }
 
 

@@ -1,9 +1,6 @@
 #include "GLES20Rectangle.h"
 #include "Rectangle.h"
 
-#define GetAttribute ProgramManager::GetInstance()->ProgramGetVertexAttribLocation
-#define GetUniform ProgramManager::GetInstance()->ProgramGetUniformLocation
-
 // Namespace used
 /*!
 	Simple Default Constructor
@@ -12,9 +9,9 @@
 	\return None
 
 */
-GLES20Rectangle::GLES20Rectangle()
+GLES20Rectangle::GLES20Rectangle(BufferScheme bufScheme, bool isInterleaved, DrawingScheme drawScheme)
 {
-	geoBuffer = new GeometryBuffer(this);
+	geoBuffer = new GeometryBuffer(this, bufScheme, isInterleaved, drawScheme);
 }
 
 /*!
@@ -39,16 +36,17 @@ GLES20Rectangle::~GLES20Rectangle()
 */
 void GLES20Rectangle::Initialize()
 {
-	glUseProgram( ProgramID );
+	//glUseProgram( ProgramID );
 
 	//mvp     = GetUniform( ProgramID, ( char* )"ModelViewProjectionMatrix" );
-	col     = GetUniform( ProgramID, (char *) "RectColor" );
-
-	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, geoBuffer->geometry()->texCoords->size() , GL_FLOAT, &(*geoBuffer->geometry()->texCoords)[0]));
-	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, geoBuffer->geometry()->positions->size() , GL_FLOAT, &(*geoBuffer->geometry()->positions)[0]));
+	//col     = GetUniform( ProgramID, (char *) "RectColor" );
+	GeometryMesh* mesh = geoBuffer->geometry();
+	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, mesh->texCoords->size() , GL_FLOAT, &(*mesh->texCoords)[0]));
+	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions->size() , GL_FLOAT, &(*mesh->positions)[0]));
 	geoBuffer->addUniform(mvpUniform = new UniformMatrix4fv("ModelViewProjectionMatrix"));
+	geoBuffer->addUniform(colUniform = new Uniform4fv("RectColor"));
 	geoBuffer->init();
-	glUniform4fv( col, 1, color );
+	//glUniform4fv( col, 1, color );
 	return;
 }
 
@@ -63,20 +61,24 @@ void GLES20Rectangle::Render(bool (*customRender)())
 {
 	tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
 
-	glUseProgram(ProgramID);
+	//glUseProgram(ProgramID);
 
+	mvpUniform->SetValue((GLfloat*)&tempMatrix[0]);
+	colUniform->SetValue(color);
+
+	geoBuffer->update();
 	geoBuffer->bind();
     //glUniformMatrix4fv(mvp, 1, GL_FALSE, (float*)&tempMatrix[0]);
-	mvpUniform->SetValue((GLfloat*)&tempMatrix[0]);
-    glUniform4fv( col, 1, color );
+    //glUniform4fv( col, 1, color );
 
     // Draw triangle
-    if(!customRender){
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    }
-   else{
-	   (*customRender)();
-   }
+  //  if(!customRender){
+		//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+  //  }
+  // else{
+	 //  (*customRender)();
+  // }
+   geoBuffer->draw();
    geoBuffer->unbind();
 }
 
@@ -93,6 +95,6 @@ void GLES20Rectangle::SetTexCoords(std::vector<glm::vec2>* texCoordList)
 void GLES20Rectangle::SetColor(glm::vec4* colors)
 {
    color = (float*)&colors[0];
-   glUseProgram(ProgramID);
-   glUniform4fv( col, 1, color );
+   //glUseProgram(ProgramID);
+   //glUniform4fv( col, 1, color );
 }

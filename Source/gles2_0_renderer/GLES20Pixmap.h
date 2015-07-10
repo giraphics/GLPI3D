@@ -46,10 +46,12 @@ public:
 private:
 	// Keep the member variables multiple of 32 as much 
 	// as possible to avoid explicit packing and alignment 
-    GLint mvp, col/*, positionAttribHandle, positionTextureHandle*/;    
+	UniformMatrix4fv* mvpUniform;
+	Uniform4fv* colUniform;
+	Uniform1i* texUniform;
 	float* color;
+	GLint textureUnit;
 	Texture textureObj;
-    GLint tex;
 
 	GeometryBuffer* geoBuffer;
 };

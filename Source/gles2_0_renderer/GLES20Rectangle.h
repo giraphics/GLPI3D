@@ -25,7 +25,7 @@ class GLES20Rectangle : public IRenderable
     
 public:
     // Constructor for Rectangle
-    GLES20Rectangle();
+    GLES20Rectangle(BufferScheme bufScheme = BUFFER_VAO, bool isInterleaved = false, DrawingScheme drawScheme = DRAW_ARRAY);
 
 	// Destructor for ObjLoader
     virtual ~GLES20Rectangle();
@@ -46,9 +46,10 @@ public:
 
 
 private:
-    GLint mvp;
-    GLint col;
+    //GLint mvp;
+    //GLint col;
 	UniformMatrix4fv* mvpUniform;
+	Uniform4fv* colUniform;
     float* color;
 	//GeometryMesh gm;
 	GeometryBuffer* geoBuffer;

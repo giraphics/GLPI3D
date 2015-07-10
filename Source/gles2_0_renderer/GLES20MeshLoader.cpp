@@ -10,7 +10,7 @@
 using namespace glm;
 
 #define GetAttribute ProgramManager::GetInstance()->ProgramGetVertexAttribLocation
-#define GetUniform ProgramManager::GetInstance()->ProgramGetUniformLocation
+//#define GetUniform ProgramManager::GetInstance()->ProgramGetUniformLocation
 extern map<std::string, namespaceimage::Image*>::const_iterator it;
 
 /*!
@@ -22,6 +22,8 @@ extern map<std::string, namespaceimage::Image*>::const_iterator it;
 */
 GLES20MeshLoader::GLES20MeshLoader(Mesh* inMesh, Model* parent)
 {
+	geoBuffer = new GeometryBuffer(this);
+
 	indexCount	= inMesh->indexCount;
 	meshModel	= inMesh;
 	parentModel = parent;
@@ -56,6 +58,9 @@ GLES20MeshLoader::GLES20MeshLoader(Mesh* inMesh, Model* parent)
 
 void GLES20MeshLoader::ReleaseMeshResources()
 {
+	delete geoBuffer;
+	geoBuffer = NULL;
+
     glDeleteVertexArrays(1, &OBJ_VAO_Id);
     glDeleteBuffers(1, &vertexBuffer);
 }
@@ -145,54 +150,24 @@ void GLES20MeshLoader::Initialize()
 	// Use Phong Shade Program
     glUseProgram( ProgramID );
     
-	MaterialAmbient		= GetUniform(ProgramID, (char*)"MaterialAmbient");
-	MaterialSpecular	= GetUniform(ProgramID, (char*)"MaterialSpecular");
-	MaterialDiffuse		= GetUniform(ProgramID, (char*)"MaterialDiffuse");
-	LightAmbient		= GetUniform(ProgramID, (char*)"LightAmbient");
-	LightSpecular		= GetUniform(ProgramID, (char*)"LightSpecular");
-	LightDiffuse		= GetUniform(ProgramID, (char*)"LightDiffuse");
-	ShininessFactor		= GetUniform(ProgramID, (char*)"ShininessFactor");
-	LightPosition		= GetUniform(ProgramID, (char*)"LightPosition");
-    
-    //if (MaterialAmbient >= 0){
-    //    glUniform3f(MaterialAmbient, 0.04f, 0.04f, 0.04f);
-    //}
-    //
-    //if (MaterialSpecular >= 0){
-    //    glUniform3f(MaterialSpecular, 1.0, 0.5, 0.5);
-    //}
-    
-    //glm::vec3 color = glm::vec3(1.0, 0.0, 0.0);
-    //if (MaterialDiffuse >= 0){
-    //    glUniform3f(MaterialDiffuse, color.r, color.g, color.b);
-    //}
+	geoBuffer->addUniform(MaterialAmbientUniform	= new Uniform3f("MaterialAmbient"));
+	geoBuffer->addUniform(MaterialSpecularUniform	= new Uniform3f("MaterialSpecular"));
+	geoBuffer->addUniform(MaterialDiffuseUniform	= new Uniform3f("MaterialDiffuse"));
+	geoBuffer->addUniform(LightAmbientUniform		= new Uniform3f("LightAmbient"));
+	geoBuffer->addUniform(LightSpecularUniform		= new Uniform3f("LightSpecular"));
+	geoBuffer->addUniform(LightDiffuseUniform		= new Uniform3f("LightDiffuse"));
+	geoBuffer->addUniform(ShininessFactorUniform	= new Uniform1f("ShininessFactor"));
+	geoBuffer->addUniform(LightPositionUniform		= new Uniform3fv("LightPosition"));
 
-    //if (LightAmbient >= 0){
-    //    glUniform3f(LightAmbient, 1.0f, 1.0f, 1.0f);
-    //}
-    //
-    //if (LightSpecular >= 0){
-    //    glUniform3f(LightSpecular, 1.0, 1.0, 1.0);
-    //}
+	geoBuffer->addUniform(MVPUniform				= new UniformMatrix4fv("ModelViewProjectionMatrix"));
+	geoBuffer->addUniform(MVUniform					= new UniformMatrix4fv("ModelViewMatrix"));
+	geoBuffer->addUniform(NormalMatrixUniform		= new UniformMatrix3fv("NormalMatrix"));
+	geoBuffer->addUniform(TexUniform				= new Uniform1i("Tex1"));
+	geoBuffer->initUniforms();
 
-    //if (LightDiffuse >= 0){
-    //    glUniform3f(LightDiffuse, 1.0f, 1.0f, 1.0f);
-    //}
-
-    //if (ShininessFactor >= 0){
-    //    glUniform1f(ShininessFactor, 40);
-    //}
-    
-    //if (LightPosition >= 0){
-    //    glUniform3f(LightPosition, 0.0, 0.0, 10.0 );
-    //}
-
-	MVP				= GetUniform(ProgramID, (char*)"ModelViewProjectionMatrix");
-	MV				= GetUniform(ProgramID, (char*)"ModelViewMatrix");
-	NormalMatrix	= GetUniform(ProgramID, (char*)"NormalMatrix");
-	Tex				= GetUniform(ProgramID, (char *) "Tex1");
-
-	glUniform1i(Tex, 0);
+	textureUnit = 0; //Need to set from a setter function.
+	TexUniform->SetValue(&textureUnit);
+	//glUniform1i(Tex, 0);
 	glEnable(GL_DEPTH_TEST);
 	
 	if (meshModel){
@@ -217,15 +192,17 @@ void GLES20MeshLoader::Render(bool(*customRender)())
 	textureObj.BindTexture();
 	// Calculate the Model-View Matrix
 	tempMatrix = *ViewMatrix * *ModelMatrix;
-	glUniformMatrix4fv( MV, 1, GL_FALSE,(float*)&tempMatrix[0] );
+	MVUniform->SetValue((GLfloat*)&tempMatrix[0]);
 
 	// Calculate the Normal Matrix
 	normalMat = glm::mat3(glm::vec3(tempMatrix[0]), glm::vec3(tempMatrix[1]), glm::vec3(tempMatrix[2]));
-	glUniformMatrix3fv( NormalMatrix, 1, GL_FALSE, (float*)&normalMat );
+	NormalMatrixUniform->SetValue((GLfloat*)&normalMat[0]);
 
 	// Calculate the Model-View-Projection Matrix
-	tempMatrix = *ProjectionMatrix * tempMatrix;
-	glUniformMatrix4fv(MVP, 1, GL_FALSE, (float*)&tempMatrix[0]);
+	tempMVPMatrix = *ProjectionMatrix * tempMatrix;
+	MVPUniform->SetValue((GLfloat*)&tempMVPMatrix[0]);
+    
+	geoBuffer->update();
     
     // Bind with Vertex Array Object for OBJ
     glBindVertexArray(OBJ_VAO_Id);
@@ -253,45 +230,21 @@ void GLES20MeshLoader::TouchEventRelease(float x, float y)
 // Apply material on the object
 void GLES20MeshLoader::ApplyMaterial()
 {
-	// Optimize this GetMaterial call
-	if ( MaterialAmbient >= 0 ){
-        glUniform3f(MaterialAmbient, matObj->ambient.r, matObj->ambient.g, matObj->ambient.b);
-    }
-    
-    if ( MaterialSpecular >= 0){
-        glUniform3f( MaterialSpecular, matObj->specular.r, matObj->specular.g, matObj->specular.b );
-    }
-    
-    if ( MaterialDiffuse >= 0 ){
-        glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
-        glUniform3f( MaterialDiffuse, matObj->diffuse.r, matObj->diffuse.g, matObj->diffuse.b );
-    }
-    
-    if ( ShininessFactor >= 0 ){
-        glUniform1f(ShininessFactor, matObj->shiness);
-    }
+	MaterialAmbientUniform->SetValue((GLfloat*)&matObj->ambient);
+	MaterialSpecularUniform->SetValue((GLfloat*)&matObj->specular);    
+	MaterialDiffuseUniform->SetValue((GLfloat*)&matObj->diffuse);
+	ShininessFactorUniform->SetValue((GLfloat*)&matObj->shiness);
 }
 
 void GLES20MeshLoader::ApplyLight()
 {
+	// Presently, there is only one light, for multiple ligths this loop does not satisfy the uniform arrays.
     for(int i =0; i<parentModel->scene()->getLights().size(); i++){
         Light*& light = parentModel->scene()->getLights().at(i);
-        if ( LightAmbient >= 0 ){
-            glUniform3f( LightAmbient, light->material.ambient.r, light->material.ambient.g, light->material.ambient.b );
-        }
-        
-        if ( LightSpecular >=  0 ){
-            glUniform3f( LightSpecular, light->material.specular.r, light->material.specular.g, light->material.specular.b );
-        }
-        
-        if ( LightDiffuse >= 0 ){
-            glUniform3f(LightDiffuse, light->material.diffuse.r, light->material.diffuse.g, light->material.diffuse.b);
-        }
-        
-        if ( LightPosition >= 0 ){
-            glm::vec3 lightPosition(light->position.x,light->position.y,light->position.z);
-            glUniform3fv(LightPosition, 1, (float*)&lightPosition);
-        }
+		LightAmbientUniform->SetValue((GLfloat*)&light->material.ambient);
+		LightSpecularUniform->SetValue((GLfloat*)&light->material.specular);
+		LightDiffuseUniform->SetValue((GLfloat*)&light->material.diffuse);
+		LightPositionUniform->SetValue((GLfloat*)&light->position);
     }
 }
 
