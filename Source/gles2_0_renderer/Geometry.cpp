@@ -87,16 +87,17 @@ Attribute::~Attribute()
 }
 
 void drawArray11(){}
-GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, bool isInterleaved, DrawingScheme drawScheme)
+GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, DrawingScheme drawScheme)
 {
 	parent		= prnt;
-	interleaved = isInterleaved;
 	schemeBuf	= scheme;
 	schemeDraw	= drawScheme;
 	vbo			= NULL;
 	ibo			= NULL;
 	vao			= NULL;
+	indexList	= NULL;
 	primitiveType = GL_TRIANGLE_STRIP;
+	//primitiveType = GL_TRIANGLES;
 
 	switch(schemeBuf){
 		case BUFFER_VAO:
@@ -114,6 +115,12 @@ GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, bool isInterle
 		case BUFFER_VBO:
 		{
 			vbo = new VBO(GL_ARRAY_BUFFER);
+			if(schemeDraw == DRAW_ELEMENT){
+				ibo = new VBO(GL_ELEMENT_ARRAY_BUFFER);
+			}
+			else{
+				ibo = NULL;
+			}
 		}
 		break;
 		default:
@@ -136,6 +143,11 @@ GeometryBuffer::~GeometryBuffer()
 	if(vbo){
 		delete vbo;
 		vbo = NULL;
+	}
+
+	if(ibo){
+		delete ibo;
+		ibo = NULL;
 	}
 
 	if(vao){
@@ -210,14 +222,79 @@ void GeometryBuffer::initUniforms()
 		}
 }
 
-void GeometryBuffer::init()
+void GeometryBuffer::populateIBO()
+{
+	if(schemeDraw == DRAW_ELEMENT){ // Use the ibo if drawing scheme is DrawElement
+		ibo->bind();
+		unsigned short indexSize = indexList->size * sizeof(indexList->type);
+		ibo->bufferData(indexSize, 0, GL_STATIC_DRAW);
+		unsigned short* temp = (unsigned short*)indexList->dataArray;
+		ibo->bufferSubData(0, indexSize, indexList->dataArray);
+		ibo->unbind();
+	}
+}
+
+void GeometryBuffer::enableAttributes()
 {
 	unsigned int ProgramID = parent->GetProgram();
 	glUseProgram(ProgramID);
+	for(int i=0; i<attributeList.size(); i++){
+		attributeList[i]->attributeLocation = GetAttribute(ProgramID,(char*)attributeList[i]->name.c_str());
+		if(attributeList[i]->attributeLocation >= 0){
+			glEnableVertexAttribArray(attributeList[i]->attributeLocation);
+		}
+	}
+}
 
-	// HANDLE ATTRIBUTES
-	switch(schemeBuf){
-		case BUFFER_VAO:
+void GeometryBuffer::vertexAttribPointerVBO()
+{
+	for(int i=0; i<attributeList.size(); i++){
+		if(attributeList[i]->attributeLocation >= 0){
+			glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->index);
+		}
+	}
+}
+
+void GeometryBuffer::vertexAttribPointerVA()
+{
+	for(int i=0; i<attributeList.size(); i++){
+		if(attributeList[i]->attributeLocation >= 0){
+			glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->dataArray);
+		}
+	}
+}
+
+// There are two situtation for VBO, the data can be of two forms
+//	1. Interleaved: Interleaved data is for case like Rectangle and Pixmap which the end user supplies the attribute in different lists.
+//                  In this case the incoming data exist in the form of discreate list.
+/*
+
+Non-Interleaved                                  VBO with one data buffer             
+===============                                  ========================             
++----------+  +----------+  +----------+       +-----------------------------+        
+|VVVVVVVVVV|  |UUUUUUUUUU|  |CCCCCCCCCC|       |VVVVVVVVVVUUUUUUUUUCCCCCCCCCC|        
++----------+  +----------+  +----------+       +-----------------------------+        
+ SetVertices   SetTextures   SetColors          ^         ^        ^             STRIDE = 0       
+                                                                                      
+*/                                                                                      
+                                                                                      
+                                                                                      
+                                                                                      
+                                                                                      
+                                                                                      
+                                                                                      
+ 
+//	2. Non-Interleaved: Cases like meshes could be complex and may contain the data in the list or processed interleaved form.
+/*                                                                                      
+     Interleaved                                  VBO with one data buffer            
+     ===========                                  ========================            
+                                                                                      
+ +------------------------------------+         +------------------------------------+
+ |VUCVUCVUCVUCVUCVUCVUCVUCVUCVUCVUCVUC|         |VUCVUCVUCVUCVUCVUCVUCVUCVUCVUCVUCVUC|
+ +------------------------------------+         +------------------------------------+
+                                                 ^^^                                   STRIDE != 0 
+*/
+void GeometryBuffer::populateVBO()
 		{
 	// Treat the Attributes
 	int total = 0;
@@ -236,55 +313,56 @@ void GeometryBuffer::init()
 				from = to;
 			}
 			vbo->unbind();
+}
 
-			if(schemeDraw == DRAW_ELEMENT){ // Use the ibo if drawing scheme is DrawElement
-				ibo->bind();
-				unsigned short indexSize = indexList->size * sizeof(indexList->type);
-				ibo->bufferData(indexSize, 0, GL_STATIC_DRAW);
-				ibo->bufferSubData(0, indexSize, indexList->dataArray);
-				ibo->unbind();
-			}
+void GeometryBuffer::init()
+{
+	unsigned int ProgramID = parent->GetProgram();
+	glUseProgram(ProgramID);
+
+	// HANDLE ATTRIBUTES
+	switch(schemeBuf){
+		case BUFFER_VAO:
+		{
+			populateVBO();
+			
+			populateIBO();
 
 			vao->bind();
 			vbo->bind();
-			for(int i=0; i<attributeList.size(); i++){
-				attributeList[i]->attributeLocation = GetAttribute(ProgramID,(char*)attributeList[i]->name.c_str());
-				if(attributeList[i]->attributeLocation >= 0){
-					glEnableVertexAttribArray(attributeList[i]->attributeLocation);
-					glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->index);
-				}
+					enableAttributes();
+					vertexAttribPointerVBO();
+					if(schemeDraw == DRAW_ELEMENT)
+						{ ibo->bind(); }
+				vbo->unbind();
+			vao->unbind();
 			}
+		break;
+		case BUFFER_VBO:
+		{
+			populateVBO();
+			
+			populateIBO();
 
+			vbo->bind();
+				enableAttributes();
+				vertexAttribPointerVBO();
 			if(schemeDraw == DRAW_ELEMENT){
 				ibo->bind();
 			}
 			vbo->unbind();
-			vao->unbind();
-		}
-		break;
-		case BUFFER_VBO:
-		{
 		}
 		break;
 		default:
 		{
-			for(int i=0; i<attributeList.size(); i++){
-				attributeList[i]->attributeLocation = GetAttribute(ProgramID,(char*)attributeList[i]->name.c_str());
-				if(attributeList[i]->attributeLocation >= 0){
-					glEnableVertexAttribArray(attributeList[i]->attributeLocation);
-				}
-			}
+			schemeDraw == DRAW_ELEMENT ? indexList->indexOrDataPtr = indexList->dataArray : NULL;
+			enableAttributes();
 		}
 		break;
 	}
 
 	// HANDLE UNIFORMS
 	initUniforms();
-	//for(int i=0; i<uniformList.size(); i++){
-	//	uniformList[i]->SetUniformLocation(GetUniform(ProgramID,(char*)uniformList[i]->GetName().c_str()));
-	//}
-
-	// HANDLE INDICES
 
 }
 
@@ -300,35 +378,34 @@ void GeometryBuffer::bind()
 		case BUFFER_VBO:
 		{
 			vbo->bind();
+			vertexAttribPointerVBO();
 		}
 		break;
 		default:
 		{
-			for(int i=0; i<attributeList.size(); i++){
-				if(attributeList[i]->attributeLocation >= 0){
-					glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->dataArray);
-				}
-			}
+			//for(int i=0; i<attributeList.size(); i++){
+			//	if(attributeList[i]->attributeLocation >= 0){
+			//		glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->dataArray);
+			//	}
+			//}
+			vertexAttribPointerVA();
 		}
 	};
 }
 
 void GeometryBuffer::unbind()
 {
+	//schemeBuf == BUFFER_VAO ? vao->unbind() : (schemeBuf == BUFFER_VBO ? vbo->unbind() : NULL);
 	switch(schemeBuf){
 		case BUFFER_VAO:
-		{
 			vao->unbind();
-		}
 		break;
 		case BUFFER_VBO:
-		{
 			vbo->unbind();
-		}
 		break;
+		
 		default:
-		{
-		}
+			break;
 	};
 }
 
@@ -346,9 +423,10 @@ void GeometryBuffer::draw(){
 }
 
 void GeometryBuffer::drawArray(){
-	glDrawArrays(primitiveType, 0, geometryData.positions->size());
+	//glDrawArrays(primitiveType, 0, geometryData.positions->size());
+	glDrawArrays(primitiveType, 0, geometryData.positions.size);
 }
 
 void GeometryBuffer::drawElement(){
-	glDrawElements(primitiveType, indexList->size, indexList->type, (void*)geometryData.geometryIndices->size());
+	glDrawElements(primitiveType, indexList->size, indexList->type, indexList->indexOrDataPtr);
 }

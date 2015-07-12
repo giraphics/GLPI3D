@@ -39,6 +39,8 @@ public:
 
 	void SetColor(glm::vec4* colors);
 
+	void SetIndices(std::vector<unsigned short>* indicesList);
+	
 	GLint getInternalFormat(Image* imageItem);
 
 	GLenum getTarget(TextureTypeEnum textureType);

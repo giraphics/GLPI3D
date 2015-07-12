@@ -75,6 +75,10 @@ void Pixmap::SetTexCoords(std::vector<glm::vec2>* texCoordList){
 	specificPixmap->SetTexCoords(texCoordList);
 }
 
+void Pixmap::SetIndices(std::vector<unsigned short>* indicesList){
+	specificPixmap->SetIndices(indicesList);
+}
+
 void Pixmap::SetColor(glm::vec4* color){
    memcpy(&rectColor, color, sizeof(glm::vec4));
    specificPixmap->SetColor(&rectColor);

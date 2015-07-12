@@ -9,6 +9,7 @@
    #include "samples\glpi3d\glpi3dSample1.h"
 #else
    #include "samples\GLES2_0_Renderer\luaSample1.h"
+   #include "samples\GLES2_0_Renderer\DrawScheme.h"
    #include "samples\GLES2_0_Renderer\Sample0.h"
    #include "samples\GLES2_0_Renderer\Sample1.h"
    #include "samples\GLES2_0_Renderer\Sample2.h"
@@ -39,11 +40,13 @@ int main()
    GLPISample();
 #else
    //Lua_Sample1();
-   SimpleAndHMIRectangle();  // HUD View, Simple, HMI rectangle overide render
+	DrawScheme();
+
+	SimpleAndHMIRectangle();  // HUD View, Simple, HMI rectangle overide render
 
    // HUD View, Window filled with interpolated color rectangles
    FilledWindow();			 
-   
+
    // Perespective view
    SamplePerespective();	 
    
@@ -57,6 +60,7 @@ int main()
 	
    // Simple Diffuse mesh demonstrator
    DiffuseMeshSample();
+   //return 0;
 
    // Mesh with texture + Diffuse shader
    MeshSample();

@@ -8,43 +8,95 @@
 #include "Uniforms.h"
 #include <vector>
 #include <map>
+
+struct positionInfo{
+	void* positionData;
+	int size;
+};
+
+struct normalInfo{
+	void* normalData;
+	int size;
+};
+
+// 9988315536
+struct tangentInfo{
+	void* tagnetData;
+	int size;
+};
+
+struct texCoordInfo{
+	void* textureData;
+	int size;
+};
+
+struct colorInfo{
+	void* colorData;
+	int size;
+};
+
+struct binormalInfo{
+	void* binormalData;
+	int size;
+};
+
+struct indexInfo{
+	void* indexData;
+	int size;
+};
+
 class GeometryMesh{
 public:
     // Store the geometry vertices
-    std::vector<glm::vec3>* positions;
-    
+    //std::vector<glm::vec3>* positions;
+    positionInfo positions;
     // Store the Normals
-    std::vector<glm::vec3>* normals;
+    normalInfo normals;
     
     // Store the Tangents information
-    std::vector<glm::vec3>* tangents;
+    tangentInfo tangents;
     
     // Store the Primary Texture Coordinates information
-    std::vector<glm::vec2>* texCoords;
+    texCoordInfo texCoords;
     
     // Store the Secondary Texture Coordinates information
-    std::vector<glm::vec2>* texCoordsSec;
+    texCoordInfo texCoordsSec;
     
-    // Store the Bolor information
-    std::vector<glm::vec3>* colors;
+    // Store the Color information
+    colorInfo colors;
 
     // Store the Binormals for bump mapping
-    std::vector<glm::vec3>* binormals;
+    binormalInfo binormals;
 
     // Store the Index information
-    std::vector<unsigned short>* geometryIndices;
+    indexInfo geometryIndices;
 
 public:
     GeometryMesh()
     {
-        positions       = NULL;
-        normals         = NULL;
-        tangents        = NULL;
-        texCoords       = NULL;
-        texCoordsSec    = NULL;
-        colors          = NULL;
-        binormals       = NULL;
-        geometryIndices = NULL;
+		positions.positionData		= NULL;
+		positions.size				= NULL;
+
+		normals.normalData			= NULL;
+		normals.size				= NULL;
+
+		tangents.tagnetData			= NULL;
+		tangents.size				= NULL;
+
+		texCoords.textureData		= NULL;
+		texCoords.size				= NULL;
+
+		texCoordsSec.textureData	= NULL;
+		texCoordsSec.size			= NULL;
+
+		colors.colorData			= NULL;
+		colors.size					= NULL;
+
+		binormals.binormalData      = NULL;
+		binormals.size				= NULL;
+
+		geometryIndices.indexData	= NULL;
+		geometryIndices.size		= NULL;
     }
 };
 class VAO {
@@ -133,17 +185,23 @@ public:
 
 class Indices{
 public:
-	Indices(size_t indexCount, GLenum typeInfo, void* arr){ size = indexCount; type = typeInfo; dataArray = arr; }
+	Indices(size_t indexCount, GLenum typeInfo, void* arr){ size = indexCount; type = typeInfo; dataArray = arr; indexOrDataPtr = NULL;}
+	
 	~Indices(){}
+	
 	void* dataArray;
-	int index;
+
+	// The indexOrDataPtr is common interface for drawing API for either (VA) or (VBO and VAO) 
+	void* indexOrDataPtr;
+	
 	GLenum type;
+	
 	size_t size;
 };
 
 class GeometryBuffer{
 public:
-	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VAO, bool isInterleaved = false, DrawingScheme draw = DRAW_ARRAY);
+	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VAO, DrawingScheme draw = DRAW_ARRAY);
 	~GeometryBuffer();
 	//void addAttribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr);
 	void addAttribute(Attribute* attributeItem);
@@ -158,15 +216,20 @@ public:
     void draw();
     //void sendAttributeData();
 	inline GeometryMesh* geometry(){ return &geometryData; }
+	inline DrawingScheme& DrawScheme(){return schemeDraw;}
 private:
 	void (GeometryBuffer::*drawMethod)();
     void drawArray();
     void drawElement();
+	void populateVBO();
+	void populateIBO();
+	void enableAttributes();
+	void vertexAttribPointerVA();
+	void vertexAttribPointerVBO();
 	GLenum GetPrimitiveMode(PrimitiveScheme primitiveMode);
 	BufferScheme schemeBuf;
 	DrawingScheme schemeDraw;
 	GLenum primitiveType;
-	bool interleaved;
 	std::vector<Attribute*> attributeList;
 	std::vector<Uniform*> uniformList;
 	Indices* indexList;

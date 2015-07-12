@@ -69,8 +69,8 @@ void GLES20Pixmap::Initialize()
 	//col     = GetUniform( ProgramID, (char *) "RectColor" );
 	//tex     = GetUniform( ProgramID, (char *) "Tex1" );
 
-	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, geoBuffer->geometry()->positions->size() , GL_FLOAT, &(*geoBuffer->geometry()->positions)[0]));
-	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, geoBuffer->geometry()->texCoords->size() , GL_FLOAT, &(*geoBuffer->geometry()->texCoords)[0]));
+	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, geoBuffer->geometry()->positions.size , GL_FLOAT, geoBuffer->geometry()->positions.positionData));
+	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, geoBuffer->geometry()->texCoords.size , GL_FLOAT, geoBuffer->geometry()->texCoords.textureData));
 	//geoBuffer->addUniform("VertexTexCoord", 2, geoBuffer->geometry()->texCoords->size() , GL_FLOAT, &(*geoBuffer->geometry()->texCoords)[0]);
 	geoBuffer->addUniform(mvpUniform = new UniformMatrix4fv("ModelViewProjectionMatrix"));
 	geoBuffer->addUniform(colUniform = new Uniform4fv("RectColor"));
@@ -117,17 +117,30 @@ void GLES20Pixmap::Render(bool (*customRender)())
 
 void GLES20Pixmap::SetVertices(std::vector<glm::vec3>* verticesList)
 {
-	geoBuffer->geometry()->positions = verticesList;
+	//geoBuffer->geometry()->positions = verticesList;
+	if(geoBuffer->geometry()->positions.size = verticesList->size()){
+		geoBuffer->geometry()->positions.positionData = (void*)&verticesList->at(0);
+	}
 }
 
 void GLES20Pixmap::SetTexCoords(std::vector<glm::vec2>* texCoordList)
 {
-	geoBuffer->geometry()->texCoords = texCoordList;
+//	geoBuffer->geometry()->texCoords = texCoordList;
+	if(geoBuffer->geometry()->texCoords.size = texCoordList->size()){
+		geoBuffer->geometry()->texCoords.textureData = (void*)&texCoordList->at(0);
+	}
 }
 
 void GLES20Pixmap::SetColor(glm::vec4* colors)
 {
    color = (float*)&colors[0];
+}
+
+void GLES20Pixmap::SetIndices(std::vector<unsigned short>* indicesList){
+	//geoBuffer->geometry()->geometryIndices = indicesList;
+	if(geoBuffer->geometry()->geometryIndices.size = indicesList->size()){
+		geoBuffer->geometry()->geometryIndices.indexData = (void*)&indicesList->at(0);
+	}
 }
 
 GLint GLES20Pixmap::getInternalFormat(Image* imageItem)

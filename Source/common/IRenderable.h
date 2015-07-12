@@ -21,6 +21,7 @@ public:
 
    virtual void SetVertices(std::vector<glm::vec3>* verticesList) = 0;
    virtual void SetTexCoords(std::vector<glm::vec2>* texCoordList) = 0;
+   virtual void SetIndices(std::vector<unsigned short>* texCoordList) = 0;
    virtual void SetColor(glm::vec4* color) = 0;
 };
 #endif // IRENDERABLE_H

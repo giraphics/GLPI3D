@@ -12,8 +12,8 @@
 // Fill the screen with interpolated colored triangles.
 // Each rect is set with new center to rotate about (50, 50) translation axises.
 void FilledWindow(){
-   float width  = 100.0f;
-   float height = 100.0f;
+   float width  = 20.0f;
+   float height = 20.0f;
 
    std::vector<glm::vec3> vertices;
    vertices.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
@@ -60,7 +60,7 @@ void FilledWindow(){
    {
       for(float j = 0; j<ROWS; j++)
       {
-         rectangleItem = new HMIRectangle(hudScene, NULL, BUTTON,"");
+         rectangleItem = new HMIRectangle(hudScene, NULL, BUTTON,"", BUFFER_VAO);
 		 rectangleItem->SetProgram(ProgramID);
          rectangleItem->SetName(std::string("My Rectangle 1"));
          recthandles.push_back(rectangleItem);
@@ -93,12 +93,15 @@ void FilledWindow(){
    long long k=0;
    int ran = rand()%255;
    glm::vec4 color = glm::vec4(rand()%255/255.0f,rand()%255/255.0f,rand()%255/255.0f, 1.0);
+   clock_t last;
 
    while(renderer->getWindow()->isOpen()){
       if(k>recthandles.size()-1){
          k = 0;
       }
+	  last = clock();
       application.Render();
+	  printf("\n%d",clock() - last);
       k++;
    }
 

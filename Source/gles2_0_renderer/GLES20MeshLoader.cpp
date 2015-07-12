@@ -209,7 +209,7 @@ void GLES20MeshLoader::Render(bool(*customRender)())
     
     // Draw Geometry
 	glDrawArrays(GL_TRIANGLES, 0, indexCount);
-    
+	//glDrawElements(GL_TRIANGLES, 0, GL_UNSIGNED_SHORT, (void*)&meshModel->indices[0]);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindVertexArray(0);
 }

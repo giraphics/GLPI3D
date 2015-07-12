@@ -452,7 +452,7 @@ Mesh* OBJMesh::ParseObjModel(const char* path, bool flatShading)
 	if(objMeshModel.uvs.size()){
         CalculateTangents();
     }
-    ClearMesh();
+    //ClearMesh();
     
     return &objMeshModel;
 }

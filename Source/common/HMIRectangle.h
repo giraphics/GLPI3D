@@ -14,7 +14,7 @@ class HMIRectangle : public GRectangle
     
 public:
     // Constructor for Rectangle
-   HMIRectangle( Scene* parent, Model* model, ModelType type, std::string objectName = "");
+   HMIRectangle( Scene* parent, Model* model, ModelType type, std::string objectName = "",BufferScheme bufScheme = BUFFER_VAO, DrawingScheme drawScheme = DRAW_ARRAY);
 
     // Destructor for ObjLoader
     virtual ~HMIRectangle();

@@ -1,16 +1,7 @@
 #include "HMIRectangle.h"
 
-#ifdef __IPHONE_4_0
-#define VERTEX_SHADER_PRG			( char * )"SimpleTextureVertex.glsl"
-#define FRAGMENT_SHADER_PRG			( char * )"SimpleTextureFragment.glsl"
-#else
-#define VERTEX_SHADER_PRG        (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleVertex.glsl"
-#define FRAGMENT_SHADER_PRG      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleFragment.glsl"
-#define TEX_VERTEX_SHADER_PRG        (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\SimpleTextureVertex.glsl"
-#define TEX_FRAGMENT_SHADER_PRG      (char * )"../Source\\samples\\GLES2_0_Renderer\\shader\\SimpleTextureFragment.glsl"
-#endif
-
-HMIRectangle::HMIRectangle( Scene* parent, Model* model, ModelType type,std::string objectName ):GRectangle(parent, model, type, objectName)
+HMIRectangle::HMIRectangle( Scene* parent, Model* model, ModelType type,std::string objectName,BufferScheme bufScheme, DrawingScheme drawScheme )
+	:GRectangle(parent, model, type, objectName, bufScheme, drawScheme)
 {
 }
 

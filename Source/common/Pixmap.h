@@ -37,6 +37,9 @@ public:
    // Set the texture coordinate information for the rectangle
    void SetTexCoords(std::vector<glm::vec2>* texCoordList);
 
+   // Set the index of the geomtry
+   void SetIndices(std::vector<unsigned short>* indicesList);
+
    // Set the color or rectangle
    void SetColor(glm::vec4* color);
 

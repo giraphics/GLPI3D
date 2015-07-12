@@ -9,9 +9,9 @@
 	\return None
 
 */
-GLES20Rectangle::GLES20Rectangle(BufferScheme bufScheme, bool isInterleaved, DrawingScheme drawScheme)
+GLES20Rectangle::GLES20Rectangle(BufferScheme bufScheme, DrawingScheme drawScheme)
 {
-	geoBuffer = new GeometryBuffer(this, bufScheme, isInterleaved, drawScheme);
+	geoBuffer = new GeometryBuffer(this, bufScheme, drawScheme);
 }
 
 /*!
@@ -36,17 +36,15 @@ GLES20Rectangle::~GLES20Rectangle()
 */
 void GLES20Rectangle::Initialize()
 {
-	//glUseProgram( ProgramID );
-
-	//mvp     = GetUniform( ProgramID, ( char* )"ModelViewProjectionMatrix" );
-	//col     = GetUniform( ProgramID, (char *) "RectColor" );
 	GeometryMesh* mesh = geoBuffer->geometry();
-	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, mesh->texCoords->size() , GL_FLOAT, &(*mesh->texCoords)[0]));
-	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions->size() , GL_FLOAT, &(*mesh->positions)[0]));
+
+	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, mesh->texCoords.size , GL_FLOAT, mesh->texCoords.textureData));
+	//geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions->size() , GL_FLOAT, &(*mesh->positions)[0]));
+	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions.size , GL_FLOAT, mesh->positions.positionData));
+
 	geoBuffer->addUniform(mvpUniform = new UniformMatrix4fv("ModelViewProjectionMatrix"));
 	geoBuffer->addUniform(colUniform = new Uniform4fv("RectColor"));
 	geoBuffer->init();
-	//glUniform4fv( col, 1, color );
 	return;
 }
 
@@ -60,8 +58,6 @@ void GLES20Rectangle::Initialize()
 void GLES20Rectangle::Render(bool (*customRender)())
 {
 	tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
-
-	//glUseProgram(ProgramID);
 
 	mvpUniform->SetValue((GLfloat*)&tempMatrix[0]);
 	colUniform->SetValue(color);
@@ -84,17 +80,28 @@ void GLES20Rectangle::Render(bool (*customRender)())
 
 void GLES20Rectangle::SetVertices(std::vector<glm::vec3>* verticesList)
 {
-	geoBuffer->geometry()->positions = verticesList;
+	if(geoBuffer->geometry()->positions.size = verticesList->size()){
+		geoBuffer->geometry()->positions.positionData = (void*)&verticesList->at(0);
+	}
 }
 
 void GLES20Rectangle::SetTexCoords(std::vector<glm::vec2>* texCoordList)
 {
-	geoBuffer->geometry()->texCoords = texCoordList;
+	if(geoBuffer->geometry()->texCoords.size = texCoordList->size()){
+		geoBuffer->geometry()->texCoords.textureData = (void*)&texCoordList->at(0);
+	}
 }
 
 void GLES20Rectangle::SetColor(glm::vec4* colors)
 {
    color = (float*)&colors[0];
-   //glUseProgram(ProgramID);
-   //glUniform4fv( col, 1, color );
 }
+
+void GLES20Rectangle::SetIndices(std::vector<unsigned short>* indicesList){
+	GeometryMesh* mesh		= geoBuffer->geometry();
+	if(mesh->geometryIndices.size = indicesList->size()){
+		mesh->geometryIndices.indexData	= (void*)&indicesList->at(0);
+	}
+	geoBuffer->setIndices( new Indices(mesh->geometryIndices.size, GL_UNSIGNED_SHORT, mesh->geometryIndices.indexData)); 
+}
+

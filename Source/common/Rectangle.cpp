@@ -9,9 +9,9 @@
 
 */
 GRectangle::GRectangle(Scene* parent, Model* model, ModelType type, std::string objectName,
-	BufferScheme bufScheme, bool isInterleaved, DrawingScheme drawScheme) :Model(parent, model, type, objectName)
+	BufferScheme bufScheme, DrawingScheme drawScheme) :Model(parent, model, type, objectName)
 {
-   specificRectangle = new GLES20Rectangle(bufScheme, isInterleaved, drawScheme);
+   specificRectangle = new GLES20Rectangle(bufScheme, drawScheme);
 }
 
 
@@ -81,6 +81,10 @@ void GRectangle::SetTexCoords(std::vector<glm::vec2>* texCoordList)
 void GRectangle::SetColor(glm::vec4* color){
    memcpy(&rectColor, color, sizeof(glm::vec4));
    specificRectangle->SetColor(&rectColor);
+}
+
+void GRectangle::SetIndices(std::vector<unsigned short>* indicesList){
+	specificRectangle->SetIndices(indicesList);
 }
 
 void GRectangle::SetProgram(unsigned int ID)

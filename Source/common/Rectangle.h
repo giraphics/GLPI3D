@@ -27,7 +27,7 @@ IRenderable* specificRectangle;
 
 public:
    // Constructor for Rectangle
-   GRectangle( Scene* parent, Model* model, ModelType type, std::string objectName = "",BufferScheme bufScheme = BUFFER_VAO, bool isInterleaved = false, DrawingScheme drawScheme = DRAW_ARRAY);
+   GRectangle( Scene* parent, Model* model, ModelType type, std::string objectName = "",BufferScheme bufScheme = BUFFER_VAO, DrawingScheme drawScheme = DRAW_ARRAY);
 
    // Destructor for ObjLoader
    virtual ~GRectangle();
@@ -50,7 +50,10 @@ public:
    void SetMVP(float*){}
 
    // Set the color or rectangle
-   void SetColor(glm::vec4* color);//{ rectColor = color; }
+   void SetColor(glm::vec4* color);
+
+   void SetIndices(std::vector<unsigned short>* indicesList);
+
    void SetProgram(unsigned int ID);
 
 protected:
