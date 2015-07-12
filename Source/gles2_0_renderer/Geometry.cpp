@@ -72,7 +72,7 @@ void VAO::unbind()
 	glBindVertexArray(0);
 }
 
-Attribute::Attribute(std::string nm, GLint itemPerElement, size_t sz, GLenum typeInfo, void* arr, int stride)
+Attribute::Attribute(std::string nm, GLint itemPerElement, size_t sz, GLenum typeInfo, void* arr, int strideSize)
 {
 	name		= nm;
 	dataArray	= arr;
@@ -80,6 +80,7 @@ Attribute::Attribute(std::string nm, GLint itemPerElement, size_t sz, GLenum typ
 	size		= sz;
 	type		= typeInfo;
 	itemNum		= itemPerElement;
+	stride		= strideSize;
 }
 	
 Attribute::~Attribute()
@@ -97,7 +98,12 @@ GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, DrawingScheme 
 	vao			= NULL;
 	indexList	= NULL;
 	primitiveType = GL_TRIANGLE_STRIP;
+
+	// Initialized interleave form of data
 	isInterleaved = (int)isInterleavedForm;
+	interleaveBuffer.dataBuffer = NULL;
+	interleaveBuffer.size		= 0;
+
 	switch(schemeBuf){
 		case BUFFER_VAO:
 		{
@@ -176,6 +182,11 @@ void GeometryBuffer::setIndices(Indices* indexItem){
 	indexList = indexItem;
 }
 
+void GeometryBuffer::setInterleavedBuffer(void* dataArray, size_t size){
+	interleaveBuffer.dataBuffer = dataArray;
+	interleaveBuffer.size		= size;
+}
+
 GLenum GeometryBuffer::GetPrimitiveMode(PrimitiveScheme primitiveMode)
 {
 	switch(primitiveMode)
@@ -249,7 +260,7 @@ void GeometryBuffer::vertexAttribPointerVBO()
 {
 	for(int i=0; i<attributeList.size(); i++){
 		if(attributeList[i]->attributeLocation >= 0){
-			glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->index);
+			glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, attributeList[i]->stride, (void*)attributeList[i]->index);
 		}
 	}
 }
@@ -289,8 +300,7 @@ Non-Interleaved                                  VBO with one data buffer
 */
 void GeometryBuffer::populateVBO()
 		{
-	bool interleavedSource = !false;
-	if(interleavedSource){
+	if(!this->isInterleaved){
 	// Treat the Attributes
 	int total = 0;
 	for(int i=0; i<attributeList.size(); i++){
@@ -332,6 +342,17 @@ void GeometryBuffer::populateVBO()
 		//glGenBuffers(1, &vertexBuffer);
 		//glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 		//glBufferData(GL_ARRAY_BUFFER, objMeshModel->vertices.size() * sizeof(objMeshModel->vertices[0]), &objMeshModel->vertices[0], GL_STATIC_DRAW);
+		char* base = (char*)this->interleaveBuffer.dataBuffer;
+		//printf("\n=====");
+		for(int i=0; i<attributeList.size(); i++){
+			attributeList[i]->index = (char*)attributeList[i]->dataArray - base;
+			//int idx = attributeList[i]->index;
+			//printf("\n%d", idx);
+		}
+
+		vbo->bind();
+		vbo->bufferData(interleaveBuffer.size, interleaveBuffer.dataBuffer, GL_STATIC_DRAW);		
+		vbo->unbind();
 	}
 }
 
@@ -444,7 +465,12 @@ void GeometryBuffer::draw(){
 
 void GeometryBuffer::drawArray(){
 	//glDrawArrays(primitiveType, 0, geometryData.positions->size());
+	if(this->isInterleaved){
+		glDrawArrays(GL_TRIANGLES, 0, 5046);
+	}
+	else{
 	glDrawArrays(primitiveType, 0, geometryData.positions.size);
+	}
 }
 
 void GeometryBuffer::drawElement(){

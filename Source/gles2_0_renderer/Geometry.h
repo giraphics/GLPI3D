@@ -48,7 +48,6 @@ struct indexInfo{
 class GeometryMesh{
 public:
     // Store the geometry vertices
-    //std::vector<glm::vec3>* positions;
     positionInfo positions;
     // Store the Normals
     normalInfo normals;
@@ -172,12 +171,13 @@ enum PrimitiveScheme{
 
 class Attribute{
 public:
-	Attribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr, int stride = 0);
+	Attribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr, int strideSize = 0);
 	~Attribute();
 	std::string name;
 	void* dataArray;
 	int index;
 	int attributeLocation;
+	int stride;
 	GLenum type;
 	GLint itemNum;
 	size_t size;
@@ -196,6 +196,11 @@ public:
 	
 	GLenum type;
 	
+	size_t size;
+};
+
+struct InterleavedBufferInfo{
+	void* dataBuffer;
 	size_t size;
 };
 
@@ -232,6 +237,7 @@ private:
 	DrawingScheme schemeDraw;
 	GLenum primitiveType;
 	int isInterleaved; // Using 4 bite align datatype for boolean for performance optimization.
+	InterleavedBufferInfo interleaveBuffer;
 	std::vector<Attribute*> attributeList;
 	std::vector<Uniform*> uniformList;
 	Indices* indexList;
