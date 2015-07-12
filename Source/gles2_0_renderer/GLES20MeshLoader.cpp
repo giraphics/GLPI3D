@@ -91,6 +91,109 @@ void GLES20MeshLoader::PrepareGeometry(Mesh* objMeshModel)
 	offsetNormal = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2));
 	offsetTexCoord = (GLvoid*)(sizeof(glm::vec3));
 	offsetTangent = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2) + sizeof(vec3));
+	////////////////////////////////////////////////
+	Vertex meshTest;
+	//pos, uv, normal, tangent
+	void* base = &meshTest.position;
+	int offsetUV1 = offsetof(Vertex, uv);
+	int offsetNormal1 = offsetof(Vertex, normal);
+	int offsetTangent1 = offsetof(Vertex, tangent);
+	meshTest.position.x = 1.0f;
+	meshTest.position.y = 2.0f;
+	meshTest.position.z = 3.0f;
+	meshTest.normal.x   = 4.0f;
+	meshTest.normal.y   = 5.0f;
+	meshTest.normal.z   = 6.0f;
+	meshTest.tangent.x  = 7.0f;
+	meshTest.tangent.y  = 8.0f;
+	meshTest.tangent.z  = 9.0f;
+	meshTest.uv.s		= 10.0f;
+	meshTest.uv.t		= 11.0f;
+	float* pos1 = (float*)base;
+	float* uv1  = (float*)((char*)base+offsetUV1);
+	printf("\n%f", *pos1);
+	printf("\n%f", *++pos1);
+	printf("\n%f", *++pos1);
+	printf("\n%f", *uv1);
+	printf("\n%f", *++uv1);
+
+	///////////////////////////////////
+
+    // Create the VBO for our obj model vertices.
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, objMeshModel->vertices.size() * sizeof(objMeshModel->vertices[0]), &objMeshModel->vertices[0], GL_STATIC_DRAW);
+    
+    // Create the VAO, this will store the vertex attributes into vectore state.
+    glGenVertexArrays(1, &OBJ_VAO_Id);
+    glBindVertexArray(OBJ_VAO_Id);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+
+	if (positionAttribHandle >= 0){
+		glEnableVertexAttribArray(positionAttribHandle);
+		glVertexAttribPointer(positionAttribHandle, 3, GL_FLOAT, GL_FALSE, stride, 0);
+	}
+
+	if (texCoordAttribHandle >= 0){
+		glEnableVertexAttribArray(texCoordAttribHandle);
+		glVertexAttribPointer(texCoordAttribHandle, 2, GL_FLOAT, GL_FALSE, stride, offsetTexCoord);
+	}
+
+	if (normalAttribHandle >= 0){
+		glEnableVertexAttribArray(normalAttribHandle);
+		glVertexAttribPointer(normalAttribHandle, 3, GL_FLOAT, GL_FALSE, stride, offsetNormal);
+	}
+
+	if (tangentAttribHandle >= 0){
+		glEnableVertexAttribArray(tangentAttribHandle);
+		glVertexAttribPointer(tangentAttribHandle, 4, GL_FLOAT, GL_FALSE, stride, offsetTangent);
+	}
+
+    glBindVertexArray(0);
+    
+    objMeshModel->vertices.clear();
+}
+
+void GLES20MeshLoader::PrepareGeometryNew(Mesh* objMeshModel)
+{
+	glUseProgram(ProgramID);
+
+	// QueryAttributes
+	// Handle for position
+	GLint positionAttribHandle	= GetAttribute(ProgramID, (char*)"VertexPosition");
+
+	// Handle for normal
+	GLint normalAttribHandle	= GetAttribute(ProgramID, (char*)"Normal");
+
+	// Handle for texture coord attribute
+	GLint texCoordAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTexCoord");
+
+	// Handle for tangent attribute
+	GLint tangentAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTangent");
+
+	//stride = (2 * sizeof(vec3)) + sizeof(vec2) + sizeof(vec4);
+	//offsetNormal = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2));
+	//offsetTexCoord = (GLvoid*)(sizeof(glm::vec3));
+	//offsetTangent = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2) + sizeof(vec3));
+	stride			= sizeof(Vertex);
+	offsetNormal	= (GLvoid*)offsetof(Vertex,normal);
+	offsetTexCoord	= (GLvoid*)offsetof(Vertex,uv);
+	offsetTangent	= (GLvoid*)offsetof(Vertex, tangent);
+
+	void* base = (void*)(&objMeshModel->vertices.at(0));
+	GeometryMesh* mesh = geoBuffer->geometry();
+	mesh->positions.size = objMeshModel->vertices.size();
+	mesh->positions.positionData = base; 
+	mesh->normals.size = objMeshModel->vertices.size();
+	mesh->normals.normalData = (void*)((char*)base + (char)offsetNormal);
+
+	char* msg = "Hello";
+	char* h = msg;
+	printf("\n%s", (h));
+	printf("\n%s", (h+1));
+	printf("\n%s", (h+2));
+	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions.size , GL_FLOAT, mesh->positions.positionData, stride));
+	geoBuffer->addAttribute(new Attribute("Normal", 3, mesh->normals.size , GL_FLOAT, mesh->normals.normalData, stride));
 
     // Create the VBO for our obj model vertices.
     glGenBuffers(1, &vertexBuffer);

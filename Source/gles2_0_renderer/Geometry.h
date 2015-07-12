@@ -172,7 +172,7 @@ enum PrimitiveScheme{
 
 class Attribute{
 public:
-	Attribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr);
+	Attribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr, int stride = 0);
 	~Attribute();
 	std::string name;
 	void* dataArray;
@@ -201,12 +201,13 @@ public:
 
 class GeometryBuffer{
 public:
-	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VAO, DrawingScheme draw = DRAW_ARRAY);
+	GeometryBuffer(IModel* parent, BufferScheme scheme = BUFFER_VAO, DrawingScheme draw = DRAW_ARRAY, bool isInterleavedForm = false);
 	~GeometryBuffer();
-	//void addAttribute(std::string name, GLint itemPerElement, size_t size, GLenum typeInfo, void* arr);
+
 	void addAttribute(Attribute* attributeItem);
 	void addUniform(Uniform* uniformItem);
 	void setIndices(Indices* indexItem);
+	void setInterleavedBuffer(void* dataArray, size_t size);
 	void setDrawingPrimitive(PrimitiveScheme primitiveMode){ primitiveType = GetPrimitiveMode(primitiveMode); }
 	void init();
 	void initUniforms();
@@ -214,9 +215,9 @@ public:
     void unbind();
     void update();
     void draw();
-    //void sendAttributeData();
 	inline GeometryMesh* geometry(){ return &geometryData; }
 	inline DrawingScheme& DrawScheme(){return schemeDraw;}
+	inline void setDrawingPrimitive(GLenum drawPrimitive){ primitiveType = drawPrimitive; }
 private:
 	void (GeometryBuffer::*drawMethod)();
     void drawArray();
@@ -230,6 +231,7 @@ private:
 	BufferScheme schemeBuf;
 	DrawingScheme schemeDraw;
 	GLenum primitiveType;
+	int isInterleaved; // Using 4 bite align datatype for boolean for performance optimization.
 	std::vector<Attribute*> attributeList;
 	std::vector<Uniform*> uniformList;
 	Indices* indexList;

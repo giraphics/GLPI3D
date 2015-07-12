@@ -72,7 +72,7 @@ void VAO::unbind()
 	glBindVertexArray(0);
 }
 
-Attribute::Attribute(std::string nm, GLint itemPerElement, size_t sz, GLenum typeInfo, void* arr)
+Attribute::Attribute(std::string nm, GLint itemPerElement, size_t sz, GLenum typeInfo, void* arr, int stride)
 {
 	name		= nm;
 	dataArray	= arr;
@@ -87,7 +87,7 @@ Attribute::~Attribute()
 }
 
 void drawArray11(){}
-GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, DrawingScheme drawScheme)
+GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, DrawingScheme drawScheme, bool isInterleavedForm)
 {
 	parent		= prnt;
 	schemeBuf	= scheme;
@@ -97,8 +97,7 @@ GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, DrawingScheme 
 	vao			= NULL;
 	indexList	= NULL;
 	primitiveType = GL_TRIANGLE_STRIP;
-	//primitiveType = GL_TRIANGLES;
-
+	isInterleaved = (int)isInterleavedForm;
 	switch(schemeBuf){
 		case BUFFER_VAO:
 		{
@@ -278,12 +277,6 @@ Non-Interleaved                                  VBO with one data buffer
                                                                                       
 */                                                                                      
                                                                                       
-                                                                                      
-                                                                                      
-                                                                                      
-                                                                                      
-                                                                                      
- 
 //	2. Non-Interleaved: Cases like meshes could be complex and may contain the data in the list or processed interleaved form.
 /*                                                                                      
      Interleaved                                  VBO with one data buffer            
@@ -296,6 +289,8 @@ Non-Interleaved                                  VBO with one data buffer
 */
 void GeometryBuffer::populateVBO()
 		{
+	bool interleavedSource = !false;
+	if(interleavedSource){
 	// Treat the Attributes
 	int total = 0;
 	for(int i=0; i<attributeList.size(); i++){
@@ -313,6 +308,31 @@ void GeometryBuffer::populateVBO()
 				from = to;
 			}
 			vbo->unbind();
+}
+	else{
+		//// QueryAttributes
+		//// Handle for position
+		//GLint positionAttribHandle	= GetAttribute(ProgramID, (char*)"VertexPosition");
+
+		//// Handle for normal
+		//GLint normalAttribHandle	= GetAttribute(ProgramID, (char*)"Normal");
+
+		//// Handle for texture coord attribute
+		//GLint texCoordAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTexCoord");
+
+		//// Handle for tangent attribute
+		//GLint tangentAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTangent");
+
+		//stride = (2 * sizeof(vec3)) + sizeof(vec2) + sizeof(vec4);
+		//offsetNormal = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2));
+		//offsetTexCoord = (GLvoid*)(sizeof(glm::vec3));
+		//offsetTangent = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2) + sizeof(vec3));
+
+		//// Create the VBO for our obj model vertices.
+		//glGenBuffers(1, &vertexBuffer);
+		//glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+		//glBufferData(GL_ARRAY_BUFFER, objMeshModel->vertices.size() * sizeof(objMeshModel->vertices[0]), &objMeshModel->vertices[0], GL_STATIC_DRAW);
+	}
 }
 
 void GeometryBuffer::init()

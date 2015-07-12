@@ -44,6 +44,7 @@ public:
 private:
     // Prepare the geometry of the mesh model
 	void PrepareGeometry(Mesh* objMeshModel);
+	void PrepareGeometryNew(Mesh* objMeshModel);
     
     // Switch the mesh model
     void SwitchMesh();
