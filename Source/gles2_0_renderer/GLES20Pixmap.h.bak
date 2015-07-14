@@ -18,7 +18,7 @@
 
 using namespace std;
 
-class GLES20Pixmap : public IRenderable, public IGeoBuffer, public TransformationMatrix{
+class GLES20Pixmap : public IRenderable{
 
 public:
    GLES20Pixmap( Image* imageItem, TextureTypeEnum textureType = TWO_DIMENSIONAL_TEXTURE);

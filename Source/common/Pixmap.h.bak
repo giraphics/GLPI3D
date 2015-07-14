@@ -44,12 +44,6 @@ public:
    void SetColor(glm::vec4* color);
 
    void SetProgram(unsigned int ID);
-
-   void (Pixmap::*transformationMethod)();
-   void setTransformationForOpenGLES20Pipeline();
-   void setTransformationForOpenGLES31Pipeline(){/*Not Supported*/}
-   void setTransformationForVulkanPipeline(){/*Not Supported*/}
-
 public:
    Pixmap(const char* imagePath, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType = TWO_DIMENSIONAL_TEXTURE, std::string objectName = "");
    Pixmap(Image* imgItem, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType = TWO_DIMENSIONAL_TEXTURE, std::string objectName = "");

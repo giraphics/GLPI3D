@@ -320,9 +320,34 @@ void GeometryBuffer::populateVBO()
 			vbo->unbind();
 }
 	else{
+		//// QueryAttributes
+		//// Handle for position
+		//GLint positionAttribHandle	= GetAttribute(ProgramID, (char*)"VertexPosition");
+
+		//// Handle for normal
+		//GLint normalAttribHandle	= GetAttribute(ProgramID, (char*)"Normal");
+
+		//// Handle for texture coord attribute
+		//GLint texCoordAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTexCoord");
+
+		//// Handle for tangent attribute
+		//GLint tangentAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTangent");
+
+		//stride = (2 * sizeof(vec3)) + sizeof(vec2) + sizeof(vec4);
+		//offsetNormal = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2));
+		//offsetTexCoord = (GLvoid*)(sizeof(glm::vec3));
+		//offsetTangent = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2) + sizeof(vec3));
+
+		//// Create the VBO for our obj model vertices.
+		//glGenBuffers(1, &vertexBuffer);
+		//glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+		//glBufferData(GL_ARRAY_BUFFER, objMeshModel->vertices.size() * sizeof(objMeshModel->vertices[0]), &objMeshModel->vertices[0], GL_STATIC_DRAW);
 		char* base = (char*)this->interleaveBuffer.dataBuffer;
+		//printf("\n=====");
 		for(int i=0; i<attributeList.size(); i++){
 			attributeList[i]->index = (char*)attributeList[i]->dataArray - base;
+			//int idx = attributeList[i]->index;
+			//printf("\n%d", idx);
 		}
 
 		vbo->bind();
@@ -399,6 +424,11 @@ void GeometryBuffer::bind()
 		break;
 		default:
 		{
+			//for(int i=0; i<attributeList.size(); i++){
+			//	if(attributeList[i]->attributeLocation >= 0){
+			//		glVertexAttribPointer(attributeList[i]->attributeLocation, attributeList[i]->itemNum, attributeList[i]->type, GL_FALSE, 0, (void*)attributeList[i]->dataArray);
+			//	}
+			//}
 			vertexAttribPointerVA();
 		}
 	};

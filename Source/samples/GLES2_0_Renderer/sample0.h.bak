@@ -42,7 +42,7 @@ void SimpleAndHMIRectangle(){
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
 	   renderer = plugin->createRenderer();
-	   renderer->setWindowTitle("Custom extentable Rectangle class and Generic implementation");
+	   renderer->setWindowTitle("Custom extentation class and Generic implementation");
    }
 
    if (!renderer){
@@ -54,10 +54,12 @@ void SimpleAndHMIRectangle(){
    hudCamera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
    
    unsigned int ProgramID = ProgramManager::GetInstance()->LoadShader("square", VERTEX_SHADER_PRG, FRAGMENT_SHADER_PRG )->ProgramID;
-   rectangleItem = new GRectangle(hudScene, NULL, BUTTON, "GenericRectangle");
+   rectangleItem = new GRectangle(hudScene, NULL, BUTTON,"");
+   rectangleItem->SetName(std::string("My Rectangle Generic"));
    rectangleItem->SetProgram(ProgramID);
 
-   rectangleItem2 = new HMIRectangle(hudScene, rectangleItem, BUTTON, "HMIRectangle");
+   rectangleItem2 = new HMIRectangle(hudScene, rectangleItem, BUTTON,"");
+   rectangleItem2->SetName(std::string("My Rectangle HMI"));
    rectangleItem2->SetParent(rectangleItem);
    rectangleItem2->SetProgram(ProgramID);
 

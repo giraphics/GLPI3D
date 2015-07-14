@@ -63,13 +63,27 @@ GLES20Pixmap::~GLES20Pixmap()
 */
 void GLES20Pixmap::Initialize()
 {
+	//glUseProgram( ProgramID );
+
+	//mvp     = GetUniform( ProgramID, ( char* )"ModelViewProjectionMatrix" );
+	//col     = GetUniform( ProgramID, (char *) "RectColor" );
+	//tex     = GetUniform( ProgramID, (char *) "Tex1" );
+
 	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, geoBuffer->geometry()->positions.size , GL_FLOAT, geoBuffer->geometry()->positions.positionData));
 	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, geoBuffer->geometry()->texCoords.size , GL_FLOAT, geoBuffer->geometry()->texCoords.textureData));
+	//geoBuffer->addUniform("VertexTexCoord", 2, geoBuffer->geometry()->texCoords->size() , GL_FLOAT, &(*geoBuffer->geometry()->texCoords)[0]);
 	geoBuffer->addUniform(mvpUniform = new UniformMatrix4fv("ModelViewProjectionMatrix"));
 	geoBuffer->addUniform(colUniform = new Uniform4fv("RectColor"));
 	geoBuffer->addUniform(texUniform = new Uniform1i("RectColor"));
 	geoBuffer->init();
    
+	//if(col >= 0){
+	//	glUniform4fv( col, 1, color );
+	//}
+
+	//if(tex >= 0){
+	//	glUniform1i(tex, 0);
+	//}
    return;
 }
 
@@ -83,7 +97,7 @@ void GLES20Pixmap::Initialize()
 void GLES20Pixmap::Render(bool (*customRender)())
 {
    // In future this calculation must resides in the update function
-   //tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
+   tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
    
    textureObj.BindTexture();
    glActiveTexture (GL_TEXTURE0);
@@ -95,8 +109,10 @@ void GLES20Pixmap::Render(bool (*customRender)())
    geoBuffer->update();
 
    geoBuffer->bind();
+   // Draw triangle
+   //glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
    geoBuffer->draw();
-   geoBuffer->unbind();
+
 }
 
 void GLES20Pixmap::SetVertices(std::vector<glm::vec3>* verticesList)

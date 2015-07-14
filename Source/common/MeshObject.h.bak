@@ -16,10 +16,10 @@
 #include <string>
 using namespace MeshNameSpace;
 
-class MeshObject : public IRenderable, public Model{
+class MeshObject : public IMesh, public Model{
 
 private:
-	IRenderable* specificMesh;
+	IMesh* specificMesh;
 
 public:
    // Initialize our Model class
@@ -34,16 +34,6 @@ public:
    //void SetMVP(float*){}
 
    void SetProgram(unsigned int ID);
-	// Present the set function of vertice are not implemented for mesh, the geometry is directyly feed into GeometryBuffer
-	void SetVertices(std::vector<glm::vec3>* verticesList){}
-	void SetTexCoords(std::vector<glm::vec2>* texCoordList){}
-	void SetIndices(std::vector<unsigned short>* texCoordList){}
-	void SetColor(glm::vec4* color){}
-
-	void (MeshObject::*transformationMethod)();
-	void setTransformationForOpenGLES20Pipeline();
-	void setTransformationForOpenGLES31Pipeline(){/*Not Supported*/}
-	void setTransformationForVulkanPipeline(){/*Not Supported*/}
 
 public:
    MeshObject(const char* meshPath, Scene* parent, Model* model, ModelType type, std::string objectName = "");

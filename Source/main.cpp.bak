@@ -10,7 +10,6 @@
 #else
    #include "samples\GLES2_0_Renderer\luaSample1.h"
    #include "samples\GLES2_0_Renderer\DrawScheme.h"
-   #include "samples\GLES2_0_Renderer\BufferScheme.h"
    #include "samples\GLES2_0_Renderer\Sample0.h"
    #include "samples\GLES2_0_Renderer\Sample1.h"
    #include "samples\GLES2_0_Renderer\Sample2.h"
@@ -29,8 +28,7 @@
    #include "samples\GLES2_0_Renderer\LightMaterial.h"
    #include "samples\GLES2_0_Renderer\City.h"
 #endif
-std::vector<void (*)()> demoList;
-int demoNumber = 0;
+
 ////////////////////////////////////////////////////////////
 /// Entry point of application
 ///
@@ -42,31 +40,7 @@ int main()
 #ifdef OLDENGINE
    GLPISample();
 #else
-	demoList.push_back(DrawScheme);
-	demoList.push_back(BufferScheme);
-	demoList.push_back(SimpleAndHMIRectangle);
-	demoList.push_back(FilledWindow);
-	demoList.push_back(SamplePerespective);
-	demoList.push_back(SamplePerspctivePlusParentChild);
-	demoList.push_back(SampleImage);
-	demoList.push_back(SampleMultipleImage);
-	demoList.push_back(SciFiSample);
-	demoList.push_back(DiffuseMeshSample);
-	demoList.push_back(MeshSample);
-	demoList.push_back(MeshRectSample);
-	demoList.push_back(WindMillDemo);
-	demoList.push_back(CustomSceneDemo);
-	demoList.push_back(LighMaterailDemo);
-	demoList.push_back(SampleMenu);
-	demoList.push_back(FBODemo);
-	demoList.push_back(CubeFBODemo);
-	char selection = 0;
-	int totalSize = demoList.size();
-	while(totalSize){
-		demoList.at(demoNumber<0 ? demoNumber=0 : demoNumber%(totalSize))();
-	}
-
-	return 0;
+   //Lua_Sample1();
 	DrawScheme();
 
 	SimpleAndHMIRectangle();  // HUD View, Simple, HMI rectangle overide render

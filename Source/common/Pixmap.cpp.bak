@@ -35,15 +35,7 @@ Pixmap::~Pixmap()
 */
 void Pixmap::Initialize()
 {
-	if (scene()->getRenderer()->getRendererType() == PluginType::OPENGLES20_STATIC_PLUGIN){
-		transformationMethod = &Pixmap::setTransformationForOpenGLES20Pipeline;
-	}
-	else{
-		// Handle other pipelines 
-	}
-
-    //specificPixmap->Initialize();
-	scene()->getRenderer()->initFlatList.push_back(specificPixmap);
+    specificPixmap->Initialize();
     Model::Initialize();
     return;
 }
@@ -64,9 +56,10 @@ void Pixmap::Render(bool (*customRender)())
     {
         TransformObj->TransformPushMatrix(); // Local Level
         ApplyModelsLocalTransformation();
-		(this->*transformationMethod)();
-		scene()->getRenderer()->renderFlatList.push_back(specificPixmap);
-		//specificPixmap->Render();
+		specificPixmap->SetModelMat(TransformObj->TransformGetModelMatrix());
+		specificPixmap->SetViewMat(TransformObj->TransformGetViewMatrix());
+		specificPixmap->SetProjectionMat(TransformObj->TransformGetProjectionMatrix());
+        specificPixmap->Render();
         TransformObj->TransformPopMatrix(); // Local Level
     }
 
@@ -94,12 +87,4 @@ void Pixmap::SetColor(glm::vec4* color){
 void Pixmap::SetProgram(unsigned int ID)
 {
    specificPixmap->SetProgram(ID);
-}
-
-void Pixmap::setTransformationForOpenGLES20Pipeline(){
-	GLES20Pixmap* gles20Pixmap = ((GLES20Pixmap*)specificPixmap);
-	*gles20Pixmap->getTempMatrix() = *TransformObj->TransformGetProjectionMatrix() * *TransformObj->TransformGetViewMatrix() * *TransformObj->TransformGetModelMatrix();
-	//gles20Pixmap->SetModelMat(TransformObj->TransformGetModelMatrix());
-	//gles20Pixmap->SetViewMat(TransformObj->TransformGetViewMatrix());
-	//gles20Pixmap->SetProjectionMat(TransformObj->TransformGetProjectionMatrix());
 }

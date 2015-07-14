@@ -17,7 +17,7 @@ using namespace std;
 using namespace MeshNameSpace;
 using namespace namespaceimage;
 
-class GLES20MeshLoader : public IRenderable, public IGeoBuffer, public TransformationMatrix
+class GLES20MeshLoader : public IMesh
 {
 
 public:
@@ -35,10 +35,6 @@ public:
 
 	// Render the Model class
 	void Update(float t){}
-	void SetVertices(std::vector<glm::vec3>* verticesList){}
-	void SetTexCoords(std::vector<glm::vec2>* texCoordList){}
-	void SetIndices(std::vector<unsigned short>* texCoordList){}
-	void SetColor(glm::vec4* color){}
 
 private:
     // Release the mesh model resources
@@ -85,7 +81,7 @@ protected:
 	float* MVPMatrix;
 	Model* parentModel;
 private:
-	//GeometryBuffer* geoBuffer;
+	GeometryBuffer* geoBuffer;
 	Uniform3f*		MaterialAmbientUniform;	
 	Uniform3f*		MaterialSpecularUniform;	
 	Uniform3f*		MaterialDiffuseUniform;	

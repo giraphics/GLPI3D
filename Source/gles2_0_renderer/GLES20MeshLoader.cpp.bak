@@ -148,7 +148,7 @@ void GLES20MeshLoader::Render(bool(*customRender)())
 	
 	textureObj.BindTexture();
 	// Calculate the Model-View Matrix
-	//tempMatrix = *ViewMatrix * *ModelMatrix;
+	tempMatrix = *ViewMatrix * *ModelMatrix;
 	MVUniform->SetValue((GLfloat*)&tempMatrix[0]);
 
 	// Calculate the Normal Matrix
@@ -156,7 +156,7 @@ void GLES20MeshLoader::Render(bool(*customRender)())
 	NormalMatrixUniform->SetValue((GLfloat*)&normalMat[0]);
 
 	// Calculate the Model-View-Projection Matrix
-	//tempMVPMatrix = *ProjectionMatrix * tempMatrix;
+	tempMVPMatrix = *ProjectionMatrix * tempMatrix;
 	MVPUniform->SetValue((GLfloat*)&tempMVPMatrix[0]);
     
 	geoBuffer->update();

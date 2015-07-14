@@ -35,15 +35,7 @@ GRectangle::~GRectangle()
 */
 void GRectangle::Initialize()
 {
-	if (scene()->getRenderer()->getRendererType() == PluginType::OPENGLES20_STATIC_PLUGIN){
-		transformationMethod = &GRectangle::setTransformationForOpenGLES20Pipeline;
-	}
-	else{
-		// Handle other pipelines 
-	}
-
-    //specificRectangle->Initialize();
-	scene()->getRenderer()->initFlatList.push_back(specificRectangle);
+    specificRectangle->Initialize();
     Model::Initialize();
     return;
 }
@@ -64,16 +56,12 @@ void GRectangle::Render(bool (*customRender)())
     {
         TransformObj->TransformPushMatrix(); // Local Level
         ApplyModelsLocalTransformation();
-		// Remove this if check using the function ptr in the initialization itself, rendering must be 
-		//if (this->scene()->getRenderer()->getRendererType() == PluginType::OPENGLES20_STATIC_PLUGIN){
-		//	GLES20Rectangle* gles20Rect = ((GLES20Rectangle*)specificRectangle);
-		//	gles20Rect->SetModelMat(TransformObj->TransformGetModelMatrix());
-		//	gles20Rect->SetViewMat(TransformObj->TransformGetViewMatrix());
-		//	gles20Rect->SetProjectionMat(TransformObj->TransformGetProjectionMatrix());
-		//}
-		(this->*transformationMethod)();
-        //specificRectangle->Render(customRender);
-		scene()->getRenderer()->renderFlatList.push_back(specificRectangle);
+        //specificRectangle->SetMVP(( float * )TransformObj->TransformGetModelViewProjectionMatrix());
+		specificRectangle->SetModelMat(TransformObj->TransformGetModelMatrix());
+		specificRectangle->SetViewMat(TransformObj->TransformGetViewMatrix());
+		specificRectangle->SetProjectionMat(TransformObj->TransformGetProjectionMatrix());
+
+        specificRectangle->Render(customRender);
         TransformObj->TransformPopMatrix(); // Local Level
     }
 
@@ -102,12 +90,4 @@ void GRectangle::SetIndices(std::vector<unsigned short>* indicesList){
 void GRectangle::SetProgram(unsigned int ID)
 {
    specificRectangle->SetProgram(ID);
-}
-
-void GRectangle::setTransformationForOpenGLES20Pipeline(){
-	GLES20Rectangle* gles20Rect = ((GLES20Rectangle*)specificRectangle);
-	*gles20Rect->getTempMatrix() = *TransformObj->TransformGetProjectionMatrix() * *TransformObj->TransformGetViewMatrix() * *TransformObj->TransformGetModelMatrix();
-	//gles20Rect->SetModelMat(TransformObj->TransformGetModelMatrix());
-	//gles20Rect->SetViewMat(TransformObj->TransformGetViewMatrix());
-	//gles20Rect->SetProjectionMat(TransformObj->TransformGetProjectionMatrix());
 }

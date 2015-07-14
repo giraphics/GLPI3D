@@ -56,7 +56,7 @@ void GLES20Rectangle::Initialize()
 */
 void GLES20Rectangle::Render(bool (*customRender)())
 {
-//	tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
+	tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
 
 	mvpUniform->SetValue((GLfloat*)&tempMatrix[0]);
 	colUniform->SetValue(color);

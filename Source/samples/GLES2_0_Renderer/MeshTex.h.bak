@@ -126,7 +126,7 @@ void MeshRectSample(){
    hudCamera2->setClearFlag(false);
 
    ProgramID = ProgramManagerObj->LoadShader("Texture1", PIX_VERTEX_SHADER_PRG, PIX_FRAGMENT_SHADER_PRG )->ProgramID;
-   pixmap = new Pixmap("../Resource/Icons/continental.png",hudScene2, NULL, PIXMAP, TWO_DIMENSIONAL_TEXTURE,"ContiImage");
+   pixmap = new Pixmap("../Resource/Icons/Volkswagen1500.png",hudScene2, NULL, PIXMAP, TWO_DIMENSIONAL_TEXTURE,"My image1");
    pixmap->SetProgram(ProgramID);
 
    // Set the vertex information

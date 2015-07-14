@@ -56,12 +56,6 @@ public:
 
    void SetProgram(unsigned int ID);
 
-   void (GRectangle::*transformationMethod)();
-   void setTransformationForOpenGLES20Pipeline();
-   void setTransformationForOpenGLES31Pipeline(){/*Not Supported*/}
-   void setTransformationForVulkanPipeline(){/*Not Supported*/}
-   void drawElement();
-
 protected:
     glm::vec2 texCoordinatesRectangle[4];
     glm::vec3 verticesRectangle[4];

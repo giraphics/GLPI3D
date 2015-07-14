@@ -5,7 +5,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include "ILifeCycle.h"
-#include "IRenderable.h"
 
 class Renderer : public ILifeCycle, public ObjectRelative
 {
@@ -69,22 +68,16 @@ public:
 
     PluginType getRendererType();
     virtual Object* createObject(Scene* handler, Model* parent, ModelType type, std::string objectName = "") = 0;
-	
 	void setWindowTitle(char* title);
     
-	std::vector<IRenderable*> initFlatList;
-	
-	std::vector<IRenderable*> renderFlatList;
-
-protected:
-   PluginType rendererType;
-
+    //SFML
 private:
    // Request a 32-bits depth buffer when creating the window
    sf::ContextSettings contextSettings;
    // Create the main window
    sf::RenderWindow* window;
 
+   PluginType rendererType;
    std::string titleName;
 };
 
