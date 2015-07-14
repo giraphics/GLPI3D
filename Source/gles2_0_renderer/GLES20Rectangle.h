@@ -50,7 +50,7 @@ private:
 	UniformMatrix4fv* mvpUniform;
 	Uniform4fv* colUniform;
     float* color;
-	GeometryBuffer* geoBuffer;
+	//GeometryBuffer* geoBuffer;
 };
 #endif // GLES20Rectangle_H
  

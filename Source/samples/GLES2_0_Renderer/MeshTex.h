@@ -41,6 +41,12 @@ void MeshRectSample(){
    texCoords.push_back(glm::vec2(0.0f, 0.0f));
    texCoords.push_back(glm::vec2(1.0f, 0.0f));
 
+   std::vector<glm::vec2> texCoordsImg;
+   texCoordsImg.push_back(glm::vec2(0.0f, 0.0f));
+   texCoordsImg.push_back(glm::vec2(1.0f, 0.0f));
+   texCoordsImg.push_back(glm::vec2(0.0f, 1.0f));
+   texCoordsImg.push_back(glm::vec2(1.0f, 1.0f));
+
    Application application;
 
    // Create a clock for measuring the time elapsed
@@ -59,10 +65,10 @@ void MeshRectSample(){
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
 	   renderer = plugin->createRenderer(1280, 720);
-	   //renderer = plugin->createRenderer(400, 300);
    }
 
    if (!renderer){
+	   	renderer->setWindowTitle("1 Context, 3 Scenes, Presepective and Ortho Graphic scene");
 	   return;
    }
 
@@ -72,13 +78,10 @@ void MeshRectSample(){
    camera->SetPosition(glm::vec3(0.0, 5.0, 8.0));
    camera->SetTarget(glm::vec3(0.0, 0.0, 0.0));
    camera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
-   //camera->setClearFlag(false);
 
    ProgramManager* ProgramManagerObj = ProgramManager::GetInstance();
    unsigned int ProgramID = ProgramManagerObj->LoadShader("Meshshader", VERTEX_SHADER_PRG_TEX, FRAGMENT_SHADER_TEX)->ProgramID;
-   meshObj = new MeshObject("../Resource/Models/mbclass.obj", scene, NULL, MESH, "");
-   
-   meshObj->SetName(std::string("My Mesh 41"));
+   meshObj = new MeshObject("../Resource/Models/mbclass.obj", scene, NULL, MESH, "MyMeshDemo");   
    meshObj->SetProgram(ProgramID);
    meshObj->Scale(.01, .01, .01);
    scene->addModel(meshObj);
@@ -90,8 +93,7 @@ void MeshRectSample(){
    hudCamera->setClearFlag(false);
 
    ProgramID = ProgramManagerObj->LoadShader("RectPrg", VERTEX_SHADER_PRG_RECT, FRAGMENT_SHADER_PRG_RECT )->ProgramID;
-   rectangleItem = new GRectangle(hudScene, NULL, BUTTON,"");
-   rectangleItem->SetName(std::string("My Rectangle 1"));
+   rectangleItem = new GRectangle(hudScene, NULL, BUTTON,"Rect1");
    rectangleItem->SetProgram(ProgramID);
 
    // Set the vertex information
@@ -104,8 +106,7 @@ void MeshRectSample(){
    rectangleItem->Scale(3.0, 1.0, 1.0);
    hudScene->addModel( rectangleItem );
 
-   rectangleItem = new GRectangle(hudScene, rectangleItem, BUTTON,"");
-   rectangleItem->SetName(std::string("My Rectangle 2"));
+   rectangleItem = new GRectangle(hudScene, rectangleItem, BUTTON,"Rect2");
    rectangleItem->SetProgram(ProgramID);
 
    // Set the vertex information
@@ -117,29 +118,30 @@ void MeshRectSample(){
    rectangleItem->Translate(0.0, height, 0.0);
 
    // SCENE 3
-   /*hudScene2   = new Scene("PixScene");
-   hudCamera2   = new Camera("PerespectiveCamera", hudScene2);
+   hudScene2   = new Scene("PixScene");
+   hudCamera2  = new CameraHUD("hudCamera2", hudScene2);
+   hudCamera2->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
    hudCamera2->SetPosition(glm::vec3 (0.0, 0.0,230));
    hudCamera2->SetTarget(glm::vec3 (0.0, 0.0,0.0));
-   hudCamera2->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
    hudCamera2->setClearFlag(false);
 
    ProgramID = ProgramManagerObj->LoadShader("Texture1", PIX_VERTEX_SHADER_PRG, PIX_FRAGMENT_SHADER_PRG )->ProgramID;
-   pixmap = new Pixmap("../Resource/Icons/Volkswagen1500.png",hudScene2, NULL, PIXMAP, TWO_DIMENSIONAL_TEXTURE,"");
+   pixmap = new Pixmap("../Resource/Icons/Volkswagen1500.png",hudScene2, NULL, PIXMAP, TWO_DIMENSIONAL_TEXTURE,"My image1");
    pixmap->SetProgram(ProgramID);
-   pixmap->SetName(std::string("My image1"));
 
    // Set the vertex information
-   pixmap->SetVertices(tempPixVtx);
-   pixmap->SetTexCoords(texCoords);
+   pixmap->SetVertices(&vertices);
+   pixmap->SetTexCoords(&texCoordsImg);
+   pixmap->Translate(200.0, 300.0, 0.0);
+   pixmap->Scale(2.0, 2.0, 2.0);
 
-   //// Set Color information
+   // Set Color information
    pixmap->SetColor(&glm::vec4(1.0, 0.0, 0.0, 1.0));
-   hudScene2->addModel( pixmap );*/
+   hudScene2->addModel( pixmap );
 
    renderer->addScene( scene );
    renderer->addScene( hudScene );
-   //renderer->addScene( hudScene2 );
+   renderer->addScene( hudScene2 );
    
    // Intialize the application
    application.Initialize();

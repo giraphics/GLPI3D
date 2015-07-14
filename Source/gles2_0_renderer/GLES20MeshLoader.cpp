@@ -1,16 +1,5 @@
 #include "GLES20MeshLoader.h"
 
-#include <cstdio>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-
-#include "Cache.h"
-#include "constant.h"
-using namespace glm;
-
-#define GetAttribute ProgramManager::GetInstance()->ProgramGetVertexAttribLocation
-//#define GetUniform ProgramManager::GetInstance()->ProgramGetUniformLocation
 extern map<std::string, namespaceimage::Image*>::const_iterator it;
 
 /*!
@@ -24,9 +13,8 @@ GLES20MeshLoader::GLES20MeshLoader(Mesh* inMesh, Model* parent)
 {
 	geoBuffer = new GeometryBuffer(this, BUFFER_VAO, DRAW_ARRAY, true);
 	geoBuffer->setDrawingPrimitive(GL_TRIANGLES);
-	//geoBuffer = new GeometryBuffer(this);
 
-	indexCount	= inMesh->indexCount;
+	//indexCount	= inMesh->indexCount;
 	meshModel	= inMesh;
 	parentModel = parent;
 	matObj		= parentModel->GetMaterial();
@@ -62,177 +50,6 @@ void GLES20MeshLoader::ReleaseMeshResources()
 {
 	delete geoBuffer;
 	geoBuffer = NULL;
-
-    glDeleteVertexArrays(1, &OBJ_VAO_Id);
-    glDeleteBuffers(1, &vertexBuffer);
-}
-
-void GLES20MeshLoader::SwitchMesh()
-{
-
-}
-
-void GLES20MeshLoader::PrepareGeometry(Mesh* objMeshModel)
-{
-	glUseProgram(ProgramID);
-
-	// QueryAttributes
-	// Handle for position
-	GLint positionAttribHandle	= GetAttribute(ProgramID, (char*)"VertexPosition");
-
-	// Handle for normal
-	GLint normalAttribHandle	= GetAttribute(ProgramID, (char*)"Normal");
-
-	// Handle for texture coord attribute
-	GLint texCoordAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTexCoord");
-
-	// Handle for tangent attribute
-	GLint tangentAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTangent");
-
-	stride = (2 * sizeof(vec3)) + sizeof(vec2) + sizeof(vec4);
-	offsetNormal = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2));
-	offsetTexCoord = (GLvoid*)(sizeof(glm::vec3));
-	offsetTangent = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2) + sizeof(vec3));
-	////////////////////////////////////////////////
-	Vertex meshTest;
-	//pos, uv, normal, tangent
-	void* base = &meshTest.position;
-	int offsetUV1 = offsetof(Vertex, uv);
-	int offsetNormal1 = offsetof(Vertex, normal);
-	int offsetTangent1 = offsetof(Vertex, tangent);
-	meshTest.position.x = 1.0f;
-	meshTest.position.y = 2.0f;
-	meshTest.position.z = 3.0f;
-	meshTest.normal.x   = 4.0f;
-	meshTest.normal.y   = 5.0f;
-	meshTest.normal.z   = 6.0f;
-	meshTest.tangent.x  = 7.0f;
-	meshTest.tangent.y  = 8.0f;
-	meshTest.tangent.z  = 9.0f;
-	meshTest.uv.s		= 10.0f;
-	meshTest.uv.t		= 11.0f;
-	float* pos1 = (float*)base;
-	float* uv1  = (float*)((char*)base+offsetUV1);
-	printf("\n%f", *pos1);
-	printf("\n%f", *++pos1);
-	printf("\n%f", *++pos1);
-	printf("\n%f", *uv1);
-	printf("\n%f", *++uv1);
-
-	///////////////////////////////////
-
-    // Create the VBO for our obj model vertices.
-    glGenBuffers(1, &vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, objMeshModel->vertices.size() * sizeof(objMeshModel->vertices[0]), &objMeshModel->vertices[0], GL_STATIC_DRAW);
-    
-    // Create the VAO, this will store the vertex attributes into vectore state.
-    glGenVertexArrays(1, &OBJ_VAO_Id);
-    glBindVertexArray(OBJ_VAO_Id);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-
-	if (positionAttribHandle >= 0){
-		glEnableVertexAttribArray(positionAttribHandle);
-		glVertexAttribPointer(positionAttribHandle, 3, GL_FLOAT, GL_FALSE, stride, 0);
-	}
-
-	if (texCoordAttribHandle >= 0){
-		glEnableVertexAttribArray(texCoordAttribHandle);
-		glVertexAttribPointer(texCoordAttribHandle, 2, GL_FLOAT, GL_FALSE, stride, offsetTexCoord);
-	}
-
-	if (normalAttribHandle >= 0){
-		glEnableVertexAttribArray(normalAttribHandle);
-		glVertexAttribPointer(normalAttribHandle, 3, GL_FLOAT, GL_FALSE, stride, offsetNormal);
-	}
-
-	if (tangentAttribHandle >= 0){
-		glEnableVertexAttribArray(tangentAttribHandle);
-		glVertexAttribPointer(tangentAttribHandle, 4, GL_FLOAT, GL_FALSE, stride, offsetTangent);
-	}
-
-    glBindVertexArray(0);
-    
-    objMeshModel->vertices.clear();
-}
-
-void GLES20MeshLoader::PrepareGeometryNew(Mesh* objMeshModel)
-{
-	//glUseProgram(ProgramID);
-
-	//// QueryAttributes
-	//// Handle for position
-	//GLint positionAttribHandle	= GetAttribute(ProgramID, (char*)"VertexPosition");
-
-	//// Handle for normal
-	//GLint normalAttribHandle	= GetAttribute(ProgramID, (char*)"Normal");
-
-	//// Handle for texture coord attribute
-	//GLint texCoordAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTexCoord");
-
-	//// Handle for tangent attribute
-	//GLint tangentAttribHandle	= GetAttribute(ProgramID, (char*)"VertexTangent");
-
-	//stride = (2 * sizeof(vec3)) + sizeof(vec2) + sizeof(vec4);
-	//offsetNormal = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2));
-	//offsetTexCoord = (GLvoid*)(sizeof(glm::vec3));
-	//offsetTangent = (GLvoid*)(sizeof(glm::vec3) + sizeof(vec2) + sizeof(vec3));
-	stride			= sizeof(Vertex);
-	offsetNormal	= (GLvoid*)offsetof(Vertex,normal);
-	offsetTexCoord	= (GLvoid*)offsetof(Vertex,uv);
-	offsetTangent	= (GLvoid*)offsetof(Vertex, tangent);
-
-	void* base = (void*)(&objMeshModel->vertices.at(0));
-	GeometryMesh* mesh = geoBuffer->geometry();
-	mesh->positions.size = objMeshModel->vertices.size();
-	mesh->positions.positionData = base; 
-	mesh->normals.size = objMeshModel->vertices.size();
-	mesh->normals.normalData = (void*)((char*)base + (char)offsetNormal);
-
-	mesh->texCoords.size			= objMeshModel->vertices.size();
-	mesh->texCoords.textureData		= (void*)((char*)base + (char)offsetTexCoord);
-
-	mesh->tangents.size				= objMeshModel->vertices.size();
-	mesh->tangents.tagnetData		= (void*)((char*)base + (char)offsetTangent);
-
-	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions.size , GL_FLOAT, mesh->positions.positionData, stride));
-	geoBuffer->addAttribute(new Attribute("Normal", 3, mesh->normals.size , GL_FLOAT, mesh->normals.normalData, stride));
-	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, mesh->texCoords.size , GL_FLOAT, mesh->texCoords.textureData, stride));
-	geoBuffer->addAttribute(new Attribute("VertexTangent", 3, mesh->tangents.size , GL_FLOAT, mesh->tangents.tagnetData, stride));
-	geoBuffer->setInterleavedBuffer( (void*)&objMeshModel->vertices[0],objMeshModel->vertices.size() * sizeof(objMeshModel->vertices[0]));
- //   // Create the VBO for our obj model vertices.
- //   glGenBuffers(1, &vertexBuffer);
- //   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
- //   glBufferData(GL_ARRAY_BUFFER, objMeshModel->vertices.size() * sizeof(objMeshModel->vertices[0]), &objMeshModel->vertices[0], GL_STATIC_DRAW);
- //   
- //   // Create the VAO, this will store the vertex attributes into vectore state.
- //   glGenVertexArrays(1, &OBJ_VAO_Id);
- //   glBindVertexArray(OBJ_VAO_Id);
- //   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-
-	//if (positionAttribHandle >= 0){
-	//	glEnableVertexAttribArray(positionAttribHandle);
-	//	glVertexAttribPointer(positionAttribHandle, 3, GL_FLOAT, GL_FALSE, stride, 0);
-	//}
-
-	//if (texCoordAttribHandle >= 0){
-	//	glEnableVertexAttribArray(texCoordAttribHandle);
-	//	glVertexAttribPointer(texCoordAttribHandle, 2, GL_FLOAT, GL_FALSE, stride, offsetTexCoord);
-	//}
-
-	//if (normalAttribHandle >= 0){
-	//	glEnableVertexAttribArray(normalAttribHandle);
-	//	glVertexAttribPointer(normalAttribHandle, 3, GL_FLOAT, GL_FALSE, stride, offsetNormal);
-	//}
-
-	//if (tangentAttribHandle >= 0){
-	//	glEnableVertexAttribArray(tangentAttribHandle);
-	//	glVertexAttribPointer(tangentAttribHandle, 4, GL_FLOAT, GL_FALSE, stride, offsetTangent);
-	//}
-
- //   glBindVertexArray(0);
- //   
- //   objMeshModel->vertices.clear();
 }
 
 /*!
@@ -255,9 +72,7 @@ GLES20MeshLoader::~GLES20MeshLoader()
 */
 void GLES20MeshLoader::Initialize()
 {
-	// Use Phong Shade Program
-    //glUseProgram( ProgramID );
-    
+    // Manage Uniform variables
 	geoBuffer->addUniform(MaterialAmbientUniform	= new Uniform3f("MaterialAmbient"));
 	geoBuffer->addUniform(MaterialSpecularUniform	= new Uniform3f("MaterialSpecular"));
 	geoBuffer->addUniform(MaterialDiffuseUniform	= new Uniform3f("MaterialDiffuse"));
@@ -271,18 +86,51 @@ void GLES20MeshLoader::Initialize()
 	geoBuffer->addUniform(MVUniform					= new UniformMatrix4fv("ModelViewMatrix"));
 	geoBuffer->addUniform(NormalMatrixUniform		= new UniformMatrix3fv("NormalMatrix"));
 	geoBuffer->addUniform(TexUniform				= new Uniform1i("Tex1"));
-	//geoBuffer->initUniforms();
 
+	
+	if (!meshModel){
+		return;
+	}
+
+	// Manage interleaved data 
+    stride			= sizeof(Vertex);
+	offsetNormal	= (GLvoid*)offsetof(Vertex,normal);
+	offsetTexCoord	= (GLvoid*)offsetof(Vertex,uv);
+	offsetTangent	= (GLvoid*)offsetof(Vertex, tangent);
+
+	void* base						= (void*)(&meshModel->vertices.at(0));
+	GeometryMesh* mesh				= geoBuffer->geometry();
+
+	mesh->positions.size			= meshModel->vertices.size();
+	mesh->positions.positionData	= base; 
+
+	mesh->normals.size				= meshModel->vertices.size();
+	mesh->normals.normalData		= (void*)((char*)base + (char)offsetNormal);
+
+	mesh->texCoords.size			= meshModel->vertices.size();
+	mesh->texCoords.textureData		= (void*)((char*)base + (char)offsetTexCoord);
+
+	mesh->tangents.size				= meshModel->vertices.size();
+	mesh->tangents.tagnetData		= (void*)((char*)base + (char)offsetTangent);
+
+    // Manage Attribute variables
+	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions.size , GL_FLOAT, mesh->positions.positionData, stride));
+	geoBuffer->addAttribute(new Attribute("Normal", 3, mesh->normals.size , GL_FLOAT, mesh->normals.normalData, stride));
+	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, mesh->texCoords.size , GL_FLOAT, mesh->texCoords.textureData, stride));
+	geoBuffer->addAttribute(new Attribute("VertexTangent", 3, mesh->tangents.size , GL_FLOAT, mesh->tangents.tagnetData, stride));
+	geoBuffer->setInterleavedBuffer((void*)&meshModel->vertices[0],meshModel->vertices.size() * sizeof(meshModel->vertices[0]));
+
+
+	geoBuffer->init();
+
+	// Manage texture unit
 	textureUnit = 0; //Need to set from a setter function.
 	TexUniform->SetValue(&textureUnit);
-	//glUniform1i(Tex, 0);
 	glEnable(GL_DEPTH_TEST);
 	
-	if (meshModel){
-		PrepareGeometryNew(meshModel);
-	}
-	geoBuffer->init();
-	//geoBuffer->initUniforms();
+	// Realease vertices
+	meshModel->vertices.clear();
+
     return;
 }
 
@@ -295,7 +143,6 @@ void GLES20MeshLoader::Initialize()
 */
 void GLES20MeshLoader::Render(bool(*customRender)())
 {
-    //glUseProgram(ProgramID);
 	ApplyMaterial();
 	ApplyLight();
 	
@@ -317,27 +164,6 @@ void GLES20MeshLoader::Render(bool(*customRender)())
 	geoBuffer->draw();
 	geoBuffer->unbind();
 	return;
-    // Bind with Vertex Array Object for OBJ
-    glBindVertexArray(OBJ_VAO_Id);
-    
-    // Draw Geometry
-	glDrawArrays(GL_TRIANGLES, 0, indexCount);
-	//glDrawElements(GL_TRIANGLES, 0, GL_UNSIGNED_SHORT, (void*)&meshModel->indices[0]);
-   glBindBuffer(GL_ARRAY_BUFFER, 0);
-   glBindVertexArray(0);
-}
-//
-void GLES20MeshLoader::TouchEventDown(float x, float y)
-{
-    SwitchMesh();
-}
-
-void GLES20MeshLoader::TouchEventMove(float x, float y)
-{
-}
-
-void GLES20MeshLoader::TouchEventRelease(float x, float y)
-{
 }
 
 // Apply material on the object

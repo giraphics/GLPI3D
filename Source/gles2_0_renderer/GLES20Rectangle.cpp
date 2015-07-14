@@ -39,7 +39,6 @@ void GLES20Rectangle::Initialize()
 	GeometryMesh* mesh = geoBuffer->geometry();
 
 	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, mesh->texCoords.size , GL_FLOAT, mesh->texCoords.textureData));
-	//geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions->size() , GL_FLOAT, &(*mesh->positions)[0]));
 	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions.size , GL_FLOAT, mesh->positions.positionData));
 
 	geoBuffer->addUniform(mvpUniform = new UniformMatrix4fv("ModelViewProjectionMatrix"));
@@ -64,18 +63,8 @@ void GLES20Rectangle::Render(bool (*customRender)())
 
 	geoBuffer->update();
 	geoBuffer->bind();
-    //glUniformMatrix4fv(mvp, 1, GL_FALSE, (float*)&tempMatrix[0]);
-    //glUniform4fv( col, 1, color );
-
-    // Draw triangle
-  //  if(!customRender){
-		//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-  //  }
-  // else{
-	 //  (*customRender)();
-  // }
-   geoBuffer->draw();
-   geoBuffer->unbind();
+    geoBuffer->draw();
+    geoBuffer->unbind();
 }
 
 void GLES20Rectangle::SetVertices(std::vector<glm::vec3>* verticesList)

@@ -42,6 +42,7 @@ void SimpleAndHMIRectangle(){
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
 	   renderer = plugin->createRenderer();
+	   renderer->setWindowTitle("Custom extentation class and Generic implementation");
    }
 
    if (!renderer){

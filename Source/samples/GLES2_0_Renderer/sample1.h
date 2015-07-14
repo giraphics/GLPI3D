@@ -12,8 +12,8 @@
 // Fill the screen with interpolated colored triangles.
 // Each rect is set with new center to rotate about (50, 50) translation axises.
 void FilledWindow(){
-   float width  = 20.0f;
-   float height = 20.0f;
+   float width  = 35.0f;
+   float height = 35.0f;
 
    std::vector<glm::vec3> vertices;
    vertices.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
@@ -39,6 +39,7 @@ void FilledWindow(){
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
 	   renderer = plugin->createRenderer();
+	   renderer->setWindowTitle("Window filled with rectangles, interpolated colors, shared shader");
    }
 
    if (!renderer){
@@ -49,12 +50,12 @@ void FilledWindow(){
    hudCamera  = new CameraHUD("hudCamera", hudScene);
    hudCamera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
 
-   ProgramManager* ProgramManagerObj = NULL;
-   ProgramManagerObj = ProgramManager::GetInstance();
+   ProgramManager* ProgramManagerObj	= ProgramManager::GetInstance();
    unsigned int ProgramID = ProgramManagerObj->LoadShader("square", VERTEX_SHADER_PRG1, FRAGMENT_SHADER_PRG1 )->ProgramID;
    GRectangle* parent = NULL;
    float ROWS = renderer->getWindowWidth()/width;
    float COLS = renderer->getWindowHeight()/height;
+   
    std::vector<GRectangle*> recthandles;
    for(float i = 0; i<COLS; i++)
    {

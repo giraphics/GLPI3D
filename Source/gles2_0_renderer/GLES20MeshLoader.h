@@ -36,19 +36,7 @@ public:
 	// Render the Model class
 	void Update(float t){}
 
-    // Touch Events
-	void TouchEventDown( float x, float y );
-	void TouchEventMove( float x, float y );
-	void TouchEventRelease( float x, float y );
-    
 private:
-    // Prepare the geometry of the mesh model
-	void PrepareGeometry(Mesh* objMeshModel);
-	void PrepareGeometryNew(Mesh* objMeshModel);
-    
-    // Switch the mesh model
-    void SwitchMesh();
-    
     // Release the mesh model resources
     void ReleaseMeshResources();
     
@@ -65,19 +53,19 @@ private:
 	Mesh* meshModel;
 
 	// Index count of the geometry
-	unsigned int indexCount;
+	//unsigned int indexCount;
 
 	glm::mat3 normalMat;
 	Image* imageItem;
 	Texture textureObj;
-	GLuint OBJ_VAO_Id;
+	//GLuint OBJ_VAO_Id;
 
 	int stride;
 	GLvoid* offsetNormal, *offsetTexCoord, *offsetTangent;
 	//char MVP, MV;
 	//GLint NormalMatrix;
 	//GLint Tex;
-	GLuint vertexBuffer;
+	//GLuint vertexBuffer;
 
 	//char MaterialAmbient;	
 	//char MaterialSpecular;	

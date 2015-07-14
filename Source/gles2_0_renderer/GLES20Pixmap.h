@@ -55,7 +55,7 @@ private:
 	GLint textureUnit;
 	Texture textureObj;
 
-	GeometryBuffer* geoBuffer;
+	//GeometryBuffer* geoBuffer;
 };
 
 #endif // GLES20PIXMAP_H

@@ -39,6 +39,7 @@ void SamplePerespective(){
    }
 
    if (!renderer){
+		renderer->setWindowTitle("Prespective view, interpolated colors, shared shader");
 	   return;
    }
 

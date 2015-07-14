@@ -38,6 +38,7 @@ void SamplePerspctivePlusParentChild(){
    }
 
    if (!renderer){
+		renderer->setWindowTitle("Camera view, transformation graph");
 	   return;
    }
 

@@ -26,6 +26,7 @@
    #include "samples\GLES2_0_Renderer\FrameBufferObj.h"
    #include "samples\GLES2_0_Renderer\CubeFBO.h"
    #include "samples\GLES2_0_Renderer\LightMaterial.h"
+   #include "samples\GLES2_0_Renderer\City.h"
 #endif
 
 ////////////////////////////////////////////////////////////
@@ -59,6 +60,7 @@ int main()
    SampleMultipleImage();
 	
    // Simple Diffuse mesh demonstrator
+   SciFiSample();
    DiffuseMeshSample();
    //return 0;
 

@@ -5,7 +5,7 @@ Renderer::Renderer(int width, int height)
 
    contextSettings.depthBits = 32;
 
-   window = new sf::RenderWindow(sf::VideoMode(width, height), "Window 1 New", sf::Style::Default, contextSettings);
+   window = new sf::RenderWindow(sf::VideoMode(width, height), titleName.c_str(), sf::Style::Default, contextSettings);
 
    window->setVerticalSyncEnabled(true);
 
@@ -127,3 +127,7 @@ PluginType Renderer::getRendererType()
    return rendererType;
 }
 
+void Renderer::setWindowTitle(char* title){ 
+	titleName = std::string(title); 
+	window->setTitle(titleName); 
+}

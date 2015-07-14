@@ -8,10 +8,14 @@
 #include "glutils.h"
 #include "IModel.h"
 #include "ILifeCycle.h"
+#include "Geometry.h"
 #include <vector>
 
 class IRenderable : public IModel, public ILifeCycle
 {
+protected:
+GeometryBuffer* geoBuffer;
+
 public:
     // Constructor for Button
    IRenderable(){}

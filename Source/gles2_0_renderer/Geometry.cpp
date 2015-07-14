@@ -464,9 +464,12 @@ void GeometryBuffer::draw(){
 }
 
 void GeometryBuffer::drawArray(){
-	//glDrawArrays(primitiveType, 0, geometryData.positions->size());
+	glDrawArrays(primitiveType, 0, geometryData.positions.size);
+	return;
+
 	if(this->isInterleaved){
-		glDrawArrays(GL_TRIANGLES, 0, 5046);
+//		glDrawArrays(primitiveType, 0, 5046);
+		glDrawArrays(primitiveType, 0, geometryData.positions.size);
 	}
 	else{
 	glDrawArrays(primitiveType, 0, geometryData.positions.size);

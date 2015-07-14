@@ -68,13 +68,16 @@ public:
 
     PluginType getRendererType();
     virtual Object* createObject(Scene* handler, Model* parent, ModelType type, std::string objectName = "") = 0;
+	void setWindowTitle(char* title);
+    
     //SFML
 private:
    // Request a 32-bits depth buffer when creating the window
    sf::ContextSettings contextSettings;
    // Create the main window
-   sf::RenderWindow* window;//window(sf::VideoMode(400, 300), "Window 1 New", sf::Style::Default, contextSettings);
+   sf::RenderWindow* window;
 
    PluginType rendererType;
+   std::string titleName;
 };
 
