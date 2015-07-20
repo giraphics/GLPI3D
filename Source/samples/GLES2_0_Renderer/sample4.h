@@ -35,10 +35,10 @@ void SamplePerspctivePlusParentChild(){
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
 	   renderer = plugin->createRenderer();
+	   renderer->setWindowTitle("Transformation graph");
    }
 
    if (!renderer){
-		renderer->setWindowTitle("Camera view, transformation graph");
 	   return;
    }
 

@@ -36,6 +36,7 @@ public:
    virtual void SetTexCoords(std::vector<glm::vec2>* texCoordList) = 0;
    virtual void SetIndices(std::vector<unsigned short>* texCoordList) = 0;
    virtual void SetColor(glm::vec4* color) = 0;
+   virtual void setDrawingPrimitive(GLenum drawPrimitive){} //Need to add into pixmap and mesh
 };
 
 class Renderable : public IRenderable

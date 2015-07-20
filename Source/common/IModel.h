@@ -5,6 +5,7 @@
 
 #ifndef __IMODEL__
 #define __IMODEL__
+#include "glutils.h"
 
 class TransformationMatrix{
 public:

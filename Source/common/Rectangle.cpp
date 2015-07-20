@@ -111,3 +111,8 @@ void GRectangle::setTransformationForOpenGLES20Pipeline(){
 	//gles20Rect->SetViewMat(TransformObj->TransformGetViewMatrix());
 	//gles20Rect->SetProjectionMat(TransformObj->TransformGetProjectionMatrix());
 }
+
+void GRectangle::setDrawingPrimitive(GLenum drawPrimitive)
+{
+	specificRectangle->setDrawingPrimitive(drawPrimitive);
+}

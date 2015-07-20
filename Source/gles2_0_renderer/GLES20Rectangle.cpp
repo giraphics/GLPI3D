@@ -94,3 +94,7 @@ void GLES20Rectangle::SetIndices(std::vector<unsigned short>* indicesList){
 	geoBuffer->setIndices( new Indices(mesh->geometryIndices.size, GL_UNSIGNED_SHORT, mesh->geometryIndices.indexData)); 
 }
 
+void GLES20Rectangle::setDrawingPrimitive(GLenum drawPrimitive)
+{
+	geoBuffer->setDrawingPrimitive(drawPrimitive);
+}

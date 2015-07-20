@@ -26,14 +26,14 @@ void MeshRectSample(){
    vertices.push_back(glm::vec3( 0.0f,  height,   0.0f ));
    vertices.push_back(glm::vec3( width,  height,   0.0f ));
 
-   float pixWidth  = 1.0f;
-   float pixHeight = 1.0f;
+   //float pixWidth  = 1.0f;
+   //float pixHeight = 1.0f;
 
-   std::vector<glm::vec3> tempPixVtx;
-   tempPixVtx.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
-   tempPixVtx.push_back(glm::vec3( pixWidth, 0.0f,   0.0f ));
-   tempPixVtx.push_back(glm::vec3( 0.0f,  pixHeight,   0.0f ));
-   tempPixVtx.push_back(glm::vec3( pixWidth,  pixHeight,   0.0f ));
+   //std::vector<glm::vec3> tempPixVtx;
+   //tempPixVtx.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
+   //tempPixVtx.push_back(glm::vec3( pixWidth, 0.0f,   0.0f ));
+   //tempPixVtx.push_back(glm::vec3( 0.0f,  pixHeight,   0.0f ));
+   //tempPixVtx.push_back(glm::vec3( pixWidth,  pixHeight,   0.0f ));
 
    std::vector<glm::vec2> texCoords;
    texCoords.push_back(glm::vec2(0.0f, 1.0f));
@@ -132,6 +132,7 @@ void MeshRectSample(){
    // Set the vertex information
    pixmap->SetVertices(&vertices);
    pixmap->SetTexCoords(&texCoordsImg);
+   pixmap->SetCenter(glm::vec3(width/2.0, height/2.0, 0.0));
    pixmap->Translate(200.0, 300.0, 0.0);
    pixmap->Scale(2.0, 2.0, 2.0);
 
@@ -148,6 +149,7 @@ void MeshRectSample(){
    meshObj->Rotate(-90.0, 1.0, 0.0, 0.0);
    while(renderer->getWindow()->isOpen()){
 	  meshObj->Rotate(1.0, 0.0, 0.0, 1.0);
+	  pixmap->Rotate(0.3, 0.0, 0.0, 1.0);
 	  application.Render();
    }
 

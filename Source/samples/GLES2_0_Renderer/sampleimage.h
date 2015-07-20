@@ -35,6 +35,7 @@ void SampleImage(){
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
 	   renderer = plugin->createRenderer();
+	   	renderer->setWindowTitle("Prespective Texture Demo");
    }
 
    if (!renderer){

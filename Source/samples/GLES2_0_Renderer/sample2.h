@@ -36,10 +36,10 @@ void SamplePerespective(){
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
 	   renderer = plugin->createRenderer();
+	   renderer->setWindowTitle("Prespective view, interpolated colors, shared shader");
    }
 
    if (!renderer){
-		renderer->setWindowTitle("Prespective view, interpolated colors, shared shader");
 	   return;
    }
 

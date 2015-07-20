@@ -34,7 +34,7 @@ void SciFiSample(){
    scene->addLight(&light);
 
    camera = new Camera("PerespectiveCameraMesh", scene);
-   camera->SetPosition(glm::vec3(0.0, 5.0, 10.1));
+   camera->SetPosition(glm::vec3(0.0, 3.0, 12.1));
    camera->SetTarget(glm::vec3(0.0, 0.0, 0.0));
    camera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
 

@@ -36,6 +36,7 @@ void SampleMultipleImage(){
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
 	   renderer = plugin->createRenderer();
+	   renderer->setWindowTitle("Texture Caching Demo");
    }
 
    if (!renderer){

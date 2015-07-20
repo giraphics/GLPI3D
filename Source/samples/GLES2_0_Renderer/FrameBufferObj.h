@@ -78,9 +78,7 @@ CustomSceneFBO::CustomSceneFBO(std::string name, ObjectRelative* parentObj):Scen
     fbo->GenerateFBO();
     
     depthTexture.generateTexture2D(GL_TEXTURE_2D, fbo->GetWidth(), fbo->GetHeight(), GL_DEPTH_COMPONENT32F, GL_FLOAT, GL_DEPTH_COMPONENT,0,true,0,0,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE,GL_NEAREST,GL_NEAREST );
-
-	// Attache the Depth Buffer to FBO's depth attachment
-    fbo->AttachTexture(depthTexture, GL_DEPTH_ATTACHMENT);
+    fbo->AttachTexture(depthTexture, GL_DEPTH_ATTACHMENT); 	// Attache the Depth Buffer to FBO's depth attachment
 
     colorTexture.generateTexture2D(GL_TEXTURE_2D, fbo->GetWidth(), fbo->GetHeight(), GL_RGBA, GL_FLOAT, GL_RGBA,0,true,0,0,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE,GL_NEAREST,GL_NEAREST );
 

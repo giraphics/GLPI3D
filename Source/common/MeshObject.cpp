@@ -1,6 +1,6 @@
 #include "MeshObject.h"
 #include "GLES20MeshLoader.h"
-
+//#define USE_FLAT_LIST
 MeshObject::MeshObject(const char* meshPath, Scene* parent, Model* model, ModelType type, std::string objectName) : Model(parent, model, type, objectName)
 {
 	Mesh* inMesh = waveFrontObjectModel.ParseObjModel(meshPath, !true);
@@ -28,8 +28,12 @@ void MeshObject::Initialize()
 		// Handle other pipelines 
 	}
 
-	//specificMesh->Initialize();
+	#ifdef USE_FLAT_LIST
 	scene()->getRenderer()->initFlatList.push_back(specificMesh);
+	#else
+		specificMesh->Initialize();
+	#endif
+
 
     Model::Initialize();
     return;
@@ -55,8 +59,11 @@ void MeshObject::Render(bool (*customRender)())
 		//((GLES20MeshLoader*)specificMesh)->SetViewMat(TransformObj->TransformGetViewMatrix());
 		//((GLES20MeshLoader*)specificMesh)->SetProjectionMat(TransformObj->TransformGetProjectionMatrix());
 		(this->*transformationMethod)();
+	#ifdef USE_FLAT_LIST == 1
 		scene()->getRenderer()->renderFlatList.push_back(specificMesh);
-		//specificMesh->Render();
+	#else
+		specificMesh->Render();
+	#endif
         TransformObj->TransformPopMatrix(); // Local Level
     }
 

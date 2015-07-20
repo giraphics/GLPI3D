@@ -12,8 +12,8 @@
 // Fill the screen with interpolated colored triangles.
 // Each rect is set with new center to rotate about (50, 50) translation axises.
 void FilledWindow(){
-   float width  = 35.0f;
-   float height = 35.0f;
+   float width  = 50.0f;
+   float height = 50.0f;
 
    std::vector<glm::vec3> vertices;
    vertices.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
@@ -39,7 +39,7 @@ void FilledWindow(){
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
    if(plugin){
 	   renderer = plugin->createRenderer();
-	   renderer->setWindowTitle("Window filled with rectangles, interpolated colors, shared shader");
+	   renderer->setWindowTitle("Window filled with various primtive types, interpolated colors, shared shader, HUD");
    }
 
    if (!renderer){
@@ -55,7 +55,7 @@ void FilledWindow(){
    GRectangle* parent = NULL;
    float ROWS = renderer->getWindowWidth()/width;
    float COLS = renderer->getWindowHeight()/height;
-   
+   GLenum arrPrimitive[3] = {GL_POINTS, GL_TRIANGLES, GL_LINES};
    std::vector<GRectangle*> recthandles;
    for(float i = 0; i<COLS; i++)
    {
@@ -63,7 +63,9 @@ void FilledWindow(){
       {
          rectangleItem = new HMIRectangle(hudScene, NULL, BUTTON,"", BUFFER_VAO);
 		 rectangleItem->SetProgram(ProgramID);
-         rectangleItem->SetName(std::string("My Rectangle 1"));
+		static int primitiveIdx = 0;
+		rectangleItem->setDrawingPrimitive(primitiveIdx++%3/*arrPrimitive[((int)(j))%2]*/);
+		rectangleItem->SetName(std::string("My Rectangle"));
          recthandles.push_back(rectangleItem);
 
 		   // Set the vertex information

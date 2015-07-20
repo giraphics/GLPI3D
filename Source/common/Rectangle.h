@@ -55,7 +55,7 @@ public:
    void SetIndices(std::vector<unsigned short>* indicesList);
 
    void SetProgram(unsigned int ID);
-
+   void setDrawingPrimitive(GLenum drawPrimitive);
    void (GRectangle::*transformationMethod)();
    void setTransformationForOpenGLES20Pipeline();
    void setTransformationForOpenGLES31Pipeline(){/*Not Supported*/}
