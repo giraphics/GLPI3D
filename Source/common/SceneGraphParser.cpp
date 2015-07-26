@@ -173,7 +173,7 @@ bool SceneGraphParser::parseTagCamera(tinyxml2::XMLElement* element){
 	}
 
 	if(scene){
-		if(!strcmp(type,"ortho")){
+		if(type && !strcmp(type,"ortho")){
 			cameraItem = new CameraHUD(name, scene);
 		}
 		else{
@@ -369,6 +369,9 @@ void SceneGraphParser::handleTags(const char* name, tinyxml2::XMLElement* elemen
 	else if(!strcmp(name, "Rectangle")){
 		parseTagRectangle(element);
 	}
+	else if(!strcmp(name, "Mesh")){
+		parseTagMesh(element);
+	}
 }
 
 void SceneGraphParser::parseNodeInfo(tinyxml2::XMLNode* node){
@@ -421,7 +424,7 @@ bool SceneGraphParser::parseTagRectangle(tinyxml2::XMLElement* element){
 		
 	GRectangle* rectangleItem    = NULL;
 	rectangleItem = new GRectangle(currentScene, parentModel, BUTTON, name);
-
+	rectangleItem->Rotate(9.0, 1.0, 1.0, 1.0);
 	if(!rectangleItem){
 		printf("Unable to create the Rectangle object %s, %s",__FUNCTION__, __LINE__);
 	}
@@ -557,8 +560,8 @@ bool SceneGraphParser::parseTagMesh(tinyxml2::XMLElement* element){
 		
 	//GRectangle* rectangleItem    = NULL;
 	//rectangleItem = new GRectangle(currentScene, parentModel, BUTTON, name);
-    MeshObject* mesh =  new MeshObject("../Resource/Models/CubeWithNormal.obj", currentScene, parentModel, MESH, name);
-
+    MeshObject* mesh =  new MeshObject("../Resource/Models/mbclass.obj", currentScene, parentModel, MESH, name);
+	mesh->Scale(.01, .01, .01);
 
 	if(!mesh){
 		printf("Unable to create the Mesh object %s, %s",__FUNCTION__, __LINE__);
@@ -582,7 +585,6 @@ bool SceneGraphParser::parseTagMesh(tinyxml2::XMLElement* element){
 	// Set the vertex information
 	mesh->SetProgram(ProgramID);
 	AddToMapping(element, (Object*)mesh);
-    
 
 	if(translate){
 		char* TOKEN = ",(){}[]";

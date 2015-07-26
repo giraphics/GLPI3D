@@ -4,8 +4,14 @@
 <Application>
 <Plugin name="OpenGLES20" type="OPENGLES20_STATIC_PLUGIN">
 	<Renderer name="OGL_Renderer_1" windowTitle="XML DEMO" videoOut="0">
+		<Scene name="MeshScene">
+			<Camera name="PerspectiveCam" videwport="(0, 0, 100, 100)" currentPosition="0.0, 0.0,13.0" targetPosition="0.0, 0.0,0.0" clear="on" clearCoglor="(1.0, 1.0, 0.0, 1.0)">
+			</Camera>
+			<Mesh name="MeshCar1" translate="0.0, 0.0, 0.0" source="XXXXXXXXXX" vertexShader="../Source\\samples\\GLES2_0_Renderer\\shader\\MeshTexVertex.glsl" fragmentShader="../Source\\samples\\GLES2_0_Renderer\\shader\\MeshTexFragment.glsl" >
+			</Mesh>
+		</Scene>
 		<Scene name="OverlayMenu">
-			<Camera name="Ortho1" type="ortho" vi4ewport="(0, 0, 500, 500)" currentPosition="0.0, 0.0,13.0" targetPosition="0.0, 0.0,0.0" clear="on" clearColor="(1.0, 0.0, 0.0, 1.0)">
+			<Camera name="Ortho1" type="ortho" vi4ewport="(0, 0, 500, 500)" currentPosition="0.0, 0.0,13.0" targetPosition="0.0, 0.0,0.0" clear="off" clearColor="(1.0, 0.0, 0.0, 1.0)">
 			</Camera>
 			<Image name="MenuOption1" imageSource="../Resource/gui/border.png" translate="0.0, 50.0, 0.0" vertexShader="../Source\\samples\\GLES2_0_Renderer\\shader\\SimpleTextureVertex.glsl" fragmentShader="../Source\\samples\\GLES2_0_Renderer\\shader\\SimpleTextureFragment.glsl">
 				<Image name="MenuOption2" imageSource="../Resource/gui/option.png" translate="0.0, 88.0, 0.0" >
@@ -19,7 +25,7 @@
 			</Image>
 		</Scene>
 		<Scene name="OverlayMenu2">
-			<Camera name="Ortho2" type="ortho" vi4ewport="(0, 0, 500, 500)" currentPosition="0.0, 0.0,13.0" targetPosition="0.0, 0.0,0.0" clear="on" clearColor="(1.0, 1.0, 0.0, 1.0)">
+			<Camera name="Ortho2" type="ortho" vi4ewport="(0, 0, 500, 500)" currentPosition="0.0, 0.0,13.0" targetPosition="0.0, 0.0,0.0" clear="off" clearColor="(1.0, 1.0, 0.0, 1.0)">
 			</Camera>
 			<Image name="MenuOptionB2" imageSource="../Resource/gui/border.png" translate="300.0, 50.0, 0.0" vertexShader="../Source\\samples\\GLES2_0_Renderer\\shader\\SimpleTextureVertex.glsl" fragmentShader="../Source\\samples\\GLES2_0_Renderer\\shader\\SimpleTextureFragment.glsl">
 			<Image name="MenuOptionB3" imageSource="../Resource/gui/option.png" translate="0.0, 88.0, 0.0" >
@@ -33,7 +39,7 @@
 			</Image>
 		</Scene>
 		<Scene name="RectangleScene">
-			<Camera name="Ortho3" type="ortho" vi4ewport="(0, 0, 500, 500)" currentPosition="0.0, 0.0,13.0" targetPosition="0.0, 0.0,0.0" clear="on" clearCoglor="(1.0, 1.0, 0.0, 1.0)">
+			<Camera name="Ortho3" type="ortho" vi4ewport="(0, 0, 500, 500)" currentPosition="0.0, 0.0,13.0" targetPosition="0.0, 0.0,0.0" clear="off" clearCoglor="(1.0, 1.0, 0.0, 1.0)">
 			</Camera>
 			<Rectangle name="Rect1" translate="0.0, 50.0, 0.0" vertex3D="(0.0, 0.0, 0.0), (100.0, 0.0, 0.0), (0.0f, 100.0, 0.0), (100.0, 100.0, 0.0f)" texCoord="(0.0f, 1.0f),(1.0f, 1.0f),(0.0f, 0.0f),(1.0f, 0.0f)" 
 					vertexShader="../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleVertex.glsl" fragmentShader="../Source\\samples\\GLES2_0_Renderer\\shader\\RectangleFragment.glsl"
@@ -44,12 +50,6 @@
 				</Rectangle>
 			</Rectangle>
 		</Scene>
-		<!--<Scene name="MeshScene">
-			<Camera name="PerspectiveCam" vi4ewport="(0, 0, 500, 500)" currentPosition="0.0, 0.0,13.0" targetPosition="0.0, 0.0,0.0" clear="on" clearCoglor="(1.0, 1.0, 0.0, 1.0)">
-			</Camera>
-			<Mesh name="MeshCar1" translate="0.0, 0.0, 0.0" vertexShader="../Source\\samples\\GLES2_0_Renderer\\shader\\MeshTexVertex.glsl" fragmentShader="../Source\\samples\\GLES2_0_Renderer\\shader\\MeshTexFragment.glsl" >
-			</Mesh>
-		</Scene> -->
 	</Renderer>
 	<!-- <Renderer name="OGL_Renderer_2" videoOut="1">
 		<Scene name="OverlayMenu">
