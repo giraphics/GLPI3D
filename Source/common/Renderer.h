@@ -4,8 +4,8 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-#include "ILifeCycle.h"
-#include "IRenderable.h"
+#include "Interfaces/ILifeCycle.h"
+#include "Interfaces/IRenderable.h"
 
 class Renderer : public ILifeCycle, public ObjectRelative
 {

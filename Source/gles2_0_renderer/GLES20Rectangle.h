@@ -16,7 +16,7 @@
 #include "Scene.h"
 #include "Pixmap.h"
 #include "Geometry.h"
-#include "IModel.h"
+#include "Interfaces/IModel.h"
 
 using namespace std;
 

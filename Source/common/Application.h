@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Renderer.h"
-#include "ILifeCycle.h"
+#include "Interfaces/ILifeCycle.h"
 #include <vector>
 class Plugin;
 
