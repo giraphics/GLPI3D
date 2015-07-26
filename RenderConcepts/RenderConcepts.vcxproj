@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;$(SolutionDir)Source\glpi3d\core\engine;$(SolutionDir)Libraries\SFML-2.2-windows-vc10-32-bit\SFML-2.2\include;$(SolutionDir)Source\gles2_0_renderer;$(SolutionDir)Libraries\zlib\zlib128-dll\include;$(SolutionDir)Source\common;E:\renderconcept\RenderConcept2010\RenderConcepts\Libraries\glew-1.12.0-win32\glew-1.12.0;$(SolutionDir)Libraries\glew-1.12.0\include;$(SolutionDir)Libraries\glew\includeXXXX;$(SolutionDir)Libraries\lua\lua_5_3_0\src;$(SolutionDir)Libraries\glm</IncludePath>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;$(SolutionDir)Source\glpi3d\core\engine;$(SolutionDir)Libraries\tinyxml2-master;$(SolutionDir)Libraries\SFML-2.2-windows-vc10-32-bit\SFML-2.2\include;$(SolutionDir)Source\gles2_0_renderer;$(SolutionDir)Libraries\zlib\zlib128-dll\include;$(SolutionDir)Source\common;E:\renderconcept\RenderConcept2010\RenderConcepts\Libraries\glew-1.12.0-win32\glew-1.12.0;$(SolutionDir)Libraries\glew-1.12.0\include;$(SolutionDir)Libraries\glew\includeXXXX;$(SolutionDir)Libraries\lua\lua_5_3_0\src;$(SolutionDir)Libraries\glm</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;$(SolutionDir)Libraries\zlib\zlib128-dll\lib;E:\renderconcept\RenderConcept2010\RenderConcepts\Libraries\glew-1.12.0-win32\glew-1.12.0\lib\Release\x64;E:\renderconcept\RenderConcept2010\RenderConcepts\Libraries\glew-1.12.0\lib\Release\Win32;$(SolutionDir)Libraries\glew\libXXXX;$(SolutionDir)Libraries\SFML-2.2-windows-vc10-32-bit\SFML-2.2\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -110,6 +110,7 @@
     <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lundump.h" />
     <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lvm.h" />
     <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lzio.h" />
+    <ClInclude Include="..\Libraries\tinyxml2-master\tinyxml2.h" />
     <ClInclude Include="..\Source\common\Application.h" />
     <ClInclude Include="..\Source\common\Event.h" />
     <ClInclude Include="..\Source\common\GLES20Plugin.h" />
@@ -120,10 +121,7 @@
     <ClInclude Include="..\Source\common\ImageBuffer\Image.h" />
     <ClInclude Include="..\Source\common\ImageBuffer\PngImage.h" />
     <ClInclude Include="..\Source\common\ImageManager.h" />
-    <ClInclude Include="..\Source\common\IMesh.h" />
     <ClInclude Include="..\Source\common\IModel.h" />
-    <ClInclude Include="..\Source\common\IPixmap.h" />
-    <ClInclude Include="..\Source\common\IRectangle.h" />
     <ClInclude Include="..\Source\common\IRenderable.h" />
     <ClInclude Include="..\Source\common\Light.h" />
     <ClInclude Include="..\Source\common\Material.h" />
@@ -137,16 +135,21 @@
     <ClInclude Include="..\Source\common\Rectangle.h" />
     <ClInclude Include="..\Source\common\Renderer.h" />
     <ClInclude Include="..\Source\common\Scene.h" />
+    <ClInclude Include="..\Source\common\SceneGraphParser.h" />
+    <ClInclude Include="..\Source\common\TranformationMatrix.h" />
     <ClInclude Include="..\Source\common\VulkanPlugin.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Attribute.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\Cache.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\Constant.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\FrameBufferObject.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\GeometryMesh.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\Geometry\Ray.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\GLES20MeshLoader.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\GLES20Pixmap.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\GLES20Rectangle.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\GLES20Renderer.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\GLutils.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\Indices.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\Light.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\Material.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\ProgramManager.h" />
@@ -156,6 +159,8 @@
     <ClInclude Include="..\Source\gles2_0_renderer\Transform.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\Geometry.h" />
     <ClInclude Include="..\Source\gles2_0_renderer\Uniforms.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\VAO.h" />
+    <ClInclude Include="..\Source\gles2_0_renderer\VBO.h" />
     <ClInclude Include="..\Source\glew\include\GL\glew.h" />
     <ClInclude Include="..\Source\glew\include\GL\glxew.h" />
     <ClInclude Include="..\Source\glew\include\GL\wglew.h" />
@@ -170,7 +175,10 @@
     <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Shadermanager.h" />
     <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Transform.h" />
     <ClInclude Include="..\Source\glpi3d\core\engine\WaveFrontOBJ\Wavefrontobj.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\BufferScheme.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\City.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\CubeFBO.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\DrawScheme.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\FrameBufferObj.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\LightMaterial.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\luaSample1.h" />
@@ -187,6 +195,7 @@
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sampleMenu.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\sampleMultipleImage.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\WindMill.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\XMLDemonstrator.h" />
     <ClInclude Include="..\Source\samples\glpi3d\glpi3dSample1.h" />
     <ClInclude Include="..\Source\samples\glpi3d\glpi3dt_demoobjloader.h" />
     <ClInclude Include="..\Source\samples\glpi3d\glpi3dt_demotriangle.h" />
@@ -243,6 +252,7 @@
     <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lutf8lib.c" />
     <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lvm.c" />
     <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lzio.c" />
+    <ClCompile Include="..\Libraries\tinyxml2-master\tinyxml2.cpp" />
     <ClCompile Include="..\Source\common\Application.cpp" />
     <ClCompile Include="..\Source\common\Event.cpp" />
     <ClCompile Include="..\Source\common\GLES20Plugin.cpp" />
@@ -264,7 +274,9 @@
     <ClCompile Include="..\Source\common\Rectangle.cpp" />
     <ClCompile Include="..\Source\common\Renderer.cpp" />
     <ClCompile Include="..\Source\common\Scene.cpp" />
+    <ClCompile Include="..\Source\common\SceneGraphParser.cpp" />
     <ClCompile Include="..\Source\common\VulkanPlugin.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\Attribute.cpp" />
     <ClCompile Include="..\Source\gles2_0_renderer\Cache.cpp" />
     <ClCompile Include="..\Source\gles2_0_renderer\FrameBufferObject.cpp" />
     <ClCompile Include="..\Source\gles2_0_renderer\Geometry\Ray.cpp" />
@@ -282,6 +294,8 @@
     <ClCompile Include="..\Source\gles2_0_renderer\Transform.cpp" />
     <ClCompile Include="..\Source\gles2_0_renderer\Geometry.cpp" />
     <ClCompile Include="..\Source\gles2_0_renderer\Uniforms.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\VAO.cpp" />
+    <ClCompile Include="..\Source\gles2_0_renderer\VBO.cpp" />
     <ClCompile Include="..\Source\glew\src\glew.c" />
     <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Camera.cpp" />
     <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__FileBuffer.cpp" />

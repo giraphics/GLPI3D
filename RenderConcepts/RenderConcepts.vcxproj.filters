@@ -36,9 +36,6 @@
     <Filter Include="renderer\vulkan_renderer">
       <UniqueIdentifier>{c6e2f250-4d81-49fb-b760-3a981e1a0ffa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="renderer\gles2_0_renderer\geometry">
-      <UniqueIdentifier>{11cf1c95-3ab2-41d2-a281-28a24f487af4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="renderer\glpi3d_renderer\core">
       <UniqueIdentifier>{6394617f-35f3-4573-a9df-85dfd7806146}</UniqueIdentifier>
     </Filter>
@@ -71,6 +68,9 @@
     </Filter>
     <Filter Include="sample\gles2_0_renderer\shader">
       <UniqueIdentifier>{aae0d212-3171-4b1b-9db7-3bfb041dc0fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="library\Xml">
+      <UniqueIdentifier>{8af18ae8-9cc7-4392-9553-c265aac27ed2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -212,9 +212,6 @@
     <ClInclude Include="..\Libraries\lua\lua_5_3_0\src\lzio.h">
       <Filter>library\lua\lua_5_3_0</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\gles2_0_renderer\Geometry\Ray.h">
-      <Filter>renderer\gles2_0_renderer\geometry</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\gles2_0_renderer\Cache.h">
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClInclude>
@@ -246,9 +243,6 @@
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\gles2_0_renderer\Transform.h">
-      <Filter>renderer\gles2_0_renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\gles2_0_renderer\scene_graph\Camera.h">
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\glpi3d\core\engine\GLPi3D__Camera.h">
@@ -368,15 +362,6 @@
     <ClInclude Include="..\Source\common\ILifeCycle.h">
       <Filter>common\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\common\IMesh.h">
-      <Filter>common\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\common\IPixmap.h">
-      <Filter>common\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\common\IRectangle.h">
-      <Filter>common\Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\common\IRenderable.h">
       <Filter>common\Interfaces</Filter>
     </ClInclude>
@@ -420,6 +405,48 @@
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\gles2_0_renderer\Uniforms.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\DrawScheme.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\City.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\BufferScheme.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\VBO.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\VAO.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Attribute.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Indices.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\GeometryMesh.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\Geometry\Ray.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\tinyxml2-master\tinyxml2.h">
+      <Filter>library\Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\XMLDemonstrator.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\TranformationMatrix.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\common\SceneGraphParser.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\scene_graph\Camera.h">
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -604,9 +631,6 @@
     <ClCompile Include="..\Libraries\lua\lua_5_3_0\src\lzio.c">
       <Filter>library\lua\lua_5_3_0</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\gles2_0_renderer\Geometry\Ray.cpp">
-      <Filter>renderer\gles2_0_renderer\geometry</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\gles2_0_renderer\Cache.cpp">
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClCompile>
@@ -635,9 +659,6 @@
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\gles2_0_renderer\Transform.cpp">
-      <Filter>renderer\gles2_0_renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\gles2_0_renderer\scene_graph\Camera.cpp">
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\glpi3d\core\engine\GLPi3D__Camera.cpp">
@@ -723,6 +744,27 @@
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\gles2_0_renderer\Uniforms.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\VBO.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\VAO.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\Attribute.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\Geometry\Ray.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\tinyxml2-master\tinyxml2.cpp">
+      <Filter>library\Xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\common\SceneGraphParser.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\scene_graph\Camera.cpp">
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClCompile>
   </ItemGroup>
