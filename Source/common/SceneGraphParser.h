@@ -1,10 +1,10 @@
 #pragma once
-#include "Common/Application.h"
-#include "Common/Scene.h"
-#include "Common/HMIRectangle.h"
-#include "Common/Pixmap.h"
-#include "Common/ImageManager.h"
-#include "gles2_0_renderer/scene_graph/Camera.h"
+#include "Application.h"
+#include "Scene.h"
+#include "HMIRectangle.h"
+#include "Pixmap.h"
+#include "ImageManager.h"
+#include "../gles2_0_renderer/scene_graph/Camera.h"
 #include "Plugin.h"
 #include "TinyXML2.h"
 #include <map>
@@ -20,7 +20,7 @@ public:
 	Application* LoadXML(const char* filePath){
 		doc.LoadFile(filePath);
 		int erro = doc.ErrorID();
-		if(!erro){
+		if(erro){
 			printf("Scene Graphs XML parser Error: %s", filePath);
 			// Parminder: TODO: also provide the type of error occurred.
 			return NULL;
