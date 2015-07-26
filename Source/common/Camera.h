@@ -1,6 +1,6 @@
 #ifndef CAMERA_H
 #define CAMERA_H
-#include "../../common/ModelEx.h"
+#include "ModelEx.h"
 #include "ProgramManager.h"
 #include "Transform.h"
 #include <vector>
