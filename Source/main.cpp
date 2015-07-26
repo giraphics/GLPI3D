@@ -28,6 +28,7 @@
    #include "samples\GLES2_0_Renderer\CubeFBO.h"
    #include "samples\GLES2_0_Renderer\LightMaterial.h"
    #include "samples\GLES2_0_Renderer\City.h"
+   #include "samples\GLES2_0_Renderer\XMLDemonstrator.h"
 #endif
 std::vector<void (*)()> demoList;
 int demoNumber = 0;
@@ -42,161 +43,64 @@ int main()
 #ifdef OLDENGINE
    GLPISample();
 #else
+	demoList.push_back(XMLDemo);
+
 	demoList.push_back(DrawScheme);
 	demoList.push_back(BufferScheme);
+
+	// HUD View, Simple, HMI rectangle overide render
 	demoList.push_back(SimpleAndHMIRectangle);
+
+   // HUD View, Window filled with interpolated color rectangles
 	demoList.push_back(FilledWindow);
+
+   // Perespective view
 	demoList.push_back(SamplePerespective);
+   
+   // Parent child Transformation and Camera view
 	demoList.push_back(SamplePerspctivePlusParentChild);
+   
+   // Perspective Image rotating about its own axises
 	demoList.push_back(SampleImage);
 	demoList.push_back(SampleMultipleImage);
+   
+	// Simple sci-fi City mesh
 	demoList.push_back(SciFiSample);
+	
+   // Simple Diffuse mesh demonstrator
 	demoList.push_back(DiffuseMeshSample);
+
+   // Mesh with texture + Diffuse shader
 	demoList.push_back(MeshSample);
+   
+   // Multiple scenes in one renderer + Ortho + prespective
 	demoList.push_back(MeshRectSample);
-	demoList.push_back(WindMillDemo);
+
+   // Use simple object and produce transformation graph + Gouraud shading
+ 	demoList.push_back(WindMillDemo);
+   
+   // Custom Scene and Custom modeling. + Phong Shading
 	demoList.push_back(CustomSceneDemo);
+
+    // Light and Material interaction demo
 	demoList.push_back(LighMaterailDemo);
+
+   // Sample texture Menu
 	demoList.push_back(SampleMenu);
+
+   // Frame Buffer Object Demo
 	demoList.push_back(FBODemo);
+
+   // Cube Frame Buffer Object Demo
 	demoList.push_back(CubeFBODemo);
-	char selection = 0;
+	
 	int totalSize = demoList.size();
 	while(totalSize){
 		demoList.at(demoNumber<0 ? demoNumber=0 : demoNumber%(totalSize))();
 	}
-
-	return 0;
-	DrawScheme();
-
-	SimpleAndHMIRectangle();  // HUD View, Simple, HMI rectangle overide render
-
-   // HUD View, Window filled with interpolated color rectangles
-   FilledWindow();			 
-
-   // Perespective view
-   SamplePerespective();	 
-   
-   // Parent child Transformation and Camera view
-   SamplePerspctivePlusParentChild();
-   
-   // Perspective Image rotating about its own axises
-   SampleImage();
-   
-   SampleMultipleImage();
-	
-   // Simple Diffuse mesh demonstrator
-   SciFiSample();
-   DiffuseMeshSample();
-   //return 0;
-
-   // Mesh with texture + Diffuse shader
-   MeshSample();
-   
-   // Multiple scenes in one renderer + Ortho + prespective
-   MeshRectSample();
-
-   // Use simple object and produce transformation graph + Gouraud shading
-   WindMillDemo();
-   
-   // Custom Scene and Custom modeling. + Phong Shading
-   CustomSceneDemo();
-
-   // Light and Material Demo
-   LighMaterailDemo();
-
-   // Sample texture Menu
-   SampleMenu();
-
-   // Frame Buffer Object Demo
-   FBODemo();
-
-   // Cube Frame Buffer Object Demo
-   CubeFBODemo();
 #endif
 
    return EXIT_SUCCESS;
 }
 
-void test()
-{
-	char selection = getch();
-	do{
-	switch(selection){
-		case 'a':
-			// HUD View, Simple, HMI rectangle overide render
-			SimpleAndHMIRectangle();  
-		break;
 
-		case 'b':
-			// HUD View, Window filled with interpolated color rectangles
-			FilledWindow();			 
-		break;
-		
-		case 'c':
-			// Perespective view
-			SamplePerespective();
-		break;
-
-		case 'd':
-			// Parent child Transformation and Camera view
-			SamplePerspctivePlusParentChild();
-		break;
-
-		case 'e':
-			// Perspective Image rotating about its own axises
-			SampleImage();
-	    break;
-		
-		case 'f':
-			SampleMultipleImage();
-		break;
-		
-		case 'g':
-			// Simple Diffuse mesh demonstrator
-			DiffuseMeshSample();
-		break;
-		
-		case 'h':
-			// Mesh with texture + Diffuse shader
-			MeshSample();
-		break;
-   
-		case 'i':
-			// Multiple scenes in one renderer + Ortho + prespective
-			MeshRectSample();
-		break;
-
-		case 'j':
-			// Use simple object and produce transformation graph + Gouraud shading
-			WindMillDemo();
-		break;
-   
-		case 'k':
-			// Custom Scene and Custom modeling. + Phong Shading
-			CustomSceneDemo();
-		break;
-		case 'l':
-			// Light and Material Demo
-			LighMaterailDemo();
-		break;
-
-		case 'm':
-			// Sample texture Menu
-			SampleMenu();
-		break;
-
-		case 'n':
-			// Frame Buffer Object Demo
-			FBODemo();
-		break;
-
-		case 'o':
-			// Cube Frame Buffer Object Demo
-			CubeFBODemo();
-		break;
-	}
-	}
-	while(selection = getch());
-
-}

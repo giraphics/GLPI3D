@@ -74,6 +74,7 @@ void MeshObject::Render(bool (*customRender)())
 void MeshObject::SetProgram(unsigned int ID)
 {
    specificMesh->SetProgram(ID);
+   Model::SetProgram(ID);
 }
 
 void MeshObject::setTransformationForOpenGLES20Pipeline(){

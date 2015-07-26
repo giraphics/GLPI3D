@@ -102,6 +102,7 @@ void GRectangle::SetIndices(std::vector<unsigned short>* indicesList){
 void GRectangle::SetProgram(unsigned int ID)
 {
    specificRectangle->SetProgram(ID);
+   Model::SetProgram(ID);
 }
 
 void GRectangle::setTransformationForOpenGLES20Pipeline(){

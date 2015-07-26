@@ -94,6 +94,7 @@ void Pixmap::SetColor(glm::vec4* color){
 void Pixmap::SetProgram(unsigned int ID)
 {
    specificPixmap->SetProgram(ID);
+   Model::SetProgram(ID);
 }
 
 void Pixmap::setTransformationForOpenGLES20Pipeline(){

@@ -62,7 +62,7 @@ unsigned char ShaderManager::ShaderCompile( SHADER *shader, const char *code, un
 	int loglen,
 		status;
 	
-	if( shader->sid ) return 0;
+	//if( shader->sid ) return 0;
 	
 	shader->sid = glCreateShader( shader->type );
 
