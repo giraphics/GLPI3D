@@ -17,6 +17,10 @@ GLES20Pixmap::GLES20Pixmap(Image* imageItem, TextureTypeEnum textureType)
 	   textureObj.generateTexture2D(getTarget(textureType), imageItem->imageWidth(), imageItem->imageHeight(), texInternalFormat, GL_UNSIGNED_BYTE, texInternalFormat, imageItem->bits(), false);
 	   imageItem->getTextureID() = textureObj.getTextureID();
    }
+	else{
+		textureObj.setTextureID(imageItem->getTextureID());
+		textureObj.setTargetType(getTarget(textureType));
+	}
    	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//glEnable(GL_CULL_FACE);
@@ -85,8 +89,8 @@ void GLES20Pixmap::Render(bool (*customRender)())
    // In future this calculation must resides in the update function
    //tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
    
-   textureObj.BindTexture();
    glActiveTexture (GL_TEXTURE0);
+   textureObj.BindTexture();
 
    mvpUniform->SetValue((GLfloat*)&tempMatrix[0]);
    textureUnit = 0; //Need to set from a setter function.

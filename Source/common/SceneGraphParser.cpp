@@ -58,29 +58,47 @@ std::vector<tinyxml2::XMLNode*> SceneGraphParser::getSiblings(tinyxml2::XMLNode*
 }
 
 void SceneGraphParser::tokenizeFloat( char* string,char* token, std::vector<float>& tokenList){
-	char* pch;
+	char* pch    = NULL;
+	float number = 0.0f;
+
 	pch = strtok((char*)string, token);
 				
+	try {
+		number = std::stof(std::string(pch));
+	}
+	catch (const std::invalid_argument& ia) {
+		std::cerr << "Invalid argument: " << ia.what() << "in " << __FUNCTION__ <<"at "<< __LINE__ << '\n';
+		assert(0);
+	}
+				
 	if(pch){
-		tokenList.push_back(std::stoi(std::string(pch)));
+		tokenList.push_back(number);
 	}
 				
 	while(pch != NULL){
 		pch = strtok(NULL, token);
 		if(pch){
-			tokenList.push_back(std::stof(std::string(pch)));
+			try {
+				number = std::stof(std::string(pch));
+			}
+			catch (const std::invalid_argument& ia) {
+				std::cerr << "Invalid argument: " << ia.what() << '\n';
+				assert(0);
+			}
+			tokenList.push_back(number);
 		}
 	}
 }
 
-void SceneGraphParser::parseTagApplication()
+bool SceneGraphParser::parseTagApplication()
 {
 	if(!application){
 		application = new Application;
 	}
+	return true;
 }
 
-void SceneGraphParser::parseTagPlugin(tinyxml2::XMLElement* element){
+bool SceneGraphParser::parseTagPlugin(tinyxml2::XMLElement* element){
 	if(!application){
 		application = new Application;
 	}
@@ -97,9 +115,11 @@ void SceneGraphParser::parseTagPlugin(tinyxml2::XMLElement* element){
 		plugin->SetName(std::string(name));
 		AddToMapping(element, (Object*)plugin);
 	}
+
+	return true;
 }
 
-void SceneGraphParser::parseTagRenderer(tinyxml2::XMLElement* element){
+bool SceneGraphParser::parseTagRenderer(tinyxml2::XMLElement* element){
 
 	tinyxml2::XMLElement* parent = element->Parent()->ToElement();
 	Plugin* plugin				 = (Plugin*)mapInfo[parent];
@@ -116,9 +136,11 @@ void SceneGraphParser::parseTagRenderer(tinyxml2::XMLElement* element){
 		renderer->setWindowTitle((char*)windowTitle);
 		AddToMapping(element, (Object*)renderer);
 	}
+
+	return true;
 }
 
-void SceneGraphParser::parseTagScene(tinyxml2::XMLElement* element){
+bool SceneGraphParser::parseTagScene(tinyxml2::XMLElement* element){
 	tinyxml2::XMLElement* parent = element->Parent()->ToElement();
 	Renderer* renderer			 = (Renderer*)mapInfo[parent];
 	const char* name			 = element->Attribute("name");
@@ -129,15 +151,22 @@ void SceneGraphParser::parseTagScene(tinyxml2::XMLElement* element){
 		sceneItem->SetName( name );
 		AddToMapping(element, (Object*)sceneItem);
 	}
+
+	return true;
 }
 
-void SceneGraphParser::parseTagCamera(tinyxml2::XMLElement* element){
+bool SceneGraphParser::parseTagCamera(tinyxml2::XMLElement* element){
 	tinyxml2::XMLElement* parent = element->Parent()->ToElement();
 	Scene* scene				 = (Scene*)mapInfo[parent];
 	const char* name			 = element->Attribute("name");
 	const char* type			 = element->Attribute("type");
 	const char* viewport		 = element->Attribute("viewport");
+	const char* clear			 = element->Attribute("clear");
+	const char* clearColor		 = element->Attribute("clearColor");
 	Camera* cameraItem			 = NULL;
+	char* TOKEN					 = ",(){}[]";
+	std::vector<float> coordList;
+
 	if(!scene){
 		printf("\n Camera's scene unspecified.");
 		assert(0);
@@ -151,8 +180,6 @@ void SceneGraphParser::parseTagCamera(tinyxml2::XMLElement* element){
 			cameraItem		= new Camera(name, scene);
 			char* position	= (char*)element->Attribute("currentPosition");
 			char* target	= (char*)element->Attribute("targetPosition");
-			char* TOKEN		= ",";
-			std::vector<float> coordList;
 
 			// Tokenize currentPosition
 			tokenizeFloat(position, TOKEN, coordList);
@@ -189,11 +216,26 @@ void SceneGraphParser::parseTagCamera(tinyxml2::XMLElement* element){
 	if(cameraItem){
 		cameraItem->SetName( name );
 		AddToMapping(element, (Object*)cameraItem);
+		if(clear){
+			cameraItem->setClearFlag(strcmp("on",clear)? false : true);
+		}
+
+		if(clearColor){
+			coordList.clear();
+			tokenizeFloat((char*)clearColor, TOKEN, coordList);
+			if(coordList.size() == 4){
+				cameraItem->SetClearColor(glm::vec4(coordList[0], coordList[1], coordList[2], coordList[3]));
+			}
+			else{
+				printf("\n Viewport coordinates must be 4, using default background color of Camera: %s", cameraItem->GetName().c_str());
+			}
+		}
+
 		if(!viewport){
 			cameraItem->Viewport(0, 0, scene->getRenderer()->getWindowWidth(), scene->getRenderer()->getWindowHeight());
 		}
 		else{
-			char* TOKEN = ",";
+			char* TOKEN = ",(){}[]";
 			std::vector<float> viewportCoord;
 			tokenizeFloat( (char*)viewport, TOKEN, viewportCoord);
 
@@ -209,9 +251,11 @@ void SceneGraphParser::parseTagCamera(tinyxml2::XMLElement* element){
 			}
 		}
 	}
+
+	return true;
 }
 
-void SceneGraphParser::parseTagImage(tinyxml2::XMLElement* element){
+bool SceneGraphParser::parseTagImage(tinyxml2::XMLElement* element){
 	tinyxml2::XMLElement* parent		= element->Parent()->ToElement();
 	Model* parentModel					= NULL;
 	unsigned int ProgramID				= 0;
@@ -277,7 +321,7 @@ void SceneGraphParser::parseTagImage(tinyxml2::XMLElement* element){
 	AddToMapping(element, (Object*)pixmap);
 
 	if(translate){
-		char* TOKEN = ",";
+		char* TOKEN = ",(){}[]";
 		std::vector<float> translateCoords;
 		tokenizeFloat( (char*)translate, TOKEN, translateCoords);
 
@@ -299,6 +343,8 @@ void SceneGraphParser::parseTagImage(tinyxml2::XMLElement* element){
 	if(!parentModel){
 		currentScene->addModel(pixmap);
 	}
+
+	return true;
 }
 
 void SceneGraphParser::handleTags(const char* name, tinyxml2::XMLElement* element){
@@ -319,6 +365,9 @@ void SceneGraphParser::handleTags(const char* name, tinyxml2::XMLElement* elemen
 	}
 	else if(!strcmp(name, "Image")){
 		parseTagImage(element);
+	}
+	else if(!strcmp(name, "Rectangle")){
+		parseTagRectangle(element);
 	}
 }
 
@@ -344,4 +393,219 @@ void SceneGraphParser::parseNodeInfo(tinyxml2::XMLNode* node){
 			parseNodeInfo(firstChild);
 		}
 	}
+}
+
+bool SceneGraphParser::parseTagRectangle(tinyxml2::XMLElement* element){
+	tinyxml2::XMLElement* parent		= element->Parent()->ToElement();
+	Model* parentModel					= NULL;
+	unsigned int ProgramID				= 0;
+	ProgramManager* ProgramManagerObj	= NULL;
+
+	// If the parent of current model is equal to scene object that means, it has not parent model.
+	// Perhaps the object class must introduce a type of object so that it is easy to recognize the
+	// object if it is Application, Renderer, Scene or Camera.
+	if(currentScene == mapInfo[parent]){
+		parentModel = NULL;
+	}
+	else{
+		parentModel = (Model*)mapInfo[parent];
+	}
+
+	const char* name			 = element->Attribute("name");
+	const char* vertexShader	 = element->Attribute("vertexShader");
+	const char* fragmentShader	 = element->Attribute("fragmentShader");
+	const char* translate		 = element->Attribute("translate");
+	const char* vertex3D		 = element->Attribute("vertex3D");
+	const char* texCoord		 = element->Attribute("texCoord");
+	const char* color			 = element->Attribute("color");
+		
+	GRectangle* rectangleItem    = NULL;
+	rectangleItem = new GRectangle(currentScene, parentModel, BUTTON, name);
+
+	if(!rectangleItem){
+		printf("Unable to create the Rectangle object %s, %s",__FUNCTION__, __LINE__);
+	}
+
+	if(vertexShader && fragmentShader){
+		ProgramManagerObj = ProgramManager::GetInstance();
+		ProgramID		  = ProgramManagerObj->LoadShader("Rectangle", (char*)vertexShader, (char*)fragmentShader )->ProgramID;
+	}
+	else{
+		// If shader not specified the used the parents shader
+		if(parentModel){
+			ProgramID = parentModel->GetProgram();
+		}
+		else{
+			printf("Error: Shader is not specified for Image: %s", name);
+			assert(0);
+		}
+	}
+	   
+	// Memory leak need to be prevent in the XML design, unlike the manual coding where its easy to track the memory
+	// here we need to perform.
+	if(vertex3D){
+		std::vector<glm::vec3>* vertices = new std::vector<glm::vec3>;
+		char* TOKEN = ",(){}[] ";
+		std::vector<float> vertexCoords;
+		tokenizeFloat( (char*)vertex3D, TOKEN, vertexCoords);
+
+		if(vertexCoords.size() == 12){
+			vertices->push_back(glm::vec3( vertexCoords[0],  vertexCoords[1],   vertexCoords[2] ));
+			vertices->push_back(glm::vec3( vertexCoords[3],  vertexCoords[4],   vertexCoords[5] ));
+			vertices->push_back(glm::vec3( vertexCoords[6],  vertexCoords[7],   vertexCoords[8] ));
+			vertices->push_back(glm::vec3( vertexCoords[9],  vertexCoords[10],   vertexCoords[11] ));
+		}else{
+			delete vertices;
+			printf("\n Total Vertex coordinates for rectangle must be 4(vertices)*3(x|y|z) = 12.");
+			for(int i=0; i<vertexCoords.size(); i++){
+				printf("\n vertex[%d]: %d", i+1, (int)vertexCoords[i]);
+			}
+			assert(0);
+		}
+		rectangleItem->SetVertices(vertices);
+	}
+
+	if(texCoord){
+		std::vector<glm::vec2>* texCoords = new std::vector<glm::vec2>;
+		char* TOKEN = ",(){}[] ";
+		std::vector<float> textureCoords;
+		tokenizeFloat( (char*)texCoord, TOKEN, textureCoords);
+
+		if(textureCoords.size() == 8){
+			texCoords->push_back(glm::vec2( textureCoords[0], textureCoords[1] ));
+			texCoords->push_back(glm::vec2( textureCoords[2], textureCoords[3] ));
+			texCoords->push_back(glm::vec2( textureCoords[4], textureCoords[5] ));
+			texCoords->push_back(glm::vec2( textureCoords[6], textureCoords[7] ));
+		}else{
+			delete texCoords;
+			printf("\n Total Vertex coordinates for rectangle must be 4(vertices)*2(u|v) = 8.");
+			for(int i=0; i<textureCoords.size(); i++){
+				printf("\n textCoord[%d]: %d", i+1, (int)textureCoords[i]);
+			}
+			assert(0);
+		}
+		rectangleItem->SetTexCoords(texCoords);
+	}
+
+	if(color){
+		char* TOKEN = ",(){}[] ";
+		std::vector<float> colorRGBA;
+		tokenizeFloat( (char*)color, TOKEN, colorRGBA);
+
+		if(colorRGBA.size() == 4){
+			rectangleItem->SetColor(&glm::vec4(colorRGBA[0], colorRGBA[1], colorRGBA[2], colorRGBA[3]));
+		}else{
+			printf("\n Total Vertex coordinates for rectangle must be 4(r|g|b|a).");
+			for(int i=0; i<colorRGBA.size(); i++){
+				printf("\n textCoord[%d]: %f", i+1, colorRGBA[i]);
+			}
+			assert(0);
+		}
+	}
+
+	// Set the vertex information
+	rectangleItem->SetProgram(ProgramID);
+	AddToMapping(element, (Object*)rectangleItem);
+    
+
+	if(translate){
+		char* TOKEN = ",(){}[]";
+		std::vector<float> translateCoords;
+		tokenizeFloat( (char*)translate, TOKEN, translateCoords);
+
+		if(translateCoords.size() == 3){
+			rectangleItem->Translate(translateCoords[0], translateCoords[1], translateCoords[2]);
+		}else{
+			printf("\n Translation coordinates must be 3:");
+			for(int i=0; i<translateCoords.size(); i++){
+				printf("\n translation[%d]: %d", i+1, (int)translateCoords[i]);
+			}
+			assert(0);
+		}
+	}
+
+	// If parent model is NULL that mean there is not parent of this model.
+	// Therefore, add it to scene, otherwise if it has the parent the the parent
+	// will automatically take care of the life cycle.
+	if(!parentModel){
+		currentScene->addModel(rectangleItem);
+	}
+
+	return true;
+}
+
+bool SceneGraphParser::parseTagMesh(tinyxml2::XMLElement* element){
+	tinyxml2::XMLElement* parent		= element->Parent()->ToElement();
+	Model* parentModel					= NULL;
+	unsigned int ProgramID				= 0;
+	ProgramManager* ProgramManagerObj	= NULL;
+
+	// If the parent of current model is equal to scene object that means, it has not parent model.
+	// Perhaps the object class must introduce a type of object so that it is easy to recognize the
+	// object if it is Application, Renderer, Scene or Camera.
+	if(currentScene == mapInfo[parent]){
+		parentModel = NULL;
+	}
+	else{
+		parentModel = (Model*)mapInfo[parent];
+	}
+
+	const char* name			 = element->Attribute("name");
+	const char* vertexShader	 = element->Attribute("vertexShader");
+	const char* fragmentShader	 = element->Attribute("fragmentShader");
+	const char* translate		 = element->Attribute("translate");
+		
+	//GRectangle* rectangleItem    = NULL;
+	//rectangleItem = new GRectangle(currentScene, parentModel, BUTTON, name);
+    MeshObject* mesh =  new MeshObject("../Resource/Models/CubeWithNormal.obj", currentScene, parentModel, MESH, name);
+
+
+	if(!mesh){
+		printf("Unable to create the Mesh object %s, %s",__FUNCTION__, __LINE__);
+	}
+
+	if(vertexShader && fragmentShader){
+		ProgramManagerObj = ProgramManager::GetInstance();
+		ProgramID		  = ProgramManagerObj->LoadShader("Mesh", (char*)vertexShader, (char*)fragmentShader )->ProgramID;
+	}
+	else{
+		// If shader not specified the used the parents shader
+		if(parentModel){
+			ProgramID = parentModel->GetProgram();
+		}
+		else{
+			printf("Error: Shader is not specified for Image: %s", name);
+			assert(0);
+		}
+	}
+	   
+	// Set the vertex information
+	mesh->SetProgram(ProgramID);
+	AddToMapping(element, (Object*)mesh);
+    
+
+	if(translate){
+		char* TOKEN = ",(){}[]";
+		std::vector<float> translateCoords;
+		tokenizeFloat( (char*)translate, TOKEN, translateCoords);
+
+		if(translateCoords.size() == 3){
+			mesh->Translate(translateCoords[0], translateCoords[1], translateCoords[2]);
+		}else{
+			printf("\n Translation coordinates must be 3:");
+			for(int i=0; i<translateCoords.size(); i++){
+				printf("\n translation[%d]: %d", i+1, (int)translateCoords[i]);
+			}
+			assert(0);
+		}
+	}
+
+	// If parent model is NULL that mean there is not parent of this model.
+	// Therefore, add it to scene, otherwise if it has the parent the the parent
+	// will automatically take care of the life cycle.
+	if(!parentModel){
+		currentScene->addModel(mesh);
+	}
+
+	return true;
 }

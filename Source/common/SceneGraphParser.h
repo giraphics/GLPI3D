@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "HMIRectangle.h"
 #include "Pixmap.h"
+#include "MeshObject.h"
 #include "ImageManager.h"
 #include "../gles2_0_renderer/scene_graph/Camera.h"
 #include "Plugin.h"
@@ -44,22 +45,28 @@ private:
 	void parseNodeInfo(tinyxml2::XMLNode* node);
 
 	//! Parse the "Application" tag
-	void parseTagApplication();
+	bool parseTagApplication();
 	
 	//! Parse the "Plugin" tag
-	void parseTagPlugin(tinyxml2::XMLElement* element);
+	bool parseTagPlugin(tinyxml2::XMLElement* element);
 
 	//! Parse the "Renderer" tag
-	void parseTagRenderer(tinyxml2::XMLElement* element);
+	bool parseTagRenderer(tinyxml2::XMLElement* element);
 
 	//! Parse the "Scene" tag
-	void parseTagScene(tinyxml2::XMLElement* element);
+	bool parseTagScene(tinyxml2::XMLElement* element);
 
 	//! Parse the "Camera" tag
-	void parseTagCamera(tinyxml2::XMLElement* element);
+	bool parseTagCamera(tinyxml2::XMLElement* element);
 
 	//! Parse the "Image" tag
-	void parseTagImage(tinyxml2::XMLElement* element);
+	bool parseTagImage(tinyxml2::XMLElement* element);
+
+	//! Parse the "Rectangle" tag
+	bool parseTagRectangle(tinyxml2::XMLElement* element);
+
+	//! Parse the "Mesh" tag
+	bool parseTagMesh(tinyxml2::XMLElement* element);
 
 	/************** PRIVATE MEMBER VARIABLES **************/
 
