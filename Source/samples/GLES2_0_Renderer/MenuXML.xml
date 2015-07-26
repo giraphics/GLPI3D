@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE PLAY SYSTEM "play.dtd">
+
+<Application>
+<Plugin name="OpenGLES20" type="OPENGLES20_STATIC_PLUGIN">
+	<Renderer name="OGL_Renderer_1" windowTitle="XML DEMO" videoOut="0">
+		<Scene name="OverlayMenu">
+			<Camera name="Ortho1" type="ortho" viewpsort="0, 0, 100, 100" currentPosition="0.0, 0.0,13.0" targetPosition="0.0, 0.0,0.0">
+			</Camera>
+			<Image name="MenuOption1" vertices3D="(0.0, 0.0, 0.0), (50.0, 0.0, 0.0), (0.0f, 50.0, 0.0), (50.0, 50.0, 0.0f)" textCoord="(0.0f, 1.0f),(1.0f, 1.0f),(0.0f, 0.0f),(1.0f, 0.0f)" imageSource="../Resource/gui/border.png" translate="100.0, 100.0, 0.0" vertexShader="../Source\\samples\\GLES2_0_Renderer\\shader\\SimpleTextureVertex.glsl" fragmentShader="../Source\\samples\\GLES2_0_Renderer\\shader\\SimpleTextureFragment.glsl">
+				<Image name="MenuOption2" vertices3D="(0.0, 0.0, 0.0), (50.0, 0.0, 0.0), (0.0f, 50.0, 0.0), (50.0, 50.0, 0.0f)" textCoord="(0.0f, 1.0f),(1.0f, 1.0f),(0.0f, 0.0f),(1.0f, 0.0f)" imageSource="../Resource/gui/option.png" translate="100.0, 100.0, 0.0" />
+				<Image name="MenuOption3" vertices3D="(0.0, 0.0, 0.0), (50.0, 0.0, 0.0), (0.0f, 50.0, 0.0), (50.0, 50.0, 0.0f)" textCoord="(0.0f, 1.0f),(1.0f, 1.0f),(0.0f, 0.0f),(1.0f, 0.0f)" imageSource="../Resource/gui/option.png"  translate="200.0, 200.0, 0.0" /> 
+			</Image>
+		</Scene>
+	</Renderer>
+	<!-- <Renderer name="OGL_Renderer_2" videoOut="1">
+		<Scene name="OverlayMenu">
+			<Camera name="Prespective">
+				<Mesh name="MBclass" meshsource="./Images/Background.png"/>
+			</Camera>
+		</Scene>
+	</Renderer> -->
+</Plugin>
+</Application>
