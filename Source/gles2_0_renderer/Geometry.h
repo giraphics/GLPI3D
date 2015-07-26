@@ -3,7 +3,7 @@
 
 // Miscellenous classes for VA, VBO, IBO, FBO, vertex attribute, shader program
 
-#include "IModel.h"
+#include "Interfaces/IModel.h"
 #include "Uniforms.h"
 #include "VBO.h"
 #include "VAO.h"

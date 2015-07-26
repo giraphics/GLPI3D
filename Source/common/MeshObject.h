@@ -11,7 +11,6 @@
 #include "glutils.h"
 #include "Renderer.h"
 #include "Scene.h"
-#include "IMesh.h"
 #include "MeshWaveFront\WaveFrontOBJ.h"
 #include <string>
 using namespace MeshNameSpace;

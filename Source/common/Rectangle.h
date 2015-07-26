@@ -7,7 +7,6 @@
 
 #include <iostream>
 
-#include "IRectangle.h"
 #include "ModelEx.h"
 #include "glutils.h"
 #include "Renderer.h"

@@ -14,13 +14,12 @@
 #include "glutils.h"
 #include "Renderer.h"
 #include "Scene.h"
-#include "IRectangle.h"
 #include "Pixmap.h"
 #include "Geometry.h"
 #include "IModel.h"
 
 using namespace std;
-//using namespace namespaceimage;
+
 class GLES20Rectangle : public IRenderable, public IGeoBuffer, public TransformationMatrix
 {
     

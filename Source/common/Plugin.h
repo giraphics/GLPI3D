@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "ILifeCycle.h"
+#include "Interfaces/ILifeCycle.h"
 #include "Object.h"
 #include "Renderer.h"
 

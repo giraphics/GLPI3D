@@ -1,12 +1,10 @@
 #ifndef GLES20MESHLOADER_H
 #define GLES20MESHLOADER_H
 
-//#include "IModel.h"
 #include "glutils.h"
 #include "Renderer.h"
 #include <string>
 #include "MeshWaveFront\WaveFrontOBJ.h"
-#include "IMesh.h"
 #include "ImageBuffer/Image.h"
 #include "ImageBuffer/PngImage.h"
 #include "ImageManager.h"

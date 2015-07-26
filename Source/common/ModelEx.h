@@ -8,8 +8,8 @@
 #include "ObjectRelative.h"
 #include "Geometry/Ray.h"
 #include "Event.h"
-#include "IModel.h"
-#include "ILifeCycle.h"
+#include "Interfaces/IModel.h"
+#include "Interfaces/ILifeCycle.h"
 #include <vector>
 
 //! Forward declaration

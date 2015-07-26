@@ -11,7 +11,6 @@
 #include "glutils.h"
 #include "Renderer.h"
 #include "Scene.h"
-#include "IPixmap.h"
 #include <string>
 #include "ImageBuffer/Image.h"
 #include "ImageBuffer/PngImage.h"

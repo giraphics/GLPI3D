@@ -314,7 +314,7 @@ void parseNodeInfo(tinyxml2::XMLNode* node){
 // Demo Description: In this demo, we will draw two rectangle with Array and Element (Indices) drawing scheme.
 void XMLDemo(){
 	tinyxml2::XMLDocument doc;
-	doc.LoadFile("E:/renderconcept/RenderConcept2010-ILifeCycle/RenderConcepts/Resource/SceneGraphXML.xml");
+	doc.LoadFile("E:/renderconcept/RenderConcept2010-ILifeCycle/RenderConcepts/Source/samples/GLES2_0_Renderer/MenuXML.xml");
 	int erro = doc.ErrorID();
 	tinyxml2::XMLElement* root = doc.FirstChildElement("Application");
 	const char* msg3 = root->GetText();

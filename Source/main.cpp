@@ -46,6 +46,7 @@ int main()
 	demoList.push_back(XMLDemo);
 
 	demoList.push_back(DrawScheme);
+	
 	demoList.push_back(BufferScheme);
 
 	// HUD View, Simple, HMI rectangle overide render

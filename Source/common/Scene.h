@@ -7,7 +7,7 @@
 #include "Light.h"
 #include "Event.h"
 #include <vector>
-#include "ILifeCycle.h"
+#include "Interfaces/ILifeCycle.h"
 
 class Renderer;
 

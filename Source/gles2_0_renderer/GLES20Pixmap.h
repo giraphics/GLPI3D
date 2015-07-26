@@ -12,7 +12,6 @@
 #include "Renderer.h"
 #include "Scene.h"
 #include "Rectangle.h"
-#include "IPixmap.h"
 #include "Texture.h"
 #include "Geometry.h"
 
