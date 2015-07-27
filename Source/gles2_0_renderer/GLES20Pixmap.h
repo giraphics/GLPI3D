@@ -53,8 +53,38 @@ private:
 	float* color;
 	GLint textureUnit;
 	Texture textureObj;
+};
 
-	//GeometryBuffer* geoBuffer;
+class GLES20Viewport : public ILifeCycle{
+public:
+	GLES20Viewport(){}
+
+	~GLES20Viewport(){}
+
+	virtual void Initialize(){
+		// Enable the Scissor test
+		glEnable(GL_SCISSOR_TEST);
+	}
+
+   // Render the Model class, the function pointer here as an argument is not in use
+   // The purpose of this argument is to override the default rendering behaviour thus giving much more flexibility to upper layer.
+   virtual void Render(bool (*customRender)()=NULL)
+   {
+		//glViewport( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
+		//glScissor ( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
+		//if(clearFlag){
+		//	Clear();
+		//}
+		//glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w );
+		//glClear(clearBitFieldMask);
+
+   }
+
+   void Resize()
+   {
+	  //glGetIntegerv( GL_VIEWPORT, viewport_matrix );
+   }
+
 };
 
 #endif // GLES20PIXMAP_H

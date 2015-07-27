@@ -42,7 +42,7 @@ void SampleImage(){
 	   return;
    }
 
-   scene    = new Scene("RectangleScene");
+   scene    = new Scene("ImageScene", renderer); // Add to Renderer
 
    camera   = new Camera("PerespectiveCamera", scene);
    camera->SetPosition(glm::vec3 (0.0, 0.0,13));
@@ -69,8 +69,6 @@ void SampleImage(){
    // Set Color information
    pixmap->SetColor(&glm::vec4(1.0, 0.0, 0.0, 1.0));
    scene->addModel( pixmap );
-
-   renderer->addScene( scene );
 
    // Intialize the application
    application.Initialize();

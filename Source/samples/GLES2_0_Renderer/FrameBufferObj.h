@@ -286,7 +286,7 @@ void FBODemo(){
    sceneFBO->addModel( &lightBulb);
 
    // Add Second scene
-   sceneTex = new TexScene("TexScene");
+   sceneTex = new TexScene("TexScene", renderer); // Add the second scene
    //sceneTex->addLight(&light);
 
    ProgramManager* ProgramManagerObj	= ProgramManager::GetInstance();
@@ -316,7 +316,7 @@ void FBODemo(){
    sceneTex->addModel( pixmap );
 
    // Add the second scene
-   renderer->addScene( sceneTex );
+   //renderer->addScene( sceneTex );
 
    // Intialize the application
    application.Initialize();

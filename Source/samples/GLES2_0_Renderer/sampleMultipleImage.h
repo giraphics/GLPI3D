@@ -43,7 +43,7 @@ void SampleMultipleImage(){
 	   return;
    }
 
-   scene    = new Scene("RectangleScene");
+   scene    = new Scene("MultipleImageScene", renderer); // Add to Renderer
 
    camera   = new Camera("PerespectiveCamera", scene);
    camera->SetPosition(glm::vec3 (0.0, 0.0,13));

@@ -11,7 +11,34 @@
 GRectangle::GRectangle(Scene* parent, Model* model, ModelType type, std::string objectName,
 	BufferScheme bufScheme, DrawingScheme drawScheme) :Model(parent, model, type, objectName)
 {
+	specificRectangle = NULL;
+
+	switch(scene()->getRenderer()->getRendererType())
+	{
+		case PluginType::OPENGLES20_STATIC_PLUGIN:
    specificRectangle = new GLES20Rectangle(bufScheme, drawScheme);
+			break;
+
+		case PluginType::OPENGLES31_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::OPENGLES31_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+
+		case PluginType::VULKAN_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::VULKAN_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+
+		case PluginType::JCP2016_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::VULKAN_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+		
+		default:
+			printf("\n Undefined pipeline %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+	}
 }
 
 

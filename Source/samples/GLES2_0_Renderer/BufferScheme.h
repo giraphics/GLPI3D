@@ -47,7 +47,7 @@ void BufferScheme(){
 	   return;
    }
 
-   hudScene   = new Scene("RectangleScene");
+   hudScene   = new Scene("RectangleScene", renderer);  // Add to Renderer
    hudCamera  = new CameraHUD("hudCamera", hudScene);
    hudCamera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
    
@@ -82,7 +82,6 @@ void BufferScheme(){
    hudScene->addModel( rectangleItem );
    hudScene->addModel( rectangleItem2 );
    hudScene->addModel( rectangleItem3 );
-   renderer->addScene( hudScene );
    
    // Intialize the application
    application.Initialize();

@@ -296,8 +296,6 @@ glm::mat4 Camera::GetProjectionMatrix() const
 
 void Camera::Clear()
 {
-    // Parminder: Move the clear method to at a level where all scene are visible because generally this function is 
-    // only executed once every frame.
     glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w );
     glClear(clearBitFieldMask);
 }
@@ -331,7 +329,7 @@ void CameraHUD::Render()
     ///////////////// SETUP PROJECTION MATRIX /////////////////
     TransformObj->TransformSetMatrixMode( PROJECTION_MATRIX );
     TransformObj->TransformLoadIdentity();
-    glGetIntegerv( GL_VIEWPORT, viewport_matrix );
+    glGetIntegerv( GL_VIEWPORT, viewport_matrix ); //Parminder, Remove this GL call from here use the input viewport coordinates
     
     // Left ,Right ,Bottom , Top, Near, Far
     TransformObj->TransformOrtho( viewport_matrix[0], viewport_matrix[2], viewport_matrix[3], viewport_matrix[1] , -1, 1);

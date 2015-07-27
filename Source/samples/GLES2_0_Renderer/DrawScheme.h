@@ -50,7 +50,7 @@ void DrawScheme(){
 	   return;
    }
 
-   hudScene   = new Scene("RectangleScene");
+   hudScene   = new Scene("RectangleScene", renderer); // Add to Renderer
    hudCamera  = new CameraHUD("hudCamera", hudScene);
    hudCamera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
    
@@ -80,7 +80,6 @@ void DrawScheme(){
 
    hudScene->addModel( rectangleItem );
    hudScene->addModel( rectangleItem2 );
-   renderer->addScene( hudScene );
    
    // Intialize the application
    application.Initialize();

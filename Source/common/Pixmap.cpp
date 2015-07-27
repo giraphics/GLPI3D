@@ -9,7 +9,34 @@
 Pixmap::Pixmap(const char* imagePath, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType, std::string objectName) :Model(parent, model, type, objectName)
 {
    Image* imageItem = ImageManager::GetInstance()->GetImage(imagePath);
-   specificPixmap = new GLES20Pixmap(imageItem, textureType/*, parent, model, type, textureType, objectName*/);
+	specificPixmap		= NULL;
+
+	switch(scene()->getRenderer()->getRendererType())
+	{
+		case PluginType::OPENGLES20_STATIC_PLUGIN:
+			specificPixmap	= new GLES20Pixmap(imageItem, textureType);
+			break;
+
+		case PluginType::OPENGLES31_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::OPENGLES31_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+
+		case PluginType::VULKAN_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::VULKAN_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+
+		case PluginType::JCP2016_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::VULKAN_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+		
+		default:
+			printf("\n Undefined pipeline %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+	}
 }
 
 Pixmap::Pixmap(Image* imageItem, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType, std::string objectName):Model(parent, model, type, objectName)

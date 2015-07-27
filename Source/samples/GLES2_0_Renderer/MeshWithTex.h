@@ -46,7 +46,7 @@ void MeshSample(){
 	   return;
    }
 
-   scene = new Scene("MeshScene");
+   scene = new Scene("MeshScene", renderer); // Add scene to Renderer
 
    camera = new Camera("PerespectiveCameraMesh", scene);
    camera->SetPosition(glm::vec3(0.0, 5.0, 10.1));
@@ -61,7 +61,6 @@ void MeshSample(){
 
    meshObj->Scale(.01, .01, .01);
    scene->addModel(meshObj);
-   renderer->addScene( scene );
    
    // Intialize the application
    application.Initialize();

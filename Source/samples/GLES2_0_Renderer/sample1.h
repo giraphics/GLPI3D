@@ -46,7 +46,7 @@ void FilledWindow(){
 	   return;
    }
 
-   hudScene   = new Scene("RectangleScene");
+   hudScene   = new Scene("RectangleScene", renderer);  // Add to Renderer
    hudCamera  = new CameraHUD("hudCamera", hudScene);
    hudCamera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
 
@@ -79,12 +79,10 @@ void FilledWindow(){
 
 		 // Set Color information
          rectangleItem->SetColor(&glm::vec4(0.0, j/(float)ROWS, i/(float)COLS, 1.0));
-         hudScene->addModel( rectangleItem );
       }
    }
 
    rectangleItem = parent;
-   renderer->addScene( hudScene );
 
    // Intialize the application
    application.Initialize();

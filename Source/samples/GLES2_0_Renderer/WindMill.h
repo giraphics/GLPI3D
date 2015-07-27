@@ -29,7 +29,7 @@ void WindMillDemo(){
 	   return;
    }
 
-   scene = new Scene("MeshScene");
+   scene = new Scene("MeshScene", renderer);
    Light light(Material(MaterialWhite), glm::vec4(0.0, 0.0, 10.0, 0.0));
    scene->addLight(&light);
 
@@ -86,7 +86,6 @@ void WindMillDemo(){
     }
     scene->addModel( Base);
 
-   renderer->addScene( scene );
     //Sphere->SetVisible(!true, true);
     //Sphere->SetVisible(true, !true);
 

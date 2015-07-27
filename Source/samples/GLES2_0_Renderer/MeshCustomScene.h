@@ -176,15 +176,13 @@ void CustomSceneDemo(){
 	   return;
    }
 
-   scene = new CustomScene("MeshScene");
+   scene = new CustomScene("MeshScene", renderer);
 
    Light light(Material(MaterialWhite), glm::vec4(0.0, 0.0, 10.0, 0.0));
    scene->addLight(&light);
 
    WindMill windMillObject( scene, NULL, MESH, "WindMillObj");
    scene->addModel( &windMillObject);
-
-   renderer->addScene( scene );
 
    // Intialize the application
    application.Initialize();

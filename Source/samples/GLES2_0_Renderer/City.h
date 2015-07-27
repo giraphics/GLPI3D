@@ -28,7 +28,7 @@ void SciFiSample(){
 	   return;
    }
 
-   scene = new Scene("MeshScene");
+   scene = new Scene("MeshScene", renderer); // Add to Renderer
 
    Light light(Material(MaterialSilver), glm::vec4(0.0, 0.0, 10.0, 0.0));
    scene->addLight(&light);
@@ -49,7 +49,6 @@ void SciFiSample(){
 //   meshObj->Scale(.01, .01, .01);
    meshObj->Scale(1.5, 1.0, 1.5);
    scene->addModel(meshObj);
-   renderer->addScene( scene );
    
    // Intialize the application
    application.Initialize();

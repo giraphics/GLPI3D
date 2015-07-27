@@ -73,7 +73,7 @@ void MeshRectSample(){
    }
 
    // SCENE 1
-   scene = new Scene("MeshScene");
+   scene = new Scene("MeshScene", renderer); // Add scene to Renderer
    camera = new Camera("PerespectiveCameraMesh", scene);
    camera->SetPosition(glm::vec3(0.0, 5.0, 8.0));
    camera->SetTarget(glm::vec3(0.0, 0.0, 0.0));
@@ -87,7 +87,7 @@ void MeshRectSample(){
    scene->addModel(meshObj);
 
    // SCENE 2
-   hudScene   = new Scene("RectangleScene");
+   hudScene   = new Scene("RectangleScene", renderer); // Add scene to Renderer
    hudCamera  = new CameraHUD("hudCamera", hudScene);
    hudCamera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
    hudCamera->setClearFlag(false);
@@ -118,7 +118,7 @@ void MeshRectSample(){
    rectangleItem->Translate(0.0, height, 0.0);
 
    // SCENE 3
-   hudScene2   = new Scene("PixScene");
+   hudScene2   = new Scene("PixScene", renderer); // Add scene to Renderer
    hudCamera2  = new CameraHUD("hudCamera2", hudScene2);
    hudCamera2->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
    hudCamera2->SetPosition(glm::vec3 (0.0, 0.0,230));
@@ -140,10 +140,6 @@ void MeshRectSample(){
    pixmap->SetColor(&glm::vec4(1.0, 0.0, 0.0, 1.0));
    hudScene2->addModel( pixmap );
 
-   renderer->addScene( scene );
-   renderer->addScene( hudScene );
-   renderer->addScene( hudScene2 );
-   
    // Intialize the application
    application.Initialize();
    meshObj->Rotate(-90.0, 1.0, 0.0, 0.0);

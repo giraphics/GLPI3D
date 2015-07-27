@@ -49,7 +49,7 @@ void SimpleAndHMIRectangle(){
 	   return;
    }
 
-   hudScene   = new Scene("RectangleScene");
+   hudScene   = new Scene("RectangleScene", renderer);  // Add to Renderer
    hudCamera  = new CameraHUD("hudCamera", hudScene);
    hudCamera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
    
@@ -75,7 +75,6 @@ void SimpleAndHMIRectangle(){
    rectangleItem->SetCenter(glm::vec3(50, 50, 0.0));
    rectangleItem->Translate(renderer->getWindowWidth()/2.0f, renderer->getWindowHeight()/2.0f, 0.0);
    hudScene->addModel( rectangleItem );
-   renderer->addScene( hudScene );
    
    // Intialize the application
    application.Initialize();

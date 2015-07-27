@@ -339,11 +339,11 @@ void CubeFBODemo(){
    sceneFBO->addModel( &lightBulb);
 
    // Add Second scene
-   sceneTex = new CubeTexScene("TexScene");
+   sceneTex = new CubeTexScene("TexScene", renderer); // Add the second scene
    //sceneTex->addLight(&light);
 
    // Add the second scene
-   renderer->addScene( sceneTex );
+   // renderer->addScene( sceneTex );
 
    // Intialize the application
    application.Initialize();

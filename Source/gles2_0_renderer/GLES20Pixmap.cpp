@@ -23,9 +23,6 @@ GLES20Pixmap::GLES20Pixmap(Image* imageItem, TextureTypeEnum textureType)
 	}
    	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
-//   glUniform1i(tex, 0);
 
    if(imageItem){
 	   imageItem->deleteBits();
@@ -45,10 +42,6 @@ GLES20Pixmap::GLES20Pixmap(unsigned int ID, TextureTypeEnum textureType)
 
    glEnable(GL_BLEND);
    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-   //if(imageItem){
-	  // imageItem->deleteBits();
-   //}
 }
 
 
@@ -89,12 +82,12 @@ void GLES20Pixmap::Render(bool (*customRender)())
    // In future this calculation must resides in the update function
    //tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
    
-   glActiveTexture (GL_TEXTURE0);
+   //glActiveTexture (GL_TEXTURE0);
    textureObj.BindTexture();
 
    mvpUniform->SetValue((GLfloat*)&tempMatrix[0]);
-   textureUnit = 0; //Need to set from a setter function.
-   texUniform->SetValue(&textureUnit);
+   //textureUnit = 0; //Need to set from a setter function.
+   //texUniform->SetValue(&textureUnit);
 
    geoBuffer->update();
 

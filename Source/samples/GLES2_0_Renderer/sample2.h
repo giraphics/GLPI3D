@@ -43,7 +43,7 @@ void SamplePerespective(){
 	   return;
    }
 
-   scene    = new Scene("RectangleScene");
+   scene    = new Scene("RectangleScene", renderer);  // Add to Renderer
 
    camera   = new Camera("PerespectiveCamera", scene);
    camera->SetPosition(glm::vec3 (0.0, 0.0,13));
@@ -84,8 +84,6 @@ void SamplePerespective(){
          scene->addModel( rectangleItem );
       }
    }
-
-   renderer->addScene( scene );
 
    // Intialize the application
    application.Initialize();

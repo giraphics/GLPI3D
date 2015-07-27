@@ -74,7 +74,7 @@ public:
     
 	std::vector<IRenderable*> initFlatList;
 	
-	std::vector<IRenderable*> renderFlatList;
+	std::vector<ILifeCycle*> renderFlatList;
 
 protected:
    PluginType rendererType;

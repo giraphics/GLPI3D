@@ -42,7 +42,7 @@ void SamplePerspctivePlusParentChild(){
 	   return;
    }
 
-   scene    = new Scene("RectangleScene");
+   scene    = new Scene("RectangleScene", renderer);
 
    camera   = new Camera("PerespectiveCamera", scene);
    camera->SetPosition(glm::vec3 (0.0, 0.0,13));
@@ -84,8 +84,6 @@ void SamplePerspctivePlusParentChild(){
          }
       }
    }
-
-   renderer->addScene( scene );
 
    // Intialize the application
    application.Initialize();

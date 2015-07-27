@@ -148,7 +148,7 @@ void LighMaterailDemo(){
 	   return;
    }
 
-   scene = new CustomSceneLM("MeshScene");
+   scene = new CustomSceneLM("MeshScene", renderer);
    glm::vec4 lightPosition(0.0, -5.0, -10.0, 0.0);
    Light light(Material(MaterialWhite), lightPosition);
    scene->addLight(&light);
@@ -164,8 +164,6 @@ void LighMaterailDemo(){
 
    scene->addModel( &LMModelObject);
    scene->addModel( &lightBulb);
-
-   renderer->addScene( scene );
 
    // Intialize the application
    application.Initialize();
