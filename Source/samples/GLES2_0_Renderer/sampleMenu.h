@@ -37,7 +37,7 @@ void SampleMenu(){
 	   return;
    }
 
-   scene    = new Scene("RectangleScene");
+   scene    = new Scene("MenuScene", renderer); // Add to Renderer
    camera	= new CameraHUD("hudCamera", scene);
    camera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
 
@@ -87,7 +87,6 @@ void SampleMenu(){
    scene->addModel( root );
 
 
-   renderer->addScene( scene );
    root->Translate(250.0f, 100.0f, 0.0f);
 
    // Intialize the application

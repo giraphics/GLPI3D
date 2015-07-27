@@ -20,6 +20,9 @@ FrameBufferObjectSurface::FrameBufferObjectSurface(GLint surfaceWidth, GLint sur
         height = surfaceHeight;
     }
     
+	defaultBuffer		= new GLES20DefaultBuffer();
+	frameBufferObject	= new GLES20FBO();
+
     //bitwiseTexMask  = texturBufferMask;
 }
 
@@ -32,13 +35,15 @@ FrameBufferObjectSurface::~FrameBufferObjectSurface()
 
 // Bind a framebuffer to a framebuffer target
 void FrameBufferObjectSurface::Push(){
-    glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+	((Scene*)this->GetParent())->getRenderer()->renderFlatList.push_back(frameBufferObject);
+    //glBindFramebuffer(GL_FRAMEBUFFER, fboID);
 }
 
 // Unbind a framebuffer to a framebuffer target
 void FrameBufferObjectSurface::Pop()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, previousFboID);
+	((Scene*)this->GetParent())->getRenderer()->renderFlatList.push_back(defaultBuffer);
+    //glBindFramebuffer(GL_FRAMEBUFFER, previousFboID);
 }
 
 // Unbind a framebuffer to the default framebuffer
@@ -52,10 +57,12 @@ GLuint FrameBufferObjectSurface::GenerateFBO()
     // Get current Framebuffer
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &previousFboID);
 
+	((GLES20DefaultBuffer*)defaultBuffer)->setDefaultBufferID(previousFboID);
+
     // create a framebuffer object
     glGenFramebuffers(1, &fboID);
-//    glBindFramebuffer(GL_FRAMEBUFFER, fboID);
-//    glBindFramebuffer(GL_FRAMEBUFFER, previousFboID);
+	((GLES20FBO*)frameBufferObject)->setFBOID(fboID);
+
     return fboID;
 }
 

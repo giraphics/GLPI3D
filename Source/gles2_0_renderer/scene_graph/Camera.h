@@ -29,7 +29,7 @@ struct CameraViewParams
     float farPlane;
 };
 
-class Camera : public ObjectRelative
+class Camera : public ILifeCycle, public ObjectRelative
 {
 private:
     // Directional unit vectors for forward, up and left.
@@ -46,14 +46,15 @@ protected:
     CameraViewParams    cameraViewParameters;
     glm::vec4           clearColor;
     GLbitfield          clearBitFieldMask;
-    bool clearFlag;
+    bool				clearFlag;
+	ILifeCycle*			specificViewport;
 
 public:
     Camera(std::string name, Scene* parent = NULL, CameraType camType = perespective);
     void Viewport (int x, int y, int width, int height);
     
-    virtual void Render ();
-    
+    virtual void Render (bool (*customRender)()=NULL);
+    void Initialize(void);
     void Rotate(glm::vec3 orientation, float angle);
     
     void Resize();
@@ -74,7 +75,7 @@ public:
     
     void SetClearColor(glm::vec4 color = glm::vec4(0.0, 0.0, 0.0, 1.0));
     
-    void SetClearBitFieldMask(GLbitfield mask){ clearBitFieldMask = mask; }
+    void SetClearBitFieldMask(GLbitfield mask);
     
     glm::vec3 PositionCamera() { return Position + Forward; };
     void SetPosition(glm::vec3 pos) { Position = pos; Forward = glm::normalize(Target-Position);}
@@ -114,15 +115,16 @@ public:
     glm::mat4 GetViewMatrix() const;
     glm::mat4 GetProjectionMatrix() const;
 	
-	void setClearFlag(bool flag){ clearFlag = flag; }
-	bool getClearFlag(){ return clearFlag; }
+	void setClearFlag(bool flag);
+	inline bool getClearFlag(){ return clearFlag; }
     void Clear();
 };
 
 class CameraHUD : public Camera{
 public:
     CameraHUD(std::string name, Scene* parent = NULL);
-    void Render();
+    void Render(bool (*customRender)()=NULL);
+	void Initialize(){Camera::Initialize();}
     virtual ~CameraHUD();
 };
 

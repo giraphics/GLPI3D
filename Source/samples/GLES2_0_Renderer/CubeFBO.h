@@ -71,7 +71,8 @@ CustomSceneFBO2::CustomSceneFBO2(std::string name, ObjectRelative* parentObj):Sc
 	
 	//Create the Frame buffer object
     fbo = new FrameBufferObjectSurface(renderEngine->getWindowWidth(),renderEngine->getWindowHeight());
-    
+    fbo->SetParent(this);
+
     // Generate the FBO ID
     fbo->GenerateFBO();
     

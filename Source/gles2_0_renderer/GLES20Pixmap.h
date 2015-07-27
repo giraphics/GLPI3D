@@ -56,36 +56,97 @@ private:
 	Texture				textureObj;
 };
 
+class GLES20FBO : public ILifeCycle{
+public:
+	GLES20FBO(){}
+
+	~GLES20FBO(){}
+	
+	virtual void Initialize(){
+	}
+
+	// Render the Model class, the function pointer here as an argument is not in use
+	// The purpose of this argument is to override the default rendering behaviour thus giving much more flexibility to upper layer.
+	virtual void Render(bool (*customRender)()=NULL)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+	}
+
+	void setFBOID(GLuint ID) { fboID = ID; }
+
+	/**
+	Current frame buffer ID.
+	*/
+	GLuint fboID;
+};
+
+class GLES20DefaultBuffer : public ILifeCycle{
+public:
+	GLES20DefaultBuffer(){}
+	~GLES20DefaultBuffer(){}
+	virtual void Initialize(){
+	}
+
+	// Render the Model class, the function pointer here as an argument is not in use
+	// The purpose of this argument is to override the default rendering behaviour thus giving much more flexibility to upper layer.
+	virtual void Render(bool (*customRender)()=NULL)
+	{
+	    glBindFramebuffer(GL_FRAMEBUFFER, previousFboID);
+	}
+
+	void setDefaultBufferID(GLuint ID) { previousFboID = ID; }
+
+	/**
+	Current frame buffer id before generator ID.
+	*/
+	GLint previousFboID;
+};
+
+
 class GLES20Viewport : public ILifeCycle{
 public:
-	GLES20Viewport(){}
+	GLES20Viewport(){
+		scissor					= true;
+		viewPortParam.x			= 0;
+		viewPortParam.y			= 0;
+		viewPortParam.width		= 500;
+		viewPortParam.height	= 500;
+		scissor ? glEnable(GL_SCISSOR_TEST): glDisable(GL_SCISSOR_TEST);
+	}
 
 	~GLES20Viewport(){}
 
 	virtual void Initialize(){
-		// Enable the Scissor test
-		glEnable(GL_SCISSOR_TEST);
+		// Enable/Disable the Scissor test
+		scissor ? glEnable(GL_SCISSOR_TEST): glDisable(GL_SCISSOR_TEST);
 	}
 
    // Render the Model class, the function pointer here as an argument is not in use
    // The purpose of this argument is to override the default rendering behaviour thus giving much more flexibility to upper layer.
    virtual void Render(bool (*customRender)()=NULL)
    {
-		//glViewport( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
-		//glScissor ( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
-		//if(clearFlag){
-		//	Clear();
-		//}
-		//glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w );
-		//glClear(clearBitFieldMask);
-
+		glViewport( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
+		glScissor ( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
+		if(clearFlag){
+			glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w );
+			glClear(clearBitFieldMask);
+		}
    }
 
    void Resize()
    {
 	  //glGetIntegerv( GL_VIEWPORT, viewport_matrix );
    }
-
+public:
+    ViewPort            viewPortParam;
+    CameraViewParams    cameraViewParameters;
+    glm::vec4           clearColor;
+    GLbitfield          clearBitFieldMask;
+	void setScissorTest(bool flag){scissor = flag;}
+	void setClearFlag(bool flag){clearFlag = flag;}
+private:
+	bool scissor;
+	bool clearFlag;
 };
 
 #endif // GLES20PIXMAP_H

@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "../../common/Scene.h"
+#include "GLES20Pixmap.h"
 //#include "core/quaternion.hpp"
 #define DEGREE_TO_RADIAN	M_PI / 180.0f
 #define RADIAN_TO_DEGREE	180.0f / M_PI
@@ -7,12 +8,41 @@
 #define COS(Angle) (float)cos(Angle*DEGREE_TO_RADIAN)
 
 #define SIN(Angle) (float)sin(Angle*DEGREE_TO_RADIAN)
-
+bool flatlist = true;
 /*!
 	Initialize the camera position.
  */
 Camera::Camera(std::string name, Scene* parent, CameraType camType) : ObjectRelative(name, parent)
 {
+	specificViewport = NULL;
+	switch(parent->getRenderer()->getRendererType())
+	{
+		case PluginType::OPENGLES20_STATIC_PLUGIN:
+			specificViewport = new GLES20Viewport();
+			((GLES20Viewport*)specificViewport)->setScissorTest(true);
+			break;
+
+		case PluginType::OPENGLES31_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::OPENGLES31_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+
+		case PluginType::VULKAN_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::VULKAN_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+
+		case PluginType::JCP2016_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::VULKAN_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+		
+		default:
+			printf("\n Undefined pipeline %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+	}
+
     // INITIALIZE PARAMETERS
     Reset();
     
@@ -27,7 +57,14 @@ Camera::Camera(std::string name, Scene* parent, CameraType camType) : ObjectRela
     StrafeUpside(5.0);
 	clearFlag = true;
 
-    glEnable(GL_SCISSOR_TEST);
+	//glEnable(GL_SCISSOR_TEST);
+
+}
+
+void Camera::Initialize(void){
+	if(flatlist){
+		((Scene*)this->GetParent())->getRenderer()->initFlatList.push_back(specificViewport);
+	}
 }
 
 //Reset to Center of Screen or Bottom Mid point (based on pixel)
@@ -53,6 +90,7 @@ bool Camera::Reset()
     cameraViewParameters.nearPlane  = 1.0f;
     cameraViewParameters.farPlane   = 500.0f;
     clearBitFieldMask               = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
+	((GLES20Viewport*)specificViewport)->clearBitFieldMask = clearBitFieldMask;
     return true;
 }
 
@@ -142,6 +180,7 @@ void Camera::AnglesToAxes(glm::vec3 angles)
 void Camera::SetClearColor(glm::vec4 color)
 {
     clearColor = color;
+	((GLES20Viewport*)specificViewport)->clearColor = color;
 }
 
 void Camera::Rotate(glm::vec3 orientation, float angle)
@@ -171,6 +210,11 @@ void Camera::Viewport (int x, int y, int width, int height)
     viewPortParam.y         = y;
     viewPortParam.width     = width;
     viewPortParam.height    = height;
+
+	((GLES20Viewport*)specificViewport)->viewPortParam.x         = x;
+    ((GLES20Viewport*)specificViewport)->viewPortParam.y         = y;
+    ((GLES20Viewport*)specificViewport)->viewPortParam.width     = width;
+    ((GLES20Viewport*)specificViewport)->viewPortParam.height    = height;
 }
 
 
@@ -178,19 +222,29 @@ void Camera::Viewport (int x, int y, int width, int height)
 	Render the current camera metrics.
 	Note: Calling glLoadIdentity before using Render is nessary for correct result to be displayed
  */
-void Camera::Render()
+void Camera::Render(bool (*customRender)())
 {
-    Scene* scene                = dynamic_cast<Scene*>(this->GetParent());
+    Scene* scene                = (Scene*)(this->GetParent());
     Transform*	TransformObj    = scene->SceneTransform();
     GLfloat aspectRatio         = (GLfloat)viewPortParam.width / (GLfloat)viewPortParam.height;
     
-    
+
     ///////////////// SETUP VIEWPORT INFO /////////////////
-    glViewport( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
-    glScissor ( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
-	if(clearFlag){
-		Clear();
+	if(flatlist){
+		((GLES20Viewport*)specificViewport)->viewPortParam.x         = viewPortParam.x;
+		((GLES20Viewport*)specificViewport)->viewPortParam.y         = viewPortParam.y;
+		((GLES20Viewport*)specificViewport)->viewPortParam.width     = viewPortParam.width;
+		((GLES20Viewport*)specificViewport)->viewPortParam.height    = viewPortParam.height;
+		((Scene*)this->GetParent())->getRenderer()->renderFlatList.push_back(specificViewport);
 	}
+	else{
+		glViewport( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
+		glScissor ( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
+		if(clearFlag){
+			Clear();
+		}
+	}
+    
     ///////////////// SETUP PROJECTION MATRIX /////////////////
     TransformObj->TransformSetMatrixMode( PROJECTION_MATRIX );
     TransformObj->TransformLoadIdentity();
@@ -215,7 +269,7 @@ void Camera::Render()
     ///////////////// SETUP MODEL MATRIX /////////////////
     TransformObj->TransformSetMatrixMode( MODEL_MATRIX );
     TransformObj->TransformLoadIdentity();
-    
+
     return;
 }
 
@@ -300,6 +354,16 @@ void Camera::Clear()
     glClear(clearBitFieldMask);
 }
 
+void Camera::setClearFlag(bool flag){ 
+	clearFlag = flag;
+	((GLES20Viewport*)specificViewport)->setClearFlag(flag);
+}
+
+void Camera::SetClearBitFieldMask(GLbitfield mask){ 
+	clearBitFieldMask = mask; 
+	((GLES20Viewport*)specificViewport)->clearBitFieldMask = mask;
+}
+
 
 // Derive versions of camera
 CameraHUD::CameraHUD(std::string name, Scene* parent) : Camera(name, parent, ortho)
@@ -307,9 +371,8 @@ CameraHUD::CameraHUD(std::string name, Scene* parent) : Camera(name, parent, ort
     
 }
 
-void CameraHUD::Render()
+void CameraHUD::Render(bool (*customRender)())
 {
-    //    return;
     Scene* scene = dynamic_cast<Scene*>(this->GetParent());
     //glViewport( 0, 0, screenWidth, screenHeight );
     //glViewport( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
@@ -318,14 +381,22 @@ void CameraHUD::Render()
     
     // This HUD therefore do not clear the color buffer
     ///////////////// SETUP VIEWPORT INFO /////////////////
-    glViewport( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
-    glScissor ( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
-    if(clearFlag){
-		Clear();
+	if (flatlist){
+		((GLES20Viewport*)specificViewport)->viewPortParam.x         = viewPortParam.x;
+		((GLES20Viewport*)specificViewport)->viewPortParam.y         = viewPortParam.y;
+		((GLES20Viewport*)specificViewport)->viewPortParam.width     = viewPortParam.width;
+		((GLES20Viewport*)specificViewport)->viewPortParam.height    = viewPortParam.height;
+		((Scene*)this->GetParent())->getRenderer()->renderFlatList.push_back(specificViewport);
+	}
+	else{
+		glViewport( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
+		glScissor ( viewPortParam.x, viewPortParam.y, viewPortParam.width, viewPortParam.height );
+		if(clearFlag){
+			Clear();
+		}
 	}
     //glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.w );
     //glClear(clearBitFieldMask);
-
     ///////////////// SETUP PROJECTION MATRIX /////////////////
     TransformObj->TransformSetMatrixMode( PROJECTION_MATRIX );
     TransformObj->TransformLoadIdentity();

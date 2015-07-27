@@ -218,8 +218,18 @@ void Scene::TouchEventRelease( float x, float y )
  */
 void Scene::initializeModels()
 {
-    for( int i=0; i<models.size();  i++ )
-        models.at(i)->Initialize();
+    for(int j=0; j<cameras.size(); j++){
+        
+        currentCamera = cameras.at(j);
+        if(!currentCamera) {
+            continue;
+        }
+		currentCamera->Initialize();
+		
+		for( int i=0; i<models.size();  i++ ){
+			models.at(i)->Initialize();
+		}
+	}
 }
 
 /*!

@@ -2,8 +2,10 @@
 #define FRAME_BUFFER_OBJECT_H
 #include "GLutils.h"
 #include "Texture.h"
+#include "GLES20Pixmap.h"
+#include "ObjectRelative.h"
 
-class FrameBufferObjectSurface{
+class FrameBufferObjectSurface: public ObjectRelative {
 public:
     FrameBufferObjectSurface(GLint surfaceWidth = 0, GLint surfaceHeight = 0);
     ~FrameBufferObjectSurface();
@@ -66,6 +68,9 @@ private:
      Frame buffer object height.
      */
     GLint height;
+
+	ILifeCycle*	defaultBuffer;
+	ILifeCycle*	frameBufferObject;
 };
 
 #endif //FRAME_BUFFER_OBJECT_H
