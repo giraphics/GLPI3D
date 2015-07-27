@@ -116,7 +116,7 @@ void MeshRectSample(){
    // Set Color information
    rectangleItem->SetColor(&glm::vec4(8.0, 3.0, 4.0, 1.0));
    rectangleItem->Translate(0.0, height, 0.0);
-
+   
    // SCENE 3
    hudScene2   = new Scene("PixScene", renderer); // Add scene to Renderer
    hudCamera2  = new CameraHUD("hudCamera2", hudScene2);
@@ -135,7 +135,7 @@ void MeshRectSample(){
    pixmap->SetCenter(glm::vec3(width/2.0, height/2.0, 0.0));
    pixmap->Translate(200.0, 300.0, 0.0);
    pixmap->Scale(2.0, 2.0, 2.0);
-
+   
    // Set Color information
    pixmap->SetColor(&glm::vec4(1.0, 0.0, 0.0, 1.0));
    hudScene2->addModel( pixmap );

@@ -37,7 +37,7 @@ GLES20Rectangle::~GLES20Rectangle()
 void GLES20Rectangle::Initialize()
 {
 	GeometryMesh* mesh = geoBuffer->geometry();
-
+	
 	geoBuffer->addAttribute(new Attribute("VertexTexCoord", 2, mesh->texCoords.size , GL_FLOAT, mesh->texCoords.textureData));
 	geoBuffer->addAttribute(new Attribute("VertexPosition", 3, mesh->positions.size , GL_FLOAT, mesh->positions.positionData));
 
@@ -63,8 +63,8 @@ void GLES20Rectangle::Render(bool (*customRender)())
 
 	geoBuffer->update();
 	geoBuffer->bind();
-    geoBuffer->draw();
-    geoBuffer->unbind();
+	geoBuffer->draw();
+	geoBuffer->unbind();
 }
 
 void GLES20Rectangle::SetVertices(std::vector<glm::vec3>* verticesList)

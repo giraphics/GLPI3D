@@ -2,11 +2,10 @@
 #define demoN demoNumber
 Renderer::Renderer(int width, int height)
 {
-
    contextSettings.depthBits = 32;
 
    window = new sf::RenderWindow(sf::VideoMode(width, height), titleName.c_str(), sf::Style::Default, contextSettings);
-
+   
    window->setVerticalSyncEnabled(true);
 
    window->setActive();
@@ -17,6 +16,7 @@ Renderer::Renderer(int width, int height)
        printf("GlewInit error");
        exit(1);
    }
+
    // Resize should be triggered automatically by the system. Temporarily it initiated in the constructor
    //Resize(window->getSize().x, window->getSize().y);
 }
@@ -96,7 +96,7 @@ void Renderer::Render(bool (*customRender)())
    for( int i=0; i<scenes.size();  i++ ){
      scenes.at(i)->Render();
    }
-
+	
    for(int i=0; i<	this->initFlatList.size(); i++){
 	   this->renderFlatList.at(i)->Render();
    }
@@ -113,7 +113,7 @@ void Renderer::Render(bool (*customRender)())
 
       // Escape key: exit
 	  if((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Left)){
-          window->close();
+		  window->close();
 		  demoNumber--;
 	  }
 

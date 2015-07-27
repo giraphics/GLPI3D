@@ -52,54 +52,54 @@ int main()
 	// HUD View, Simple, HMI rectangle overide render
 	demoList.push_back(SimpleAndHMIRectangle);
 
-   // HUD View, Window filled with interpolated color rectangles
+    // HUD View, Window filled with interpolated color rectangles
 	demoList.push_back(FilledWindow);
 
-   // Perespective view
+    // Perespective view
 	demoList.push_back(SamplePerespective);
    
    // Parent child Transformation and Camera view
 	demoList.push_back(SamplePerspctivePlusParentChild);
-   
-   // Perspective Image rotating about its own axises
+	
+	// Perspective Image rotating about its own axises
 	demoList.push_back(SampleImage);
 	demoList.push_back(SampleMultipleImage);
-   
+
 	// Simple sci-fi City mesh
 	demoList.push_back(SciFiSample);
-	
-   // Simple Diffuse mesh demonstrator
+
+	// Simple Diffuse mesh demonstrator
 	demoList.push_back(DiffuseMeshSample);
 
-   // Mesh with texture + Diffuse shader
+    // Mesh with texture + Diffuse shader
 	demoList.push_back(MeshSample);
-   
-   // Multiple scenes in one renderer + Ortho + prespective
-	demoList.push_back(MeshRectSample);
 
-   // Use simple object and produce transformation graph + Gouraud shading
+    // Multiple scenes in one renderer + Ortho + prespective
+	demoList.push_back(MeshRectSample);
+	
+	// Use simple object and produce transformation graph + Gouraud shading
  	demoList.push_back(WindMillDemo);
-   
-   // Custom Scene and Custom modeling. + Phong Shading
+	
+    // Custom Scene and Custom modeling. + Phong Shading
 	demoList.push_back(CustomSceneDemo);
 
     // Light and Material interaction demo
 	demoList.push_back(LighMaterailDemo);
 
-   // Sample texture Menu
+    // Sample texture Menu
 	demoList.push_back(SampleMenu);
 
-   // Frame Buffer Object Demo
+	// Frame Buffer Object Demo
 	demoList.push_back(FBODemo);
-
-   // Cube Frame Buffer Object Demo
+  
+	// Cube Frame Buffer Object Demo
 	demoList.push_back(CubeFBODemo);
 	
 	int totalSize = demoList.size();
 	while(totalSize){
 		demoList.at(demoNumber<0 ? demoNumber=0 : demoNumber%(totalSize))();
 	}
-#endif
+ #endif
 
    return EXIT_SUCCESS;
 }

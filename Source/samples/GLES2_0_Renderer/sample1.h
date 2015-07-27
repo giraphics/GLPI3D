@@ -16,10 +16,10 @@ void FilledWindow(){
    float height = 50.0f;
 
    std::vector<glm::vec3> vertices;
-   vertices.push_back(glm::vec3( 0.0f,  0.0f,   0.0f ));
+   vertices.push_back(glm::vec3( 0.0f,	0.0f,   0.0f ));
    vertices.push_back(glm::vec3( width, 0.0f,   0.0f ));
-   vertices.push_back(glm::vec3( 0.0f,  height,   0.0f ));
-   vertices.push_back(glm::vec3( width,  height,   0.0f ));
+   vertices.push_back(glm::vec3( 0.0f,  height, 0.0f ));
+   vertices.push_back(glm::vec3( width, height, 0.0f ));
    
    std::vector<glm::vec2> textureCoords;
    textureCoords.push_back(glm::vec2(0.0f, 1.0f));
@@ -33,7 +33,7 @@ void FilledWindow(){
    Renderer*     renderer    = NULL;
    GRectangle* rectangleItem = NULL;
    CameraHUD*    hudCamera   = NULL;
-   Scene*        hudScene    = NULL;               // HUD Scene
+   Scene*        hudScene    = NULL;    // HUD Scene
    Plugin* plugin			 = NULL;
    
    plugin = application.loadPlugin(OPENGLES20_STATIC_PLUGIN);
@@ -46,39 +46,41 @@ void FilledWindow(){
 	   return;
    }
 
-   hudScene   = new Scene("RectangleScene", renderer);  // Add to Renderer
+   hudScene   = new Scene("FilledWindowScene", renderer);
    hudCamera  = new CameraHUD("hudCamera", hudScene);
    hudCamera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
 
    ProgramManager* ProgramManagerObj	= ProgramManager::GetInstance();
-   unsigned int ProgramID = ProgramManagerObj->LoadShader("square", VERTEX_SHADER_PRG1, FRAGMENT_SHADER_PRG1 )->ProgramID;
-   GRectangle* parent = NULL;
-   float ROWS = renderer->getWindowWidth()/width;
-   float COLS = renderer->getWindowHeight()/height;
+   unsigned int ProgramID				= ProgramManagerObj->LoadShader("square", VERTEX_SHADER_PRG1, FRAGMENT_SHADER_PRG1 )->ProgramID;
+
+   GRectangle* parent	= NULL;
+   float ROWS			= renderer->getWindowWidth()/width;
+   float COLS			= renderer->getWindowHeight()/height;
    GLenum arrPrimitive[3] = {GL_POINTS, GL_TRIANGLES, GL_LINES};
    std::vector<GRectangle*> recthandles;
    for(float i = 0; i<COLS; i++)
    {
       for(float j = 0; j<ROWS; j++)
       {
-         rectangleItem = new HMIRectangle(hudScene, NULL, BUTTON,"", BUFFER_VAO);
-		 rectangleItem->SetProgram(ProgramID);
+		rectangleItem = new HMIRectangle(hudScene, NULL, BUTTON,"", BUFFER_VAO);
+		rectangleItem->SetProgram(ProgramID);
 		static int primitiveIdx = 0;
 		rectangleItem->setDrawingPrimitive(primitiveIdx++%3/*arrPrimitive[((int)(j))%2]*/);
 		rectangleItem->SetName(std::string("My Rectangle"));
-         recthandles.push_back(rectangleItem);
+		recthandles.push_back(rectangleItem);
 
-		   // Set the vertex information
-		   rectangleItem->SetVertices(&vertices);
+		// Set the vertex information
+		rectangleItem->SetVertices(&vertices);
 
-		   // Set the texture coordinate information
-		   rectangleItem->SetTexCoords(&textureCoords);
+		// Set the texture coordinate information
+		rectangleItem->SetTexCoords(&textureCoords);
 
-         rectangleItem->Translate(width*j, height*i, 0);
-         rectangleItem->SetCenter(glm::vec3(width/2, height/2, 0.0));
+		rectangleItem->Translate(width*j, height*i, 0);
+		rectangleItem->SetCenter(glm::vec3(width/2, height/2, 0.0));
 
-		 // Set Color information
-         rectangleItem->SetColor(&glm::vec4(0.0, j/(float)ROWS, i/(float)COLS, 1.0));
+		// Set Color information
+		rectangleItem->SetColor(&glm::vec4(0.0, j/(float)ROWS, i/(float)COLS, 1.0));
+		hudScene->addModel( rectangleItem );
       }
    }
 
@@ -95,11 +97,11 @@ void FilledWindow(){
    int ran = rand()%255;
    glm::vec4 color = glm::vec4(rand()%255/255.0f,rand()%255/255.0f,rand()%255/255.0f, 1.0);
    clock_t last;
-
+   
    while(renderer->getWindow()->isOpen()){
-      if(k>recthandles.size()-1){
-         k = 0;
-      }
+      if(k>recthandles.size()-1){ 
+		  k = 0; 
+	  }
 	  last = clock();
       application.Render();
 	  printf("\n%d",clock() - last);

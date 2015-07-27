@@ -82,6 +82,7 @@ void SimpleAndHMIRectangle(){
    while(renderer->getWindow()->isOpen()){
       application.Render();
    }
+
    ProgramManager::DeleteInstance();
 }
 

@@ -45,11 +45,13 @@ public:
 	void SetColor(glm::vec4* colors);
 
 	void SetIndices(std::vector<unsigned short>* indicesList);
+
 	void setDrawingPrimitive(GLenum drawPrimitive);
+
 private:
-	UniformMatrix4fv* mvpUniform;
-	Uniform4fv* colUniform;
-    float* color;
+	UniformMatrix4fv*	mvpUniform;
+	Uniform4fv*			colUniform;
+    float*				color;
 };
 #endif // GLES20Rectangle_H
  

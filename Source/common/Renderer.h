@@ -68,11 +68,12 @@ public:
     virtual void HWDeInit() = 0;
 
     PluginType getRendererType();
+
     virtual Object* createObject(Scene* handler, Model* parent, ModelType type, std::string objectName = "") = 0;
 	
 	void setWindowTitle(char* title);
-    
-	std::vector<IRenderable*> initFlatList;
+	
+	std::vector<ILifeCycle*> initFlatList;
 	
 	std::vector<ILifeCycle*> renderFlatList;
 
@@ -82,6 +83,7 @@ protected:
 private:
    // Request a 32-bits depth buffer when creating the window
    sf::ContextSettings contextSettings;
+
    // Create the main window
    sf::RenderWindow* window;
 

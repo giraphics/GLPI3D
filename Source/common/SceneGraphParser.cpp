@@ -62,7 +62,7 @@ void SceneGraphParser::tokenizeFloat( char* string,char* token, std::vector<floa
 	float number = 0.0f;
 
 	pch = strtok((char*)string, token);
-				
+	
 	try {
 		number = std::stof(std::string(pch));
 	}
@@ -390,6 +390,7 @@ void SceneGraphParser::parseNodeInfo(tinyxml2::XMLNode* node){
 				handleTags(msg, ele);
 			}
 		}
+
 		// Process the Node first for Application, Plugin, Scene, Camera, Image, REctangle, Mesh etc.
 		tinyxml2::XMLNode* firstChild = tempSiblingNode->FirstChild();
 		if(firstChild){
@@ -509,7 +510,6 @@ bool SceneGraphParser::parseTagRectangle(tinyxml2::XMLElement* element){
 	// Set the vertex information
 	rectangleItem->SetProgram(ProgramID);
 	AddToMapping(element, (Object*)rectangleItem);
-    
 
 	if(translate){
 		char* TOKEN = ",(){}[]";
@@ -581,7 +581,7 @@ bool SceneGraphParser::parseTagMesh(tinyxml2::XMLElement* element){
 			assert(0);
 		}
 	}
-	   
+	
 	// Set the vertex information
 	mesh->SetProgram(ProgramID);
 	AddToMapping(element, (Object*)mesh);

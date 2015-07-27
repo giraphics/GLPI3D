@@ -8,7 +8,7 @@
 
 Pixmap::Pixmap(const char* imagePath, Scene* parent, Model* model, ModelType type, TextureTypeEnum textureType, std::string objectName) :Model(parent, model, type, objectName)
 {
-   Image* imageItem = ImageManager::GetInstance()->GetImage(imagePath);
+	Image* imageItem	= ImageManager::GetInstance()->GetImage(imagePath);
 	specificPixmap		= NULL;
 
 	switch(scene()->getRenderer()->getRendererType())

@@ -21,18 +21,18 @@ private:
 	IRenderable* specificMesh;
 
 public:
-   // Initialize our Model class
-   void Initialize();
+	// Initialize our Model class
+	void Initialize();
 
-   // Render the Model class
-   void Render(bool (*customRender)()=NULL);
+	// Render the Model class
+	void Render(bool (*customRender)()=NULL);
 
-   void Update( float t ){}
+	void Update( float t ){}
 
-   // Set the Model View Projection matrix
-   //void SetMVP(float*){}
+	// Set the Model View Projection matrix
+	//void SetMVP(float*){}
 
-   void SetProgram(unsigned int ID);
+	void SetProgram(unsigned int ID);
 	// Present the set function of vertice are not implemented for mesh, the geometry is directyly feed into GeometryBuffer
 	void SetVertices(std::vector<glm::vec3>* verticesList){}
 	void SetTexCoords(std::vector<glm::vec2>* texCoordList){}

@@ -10,16 +10,17 @@ void XMLDemo(){
 		printf("Unable to create the application.");
 		assert(0);
 	}
-	
+
 	application->Initialize();
 
 	Renderer* renderer = (Renderer*)parser.getObjectByName("OGL_Renderer_1");
 	while(renderer->getWindow()->isOpen()){
 		application->Render();
 	}
+
 	delete application;
 	application = NULL;
-    ProgramManager::DeleteInstance();
+	ProgramManager::DeleteInstance();
 }
 
 

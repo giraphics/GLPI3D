@@ -7,7 +7,6 @@ extern map<std::string, namespaceimage::Image*>::const_iterator it;
 
 	\param[in] None.
 	\return None
-
 */
 GLES20MeshLoader::GLES20MeshLoader(Mesh* inMesh, Model* parent)
 {
@@ -81,7 +80,6 @@ void GLES20MeshLoader::Initialize()
 	geoBuffer->addUniform(LightDiffuseUniform		= new Uniform3f("LightDiffuse"));
 	geoBuffer->addUniform(ShininessFactorUniform	= new Uniform1f("ShininessFactor"));
 	geoBuffer->addUniform(LightPositionUniform		= new Uniform3fv("LightPosition"));
-
 	geoBuffer->addUniform(MVPUniform				= new UniformMatrix4fv("ModelViewProjectionMatrix"));
 	geoBuffer->addUniform(MVUniform					= new UniformMatrix4fv("ModelViewMatrix"));
 	geoBuffer->addUniform(NormalMatrixUniform		= new UniformMatrix3fv("NormalMatrix"));
@@ -127,7 +125,7 @@ void GLES20MeshLoader::Initialize()
 	textureUnit = 0; //Need to set from a setter function.
 	TexUniform->SetValue(&textureUnit);
 	glEnable(GL_DEPTH_TEST);
-	
+
 	// Realease vertices
 	meshModel->vertices.clear();
 
@@ -147,6 +145,7 @@ void GLES20MeshLoader::Render(bool(*customRender)())
 	ApplyLight();
 	
 	textureObj.BindTexture();
+
 	// Calculate the Model-View Matrix
 	//tempMatrix = *ViewMatrix * *ModelMatrix;
 	MVUniform->SetValue((GLfloat*)&tempMatrix[0]);

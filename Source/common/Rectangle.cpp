@@ -16,7 +16,7 @@ GRectangle::GRectangle(Scene* parent, Model* model, ModelType type, std::string 
 	switch(scene()->getRenderer()->getRendererType())
 	{
 		case PluginType::OPENGLES20_STATIC_PLUGIN:
-   specificRectangle = new GLES20Rectangle(bufScheme, drawScheme);
+			specificRectangle = new GLES20Rectangle(bufScheme, drawScheme);
 			break;
 
 		case PluginType::OPENGLES31_STATIC_PLUGIN:
@@ -40,7 +40,6 @@ GRectangle::GRectangle(Scene* parent, Model* model, ModelType type, std::string 
 			break;
 	}
 }
-
 
 /*!
 	Simple Destructor

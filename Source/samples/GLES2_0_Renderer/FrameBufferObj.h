@@ -81,7 +81,6 @@ CustomSceneFBO::CustomSceneFBO(std::string name, ObjectRelative* parentObj):Scen
     fbo->AttachTexture(depthTexture, GL_DEPTH_ATTACHMENT); 	// Attache the Depth Buffer to FBO's depth attachment
 
     colorTexture.generateTexture2D(GL_TEXTURE_2D, fbo->GetWidth(), fbo->GetHeight(), GL_RGBA, GL_FLOAT, GL_RGBA,0,true,0,0,GL_CLAMP_TO_EDGE,GL_CLAMP_TO_EDGE,GL_NEAREST,GL_NEAREST );
-
     fbo->AttachTexture(colorTexture, GL_COLOR_ATTACHMENT0);
     
     // Check the status of the FBO

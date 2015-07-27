@@ -6,27 +6,27 @@
 
 GLES20Pixmap::GLES20Pixmap(Image* imageItem, TextureTypeEnum textureType)
 {
-   if (!imageItem){
-      return;
-   }
+	if (!imageItem){
+		return;
+	}
 	geoBuffer = new GeometryBuffer(this, BUFFER_VA);
 
-   glActiveTexture (GL_TEXTURE0);
-   if (imageItem->getTextureID() == 0){
-	   GLint texInternalFormat = getInternalFormat(imageItem);
-	   textureObj.generateTexture2D(getTarget(textureType), imageItem->imageWidth(), imageItem->imageHeight(), texInternalFormat, GL_UNSIGNED_BYTE, texInternalFormat, imageItem->bits(), false);
-	   imageItem->getTextureID() = textureObj.getTextureID();
-   }
+	glActiveTexture (GL_TEXTURE0);
+	if (imageItem->getTextureID() == 0){
+		GLint texInternalFormat = getInternalFormat(imageItem);
+		textureObj.generateTexture2D(getTarget(textureType), imageItem->imageWidth(), imageItem->imageHeight(), texInternalFormat, GL_UNSIGNED_BYTE, texInternalFormat, imageItem->bits(), false);
+		imageItem->getTextureID() = textureObj.getTextureID();
+	}
 	else{
 		textureObj.setTextureID(imageItem->getTextureID());
 		textureObj.setTargetType(getTarget(textureType));
 	}
-   	glEnable(GL_BLEND);
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-   if(imageItem){
-	   imageItem->deleteBits();
-   }
+	if(imageItem){
+		imageItem->deleteBits();
+	}
 }
 
 GLES20Pixmap::GLES20Pixmap(unsigned int ID, TextureTypeEnum textureType)
@@ -35,13 +35,13 @@ GLES20Pixmap::GLES20Pixmap(unsigned int ID, TextureTypeEnum textureType)
 	textureObj.setTextureID((GLuint)ID);
 	textureObj.setTargetType(getTarget(textureType));
 	
-   // Present the texture 0 overrided in future we must allow the end user a provision to select the texture unit on fly.
-   // This should not be very complex I guess.
-   glActiveTexture (GL_TEXTURE0);
-   glBindTexture (getTarget(textureType), ID);
+	// Present the texture 0 overrided in future we must allow the end user a provision to select the texture unit on fly.
+	// This should not be very complex I guess.
+	glActiveTexture (GL_TEXTURE0);
+	glBindTexture (getTarget(textureType), ID);
 
-   glEnable(GL_BLEND);
-   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 
@@ -66,8 +66,8 @@ void GLES20Pixmap::Initialize()
 	geoBuffer->addUniform(colUniform = new Uniform4fv("RectColor"));
 	geoBuffer->addUniform(texUniform = new Uniform1i("RectColor"));
 	geoBuffer->init();
-   
-   return;
+
+	return;
 }
 
 /*!
@@ -90,7 +90,6 @@ void GLES20Pixmap::Render(bool (*customRender)())
    //texUniform->SetValue(&textureUnit);
 
    geoBuffer->update();
-
    geoBuffer->bind();
    geoBuffer->draw();
    geoBuffer->unbind();
@@ -158,12 +157,15 @@ GLenum GLES20Pixmap::getTarget(TextureTypeEnum textureType){
 		case THREE_DIMENSIONAL_TEXTURE:
 			return GL_TEXTURE_3D;
 			break;
+
 		case TWO_DIMENSIONAL_ARRAY_TEXTURE:
 			return GL_TEXTURE_2D_ARRAY;
 			break;
+
 		case CUBE_MAP_TEXTURE:
 			return GL_TEXTURE_CUBE_MAP;
 			break;
+
 		default:
 			return GL_TEXTURE_2D;
 	}

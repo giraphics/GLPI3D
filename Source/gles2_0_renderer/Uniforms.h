@@ -88,7 +88,7 @@ public:
 		delete elements;
 		elements = NULL;
 	#endif
-    }
+	}
 
     void SetValue(T* values)
     {
@@ -104,7 +104,7 @@ public:
     {
 		if(!isUpdated || uniformLocation < 0){
 			return;
-    }
+		}
 
         if (std::is_same<T, GLfloat>::value)
         {
@@ -286,7 +286,7 @@ public:
     T*			elements;
     GLsizei		elementCount;
     GLsizei		size;
-    GLboolean transpose;
+    GLboolean	transpose;
 };
 
 typedef UniformDerive<GLfloat,    1, UNIFORM_PRIMITIVE> Uniform1f;
@@ -302,27 +302,27 @@ typedef UniformDerive<GLint,      2, UNIFORM_PRIMITIVE> Uniform2i;
 typedef UniformDerive<GLint,      3, UNIFORM_PRIMITIVE> Uniform3i;
 typedef UniformDerive<GLint,      4, UNIFORM_PRIMITIVE> Uniform4i;
 
-typedef UniformDerive<GLfloat, 1, UNIFORM_VECTOR> Uniform1fv;
-typedef UniformDerive<GLfloat, 2, UNIFORM_VECTOR> Uniform2fv;
-typedef UniformDerive<GLfloat, 3, UNIFORM_VECTOR> Uniform3fv;
-typedef UniformDerive<GLfloat, 4, UNIFORM_VECTOR> Uniform4fv;
-typedef UniformDerive<GLuint, 1, UNIFORM_VECTOR> Uniform1uiv;
-typedef UniformDerive<GLuint, 2, UNIFORM_VECTOR> Uniform2uiv;
-typedef UniformDerive<GLuint, 3, UNIFORM_VECTOR> Uniform3uiv;
-typedef UniformDerive<GLuint, 4, UNIFORM_VECTOR> Uniform4uiv;
-typedef UniformDerive<GLint, 1, UNIFORM_VECTOR> Uniform1iv;
-typedef UniformDerive<GLint, 2, UNIFORM_VECTOR> Uniform2iv;
-typedef UniformDerive<GLint, 3, UNIFORM_VECTOR> Uniform3iv;
-typedef UniformDerive<GLint, 4, UNIFORM_VECTOR> Uniform4iv;
+typedef UniformDerive<GLfloat,	  1, UNIFORM_VECTOR> Uniform1fv;
+typedef UniformDerive<GLfloat,	  2, UNIFORM_VECTOR> Uniform2fv;
+typedef UniformDerive<GLfloat,	  3, UNIFORM_VECTOR> Uniform3fv;
+typedef UniformDerive<GLfloat,	  4, UNIFORM_VECTOR> Uniform4fv;
+typedef UniformDerive<GLuint,	  1, UNIFORM_VECTOR> Uniform1uiv;
+typedef UniformDerive<GLuint,	  2, UNIFORM_VECTOR> Uniform2uiv;
+typedef UniformDerive<GLuint,	  3, UNIFORM_VECTOR> Uniform3uiv;
+typedef UniformDerive<GLuint,	  4, UNIFORM_VECTOR> Uniform4uiv;
+typedef UniformDerive<GLint,	  1, UNIFORM_VECTOR> Uniform1iv;
+typedef UniformDerive<GLint,	  2, UNIFORM_VECTOR> Uniform2iv;
+typedef UniformDerive<GLint,	  3, UNIFORM_VECTOR> Uniform3iv;
+typedef UniformDerive<GLint,	  4, UNIFORM_VECTOR> Uniform4iv;
 
-typedef UniformDerive<GLfloat, 22, UNIFORM_MATRIX>     UniformMatrix2fv;     // 2x2 = elementCount 22
-typedef UniformDerive<GLfloat, 33, UNIFORM_MATRIX>     UniformMatrix3fv;     // 3x3 = elementCount 33
-typedef UniformDerive<GLfloat, 44, UNIFORM_MATRIX>     UniformMatrix4fv;     // 4x4 = elementCount 44
-typedef UniformDerive<GLfloat, 23, UNIFORM_MATRIX>     UniformMatrix2x3fv;   // 2x3 = elementCount 23
-typedef UniformDerive<GLfloat, 32, UNIFORM_MATRIX>     UniformMatrix3x2fv;   // 3x2 = elementCount 32
-typedef UniformDerive<GLfloat, 24, UNIFORM_MATRIX>     UniformMatrix2x4fv;   // 2x4 = elementCount 24
-typedef UniformDerive<GLfloat, 42, UNIFORM_MATRIX>     UniformMatrix4x2fv;   // 4x2 = elementCount 42
-typedef UniformDerive<GLfloat, 34, UNIFORM_MATRIX>     UniformMatrix3x4fv;   // 3x4 = elementCount 34
-typedef UniformDerive<GLfloat, 43, UNIFORM_MATRIX>     UniformMatrix4x3fv;   // 4x3 = elementCount 43
+typedef UniformDerive<GLfloat,	  22, UNIFORM_MATRIX>     UniformMatrix2fv;     // 2x2 = elementCount 22
+typedef UniformDerive<GLfloat,	  33, UNIFORM_MATRIX>     UniformMatrix3fv;     // 3x3 = elementCount 33
+typedef UniformDerive<GLfloat,	  44, UNIFORM_MATRIX>     UniformMatrix4fv;     // 4x4 = elementCount 44
+typedef UniformDerive<GLfloat,	  23, UNIFORM_MATRIX>     UniformMatrix2x3fv;   // 2x3 = elementCount 23
+typedef UniformDerive<GLfloat,	  32, UNIFORM_MATRIX>     UniformMatrix3x2fv;   // 3x2 = elementCount 32
+typedef UniformDerive<GLfloat,	  24, UNIFORM_MATRIX>     UniformMatrix2x4fv;   // 2x4 = elementCount 24
+typedef UniformDerive<GLfloat,	  42, UNIFORM_MATRIX>     UniformMatrix4x2fv;   // 4x2 = elementCount 42
+typedef UniformDerive<GLfloat,	  34, UNIFORM_MATRIX>     UniformMatrix3x4fv;   // 3x4 = elementCount 34
+typedef UniformDerive<GLfloat,	  43, UNIFORM_MATRIX>     UniformMatrix4x3fv;   // 4x3 = elementCount 43
 
 #endif

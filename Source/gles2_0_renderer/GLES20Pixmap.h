@@ -21,6 +21,7 @@ class GLES20Pixmap : public IRenderable, public IGeoBuffer, public Transformatio
 
 public:
    GLES20Pixmap( Image* imageItem, TextureTypeEnum textureType = TWO_DIMENSIONAL_TEXTURE);
+
    GLES20Pixmap( unsigned int ID, TextureTypeEnum textureType );
    
    virtual ~GLES20Pixmap();
@@ -47,12 +48,12 @@ public:
 private:
 	// Keep the member variables multiple of 32 as much 
 	// as possible to avoid explicit packing and alignment 
-	UniformMatrix4fv* mvpUniform;
-	Uniform4fv* colUniform;
-	Uniform1i* texUniform;
-	float* color;
-	GLint textureUnit;
-	Texture textureObj;
+	UniformMatrix4fv*	mvpUniform;
+	Uniform4fv*			colUniform;
+	Uniform1i*			texUniform;
+	float*				color;
+	GLint				textureUnit;
+	Texture				textureObj;
 };
 
 class GLES20Viewport : public ILifeCycle{

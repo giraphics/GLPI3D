@@ -6,17 +6,17 @@
 
 GeometryBuffer::GeometryBuffer(IModel* prnt, BufferScheme scheme, DrawingScheme drawScheme, bool isInterleavedForm)
 {
-	parent		= prnt;
-	schemeBuf	= scheme;
-	schemeDraw	= drawScheme;
-	vbo			= NULL;
-	ibo			= NULL;
-	vao			= NULL;
-	indexList	= NULL;
-	primitiveType = GL_TRIANGLE_STRIP;
+	parent			= prnt;
+	schemeBuf		= scheme;
+	schemeDraw		= drawScheme;
+	vbo				= NULL;
+	ibo				= NULL;
+	vao				= NULL;
+	indexList		= NULL;
+	primitiveType	= GL_TRIANGLE_STRIP;
 
 	// Initialized interleave form of data
-	isInterleaved = (int)isInterleavedForm;
+	isInterleaved				= (int)isInterleavedForm;
 	interleaveBuffer.dataBuffer = NULL;
 	interleaveBuffer.size		= 0;
 
@@ -106,7 +106,7 @@ void GeometryBuffer::setInterleavedBuffer(void* dataArray, size_t size){
 GLenum GeometryBuffer::GetPrimitiveMode(PrimitiveScheme primitiveMode)
 {
 	switch(primitiveMode)
-{
+	{
 		case PRIMITIVE_POINTS:
 			return GL_POINTS;
 			break;
@@ -126,26 +126,28 @@ GLenum GeometryBuffer::GetPrimitiveMode(PrimitiveScheme primitiveMode)
 		case PRIMITIVE_TRIANGLES:
 			return GL_TRIANGLES;
 			break;
-
+	
 		case PRIMITIVE_TRIANGLE_STRIP:
 			return GL_TRIANGLE_STRIP;
-		break;
+			break;
 	
 		case PRIMITIVE_TRIANGLE_FAN:
 			return GL_TRIANGLE_FAN;
-		break;
+			break;
+
 		default:
 			return GL_TRIANGLE_STRIP;
 			break;
-				}
-			}
+	}
+}
+
 void GeometryBuffer::initUniforms()
 {
 	unsigned int ProgramID = parent->GetProgram();
 	glUseProgram(ProgramID);
 	for(int i=0; i<uniformList.size(); i++){
 		uniformList[i]->SetUniformLocation(GetUniform(ProgramID,(char*)uniformList[i]->GetName().c_str()));
-		}
+	}
 }
 
 void GeometryBuffer::populateIBO()
@@ -215,26 +217,26 @@ Non-Interleaved                                  VBO with one data buffer
                                                  ^^^                                   STRIDE != 0 
 */
 void GeometryBuffer::populateVBO()
-		{
+{
 	if(!this->isInterleaved){
-	// Treat the Attributes
-	int total = 0;
-	for(int i=0; i<attributeList.size(); i++){
-		attributeList[i]->index = total;
-		total += attributeList[i]->size * attributeList[i]->itemNum * sizeof(attributeList[i]->type);
-	}
+		// Treat the Attributes
+		int total = 0;
+		for(int i=0; i<attributeList.size(); i++){
+			attributeList[i]->index = total;
+			total += attributeList[i]->size * attributeList[i]->itemNum * sizeof(attributeList[i]->type);
+		}
 
-			vbo->bind();
-			vbo->bufferData(total, 0, GL_STATIC_DRAW);
-			size_t from = 0;
-			size_t to	= 0;
-			for(int i=0; i<attributeList.size(); i++){
-				to = attributeList[i]->size * attributeList[i]->itemNum * sizeof(attributeList[i]->type);
-				vbo->bufferSubData(from, to, attributeList[i]->dataArray);
-				from = to;
-			}
-			vbo->unbind();
-}
+		vbo->bind();
+		vbo->bufferData(total, 0, GL_STATIC_DRAW);
+		size_t from = 0;
+		size_t to	= 0;
+		for(int i=0; i<attributeList.size(); i++){
+			to = attributeList[i]->size * attributeList[i]->itemNum * sizeof(attributeList[i]->type);
+			vbo->bufferSubData(from, to, attributeList[i]->dataArray);
+			from = to;
+		}
+		vbo->unbind();
+	}
 	else{
 		char* base = (char*)this->interleaveBuffer.dataBuffer;
 		for(int i=0; i<attributeList.size(); i++){
@@ -261,14 +263,14 @@ void GeometryBuffer::init()
 			populateIBO();
 
 			vao->bind();
-			vbo->bind();
+				vbo->bind();
 					enableAttributes();
 					vertexAttribPointerVBO();
 					if(schemeDraw == DRAW_ELEMENT)
 						{ ibo->bind(); }
 				vbo->unbind();
 			vao->unbind();
-			}
+		}
 		break;
 		case BUFFER_VBO:
 		{
@@ -279,9 +281,9 @@ void GeometryBuffer::init()
 			vbo->bind();
 				enableAttributes();
 				vertexAttribPointerVBO();
-			if(schemeDraw == DRAW_ELEMENT){
-				ibo->bind();
-			}
+				if(schemeDraw == DRAW_ELEMENT){
+					ibo->bind();
+				}
 			vbo->unbind();
 		}
 		break;
@@ -307,12 +309,14 @@ void GeometryBuffer::bind()
 			vao->bind();
 		}
 		break;
+
 		case BUFFER_VBO:
 		{
 			vbo->bind();
 			vertexAttribPointerVBO();
 		}
 		break;
+
 		default:
 		{
 			vertexAttribPointerVA();
@@ -326,10 +330,11 @@ void GeometryBuffer::unbind()
 	switch(schemeBuf){
 		case BUFFER_VAO:
 			vao->unbind();
-		break;
+			break;
+
 		case BUFFER_VBO:
 			vbo->unbind();
-		break;
+			break;
 		
 		default:
 			break;
@@ -358,7 +363,7 @@ void GeometryBuffer::drawArray(){
 		glDrawArrays(primitiveType, 0, geometryData.positions.size);
 	}
 	else{
-	glDrawArrays(primitiveType, 0, geometryData.positions.size);
+		glDrawArrays(primitiveType, 0, geometryData.positions.size);
 	}
 }
 

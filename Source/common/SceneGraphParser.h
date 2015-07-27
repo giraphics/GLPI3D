@@ -71,17 +71,17 @@ private:
 	/************** PRIVATE MEMBER VARIABLES **************/
 
 	//! Application class object
-	Application* application;
+	Application*										application;
 	
 	//! Store the current scene while parsing the XML
-	Scene* currentScene;
+	Scene*												currentScene;
 	
 	//! XML document
-	tinyxml2::XMLDocument doc;
+	tinyxml2::XMLDocument								doc;
 
 	//! Map between XML element and Scene graph object
-	std::map<tinyxml2::XMLElement*, Object*> mapInfo;
+	std::map<tinyxml2::XMLElement*, Object*>			mapInfo;
 
 	//! Map iterator between XML element and Scene graph object
-	typedef std::map<tinyxml2::XMLElement*, Object*>::iterator itor;
+	typedef std::map<tinyxml2::XMLElement*, Object*>	::iterator itor;
 };

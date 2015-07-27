@@ -38,7 +38,7 @@ public:
 	void SetIndices(std::vector<unsigned short>* texCoordList){}
 	void SetColor(glm::vec4* color){}
 
-private:
+private:    
     // Release the mesh model resources
     void ReleaseMeshResources();
     

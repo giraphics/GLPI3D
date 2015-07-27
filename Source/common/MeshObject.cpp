@@ -3,14 +3,14 @@
 //#define USE_FLAT_LIST
 MeshObject::MeshObject(const char* meshPath, Scene* parent, Model* model, ModelType type, std::string objectName) : Model(parent, model, type, objectName)
 {
-	Mesh* inMesh = waveFrontObjectModel.ParseObjModel(meshPath, !true);
-	inMesh->indexCount = waveFrontObjectModel.IndexTotal();
+	Mesh* inMesh		= waveFrontObjectModel.ParseObjModel(meshPath, !true);
+	inMesh->indexCount	= waveFrontObjectModel.IndexTotal();
 	specificMesh		= NULL;
 
 	switch(scene()->getRenderer()->getRendererType())
 	{
 		case PluginType::OPENGLES20_STATIC_PLUGIN:
-	specificMesh = new GLES20MeshLoader( inMesh, this);
+			specificMesh = new GLES20MeshLoader( inMesh, this);
 			break;
 
 		case PluginType::OPENGLES31_STATIC_PLUGIN:
@@ -56,7 +56,7 @@ void MeshObject::Initialize()
 	}
 
 	#ifdef USE_FLAT_LIST
-	scene()->getRenderer()->initFlatList.push_back(specificMesh);
+		scene()->getRenderer()->initFlatList.push_back(specificMesh);
 	#else
 		specificMesh->Initialize();
 	#endif
