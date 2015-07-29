@@ -9,6 +9,7 @@ GLES20Pixmap::GLES20Pixmap(Image* imageItem, TextureTypeEnum textureType)
 	if (!imageItem){
 		return;
 	}
+
 	geoBuffer = new GeometryBuffer(this, BUFFER_VA);
 
 	glActiveTexture (GL_TEXTURE0);
@@ -21,6 +22,8 @@ GLES20Pixmap::GLES20Pixmap(Image* imageItem, TextureTypeEnum textureType)
 		textureObj.setTextureID(imageItem->getTextureID());
 		textureObj.setTargetType(getTarget(textureType));
 	}
+	
+	// State are not automated yet
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

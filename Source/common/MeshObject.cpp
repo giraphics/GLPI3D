@@ -1,9 +1,9 @@
 #include "MeshObject.h"
 #include "GLES20MeshLoader.h"
-//#define USE_FLAT_LIST
-MeshObject::MeshObject(const char* meshPath, Scene* parent, Model* model, ModelType type, std::string objectName) : Model(parent, model, type, objectName)
+#define USE_FLAT_LIST
+MeshObject::MeshObject(const char* meshPath, Scene* parent, Model* model, ModelType type, bool flatShading, std::string objectName) : Model(parent, model, type, objectName)
 {
-	Mesh* inMesh		= waveFrontObjectModel.ParseObjModel(meshPath, !true);
+	Mesh* inMesh		= waveFrontObjectModel.ParseObjModel(meshPath, flatShading);
 	inMesh->indexCount	= waveFrontObjectModel.IndexTotal();
 	specificMesh		= NULL;
 

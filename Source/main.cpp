@@ -1,6 +1,50 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
+/*! \mainpage Manual SDK
+*
+* \section intro_sec Introduction
+* Features				                                                                | Done		| Sample Demo
+* ------------------------------------------------------------------------------------- |-----------|------------
+* This is introduction																	| Yes		| Yes
+* Flat Rendering System                    												| Yes		| Partially implemented Vulkan pipeline need to be put in
+* Separate Transformation Graph System													| Yes		| Yes
+* Multiple Pipeline Support                 											| Yes		| Demo available in old implementation
+* Multiple Thread Support                   											| Yes		| Yes
+* Shared and Local Resources Handling       											| Yes		| Yes
+* Shader Mgmt:- Dedicated Shader, Shared Shader											| Yes		| Yes
+* Uniform and Attribute Automation             											| Yes		| Yes
+* Transformation class for seamless 2D and 3D  											| Yes		| Yes
+* Frame Buffer Object Support															| Yes		| Yes
+* Texture Mangment classes for 2D/3D            										| Yes		| Yes
+* Compressed Texture(ETC2)                   											| No		| No
+* Run Primitive Support for Point, Line, Triangle Variants								| Yes		| Yes
+* Drawing Scheme: Array, Element                   										| Yes		| Yes (See.. DrawScheme)
+* Buffer Scheme: VA, VBO, VAO                   										| Yes		| Yes (See.. BufferScheme)
+* View and Camera system: Ortho and Perespective										| Yes		| Yes
+* Texture Caching Support: retrive object by user defined name  						| Yes		| Yes
+* Shader Caching Support: retrive object by user defined name   						| Yes		| Yes
+* Light and Material Handling                   										| Yes		| Yes
+* Per-Vertex and Per-Fragment shading with Gouraud and Phong Shading					| Yes		| Yes
+* Custom Model, Custom Scenes, Extendable classes for HMI								| Yes		| Yes
+* Visible flag for hierarchical controling of visibility.                   			| Yes		| No (See.. XMLDemo)
+* Parent-Child care                   													| Yes		| Yes (See.. )
+* Code Style: XML and C++                   											| Yes		| Yes (See.. XMLDemo)
+* Light type: Point, Directional, Spot 													| No		| No
+* Multi-Texture support																	| Yes		| No
+* Procedural texturing                   												| Infrasture is avialable, the demo required		| No
+* Font rendering                   														| No		| Font rendering is available in old design
+* Central rendering management with Geometry Buffer- Rect, Img, Mesh					| Yes		| Yes
+* Texture-Atlas                   														| Yes		| Available in old design for demo
+* Ray traced object selection                   										| No		| No
+* Anti-Aliasing Software                   												| No		| No
+* Anti-Aliasing Hardware                   												| No		| No
+* Real-time Shadow                   													| Infrasture is avialable, the demo required to test		| No
+* Post processing on real time scenes                   								| Infrasture is avialable, the demo required to test		| No
+* Bump Mapping                   														| Infrasture is avialable, the demo required to test		| No
+* *
+*/
+
 #include <GL/glew.h>
 #include <conio.h>
 //#define OLDENGINE 1
@@ -29,6 +73,7 @@
    #include "samples\GLES2_0_Renderer\LightMaterial.h"
    #include "samples\GLES2_0_Renderer\City.h"
    #include "samples\GLES2_0_Renderer\XMLDemonstrator.h"
+   #include "samples\GLES2_0_Renderer\FlatSmooth.h"
 #endif
 std::vector<void (*)()> demoList;
 int demoNumber = 0;
@@ -85,6 +130,9 @@ int main()
 
     // Light and Material interaction demo
 	demoList.push_back(LighMaterailDemo);
+
+	// Flat and Smooth shading
+	demoList.push_back(FlatAndSmoothShadingDemo);
 
     // Sample texture Menu
 	demoList.push_back(SampleMenu);

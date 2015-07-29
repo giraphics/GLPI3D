@@ -121,7 +121,6 @@ BUFFER *reserveCache( char *filename, unsigned char relative_path )
       cachePtr->buffer[ 10000-1 ] = 0;
       return cachePtr;
 
-		//////return cachePtr;
 	#else
 		char fpath[ MAX_PATH ] = {""},
 			 fname[ MAX_PATH ] = {""};

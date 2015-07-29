@@ -69,8 +69,6 @@ public:
 
     PluginType getRendererType();
 
-    virtual Object* createObject(Scene* handler, Model* parent, ModelType type, std::string objectName = "") = 0;
-	
 	void setWindowTitle(char* title);
 	
 	std::vector<ILifeCycle*> initFlatList;

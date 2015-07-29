@@ -90,16 +90,10 @@ void GRectangle::Render(bool (*customRender)())
     {
         TransformObj->TransformPushMatrix(); // Local Level
         ApplyModelsLocalTransformation();
-		// Remove this if check using the function ptr in the initialization itself, rendering must be 
-		//if (this->scene()->getRenderer()->getRendererType() == PluginType::OPENGLES20_STATIC_PLUGIN){
-		//	GLES20Rectangle* gles20Rect = ((GLES20Rectangle*)specificRectangle);
-		//	gles20Rect->SetModelMat(TransformObj->TransformGetModelMatrix());
-		//	gles20Rect->SetViewMat(TransformObj->TransformGetViewMatrix());
-		//	gles20Rect->SetProjectionMat(TransformObj->TransformGetProjectionMatrix());
-		//}
+		/////////////////////////////////////////////////////
 		(this->*transformationMethod)();
-        //specificRectangle->Render(customRender);
 		scene()->getRenderer()->renderFlatList.push_back(specificRectangle);
+		////////////////////////////////////////////////////////
         TransformObj->TransformPopMatrix(); // Local Level
     }
 

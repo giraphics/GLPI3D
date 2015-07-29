@@ -1,11 +1,5 @@
 #include "glutils.h"
 
-//#ifdef _WIN32
-//#include <GL/glew.h>
-//#include <GL/gl.h>
-//#include <GL/glu.h>
-//#endif
-
 GLUtilsGLES2::GLUtilsGLES2() {}
 
 int GLUtilsGLES2::checkForOpenGLError(const char * file, int line) {
@@ -109,43 +103,3 @@ int GLUtilsGLES2::nextPowerOf2 (int number)
     while (rval<number) rval*=2;
     return rval;
 }
-
-////! Byte swap unsigned short
-//uint16_t GLUtils::swap_uint16( uint16_t val )
-//{
-//    return (val << 8) | (val >> 8 );
-//}
-//
-////! Byte swap short
-//int16_t GLUtils::swap_int16( int16_t val )
-//{
-//    return (val << 8) | ((val >> 8) & 0xFF);
-//}
-//
-////! Byte swap unsigned int
-//uint32_t GLUtils::swap_uint32( uint32_t val )
-//{
-//    val = ((val << 8) & 0xFF00FF00 ) | ((val >> 8) & 0xFF00FF );
-//    return (val << 16) | (val >> 16);
-//}
-//
-////! Byte swap int
-//int32_t GLUtils::swap_int32( int32_t val )
-//{
-//    val = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF );
-//    return (val << 16) | ((val >> 16) & 0xFFFF);
-//}
-//
-//int64_t GLUtils::swap_int64( int64_t val )
-//{
-//    val = ((val << 8) & 0xFF00FF00FF00FF00ULL ) | ((val >> 8) & 0x00FF00FF00FF00FFULL );
-//    val = ((val << 16) & 0xFFFF0000FFFF0000ULL ) | ((val >> 16) & 0x0000FFFF0000FFFFULL );
-//    return (val << 32) | ((val >> 32) & 0xFFFFFFFFULL);
-//}
-//
-//uint64_t GLUtils::swap_uint64( uint64_t val )
-//{
-//    val = ((val << 8) & 0xFF00FF00FF00FF00ULL ) | ((val >> 8) & 0x00FF00FF00FF00FFULL );
-//    val = ((val << 16) & 0xFFFF0000FFFF0000ULL ) | ((val >> 16) & 0x0000FFFF0000FFFFULL );
-//    return (val << 32) | (val >> 32);
-//}

@@ -1,6 +1,5 @@
 #ifndef INDICES_h
 #define INDICES_h
-//#include "glutils.h"
 
 class Indices{
 public:

@@ -55,7 +55,7 @@ void MeshSample(){
 
    ProgramManager* ProgramManagerObj = ProgramManager::GetInstance();
    unsigned int ProgramID = ProgramManagerObj->LoadShader("Meshshader", VERTEX_SHADER_PRG_TEX, FRAGMENT_SHADER_TEX)->ProgramID;
-   meshObj = new MeshObject("../Resource/Models/mbclass.obj", scene, NULL, MESH, "");
+   meshObj = new MeshObject("../Resource/Models/mbclass.obj", scene, NULL, MESH, false, "");
    meshObj->SetName(std::string("My Mesh 41"));
    meshObj->SetProgram(ProgramID);
 

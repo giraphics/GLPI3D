@@ -557,10 +557,17 @@ bool SceneGraphParser::parseTagMesh(tinyxml2::XMLElement* element){
 	const char* vertexShader	 = element->Attribute("vertexShader");
 	const char* fragmentShader	 = element->Attribute("fragmentShader");
 	const char* translate		 = element->Attribute("translate");
-		
-	//GRectangle* rectangleItem    = NULL;
-	//rectangleItem = new GRectangle(currentScene, parentModel, BUTTON, name);
-    MeshObject* mesh =  new MeshObject("../Resource/Models/mbclass.obj", currentScene, parentModel, MESH, name);
+	const char* flatShade		 = element->Attribute("flatShade");
+	bool flatShadingFlag		 = false;
+	
+	if(!strcmp(flatShade, "true")){
+		flatShadingFlag = true;
+	}
+	else{
+		flatShadingFlag = false; 
+	}
+	
+    MeshObject* mesh =  new MeshObject("../Resource/Models/mbclass.obj", currentScene, parentModel, MESH, flatShadingFlag, name);
 	mesh->Scale(.01, .01, .01);
 
 	if(!mesh){

@@ -53,14 +53,8 @@ GLuint Texture::generateTexture2D(GLenum texTarget, GLuint surfaceWidth, GLuint 
     texWrapModeT        = wrapModeT;
     
     glGenTextures(1, &texID);
-    /*
-    // Check the glError here
-    glErr = glGetError();
-    if(glErr != GL_NO_ERROR){
-       return;
-    }
-     */
-    // Allocate OpenGL texture memory and bind to it.
+
+	// Allocate OpenGL texture memory and bind to it.
     glBindTexture (target, texID);
     
     // Set texture's S wrapping mode type
@@ -121,15 +115,6 @@ GLuint Texture::generateTexture3D(GLenum texTarget, GLuint surfaceWidth, GLuint 
     texWrapModeT        = wrapModeT;
     
     glGenTextures(1, &texID);
-    /*
-     // Check the glError here
-     glErr = glGetError();
-     if(glErr != GL_NO_ERROR){
-     return;
-     }
-     */
-    // Allocate OpenGL texture memory and bind to it.
-    //glBindTexture (target, texID);
 	BindTexture();
     
     // Set texture's S wrapping mode type

@@ -1,5 +1,7 @@
 #include "FrameBufferObject.h"
 #include "Texture.h"
+#include "../common/Scene.h"
+#include "../common/Renderer.h"
 
 FrameBufferObjectSurface::FrameBufferObjectSurface(GLint surfaceWidth, GLint surfaceHeight)
 {

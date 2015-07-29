@@ -48,35 +48,35 @@ void WindMillDemo(){
 	MeshObject* Sphere       = NULL;
 
 	// Base
-    Base =  new MeshObject("../Resource/Models/CubeWithNormal.obj", scene, NULL, MESH, "Base");
+    Base =  new MeshObject("../Resource/Models/CubeWithNormal.obj", scene, NULL, MESH, false, "Base");
 	Base->SetProgram(ProgramID);
 	Base->Translate(0.0, -4.0, 0.0);
     Base->SetMaterial(Material(MaterialSilver));
     Base->ScaleLocal(1.5, 0.25, 1.5);
 
     // Stand
-    Stand =  new MeshObject("../Resource/Models/SemiHollowCylinder.obj", scene, Base, MESH, "Stand" );
+    Stand =  new MeshObject("../Resource/Models/SemiHollowCylinder.obj", scene, Base, MESH, false, "Stand" );
 	Stand->SetProgram(ProgramID);
     Stand->SetMaterial(Material(MaterialSilver));
     Stand->Translate(0.0, 4.0, 0.0);
     Stand->ScaleLocal(0.5, 4.0, 0.5);
 
     // Motor Shaft
-    MotorShaft =  new MeshObject( "../Resource/Models/CubeWithNormal.obj", scene, Stand, MESH, "MotorShaft" );
+    MotorShaft =  new MeshObject( "../Resource/Models/CubeWithNormal.obj", scene, Stand, MESH, false, "MotorShaft" );
 	MotorShaft->SetProgram(ProgramID);
 	MotorShaft->SetMaterial(Material(MaterialSilver));
     MotorShaft->Translate(0.0, 4.0, 1.0);
     MotorShaft->ScaleLocal(0.5, 0.5, 2.0);
 
     // Motor Engine
-    Sphere =  new MeshObject	( "../Resource/Models/Sphere.obj", scene, MotorShaft, MESH, "Sphere" );
+    Sphere =  new MeshObject	( "../Resource/Models/Sphere.obj", scene, MotorShaft, MESH, false, "Sphere" );
 	Sphere->SetProgram(ProgramID);
     Sphere->SetMaterial(Material(MaterialGold));
     Sphere->Translate(0.0, 0.0, 2.0);
 	
 	// Fan Blades
     for(int i=0; i<360; i+=360/18){
-        CubePlane =  new MeshObject( "../Resource/Models/CubeWithNormal.obj", scene, Sphere, MESH, "FanBlade" );
+        CubePlane =  new MeshObject( "../Resource/Models/CubeWithNormal.obj", scene, Sphere, MESH, false, "FanBlade" );
 		CubePlane->SetProgram(ProgramID);
         CubePlane->SetMaterial(Material(MaterialCopper));
         CubePlane->Translate(0.0, 2.0, 0.0);

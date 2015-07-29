@@ -45,7 +45,7 @@ public:
 	void setTransformationForVulkanPipeline(){/*Not Supported*/}
 
 public:
-   MeshObject(const char* meshPath, Scene* parent, Model* model, ModelType type, std::string objectName = "");
+   MeshObject(const char* meshPath, Scene* parent, Model* model, ModelType type, bool flatShading = false,std::string objectName = "");
    virtual ~MeshObject();
 
 protected:

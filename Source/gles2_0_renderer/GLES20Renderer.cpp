@@ -36,14 +36,3 @@ void GLES20Renderer::TouchEventRelease( float x, float y )
         scenes.at(i)->TouchEventRelease(x, y);
     }
 }
-
-Object* GLES20Renderer::createObject(Scene* handler, Model* parent, ModelType type, std::string objectName)
-{
-   switch(type)
-   {
-      case BUTTON:
-         return NULL;
-      //return new GLES20Button(handler, parent, type, objectName);
-      break;
-   }
-}

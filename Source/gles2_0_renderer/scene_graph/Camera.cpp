@@ -1,7 +1,8 @@
 #include "Camera.h"
 #include "../../common/Scene.h"
-#include "GLES20Pixmap.h"
-//#include "core/quaternion.hpp"
+#include "GLES20Viewport.h"
+#include "Renderer.h"
+
 #define DEGREE_TO_RADIAN	M_PI / 180.0f
 #define RADIAN_TO_DEGREE	180.0f / M_PI
 

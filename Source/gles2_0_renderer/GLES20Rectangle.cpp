@@ -56,8 +56,6 @@ void GLES20Rectangle::Initialize()
 */
 void GLES20Rectangle::Render(bool (*customRender)())
 {
-//	tempMatrix = *ProjectionMatrix * *ViewMatrix * *ModelMatrix;
-
 	mvpUniform->SetValue((GLfloat*)&tempMatrix[0]);
 	colUniform->SetValue(color);
 
@@ -87,7 +85,8 @@ void GLES20Rectangle::SetColor(glm::vec4* colors)
 }
 
 void GLES20Rectangle::SetIndices(std::vector<unsigned short>* indicesList){
-	GeometryMesh* mesh		= geoBuffer->geometry();
+	GeometryMesh* mesh	= geoBuffer->geometry();
+	
 	if(mesh->geometryIndices.size = indicesList->size()){
 		mesh->geometryIndices.indexData	= (void*)&indicesList->at(0);
 	}

@@ -394,6 +394,7 @@ bool OBJMesh::ParseFileInfo(const char* path)
         fclose (pFile);
         return false;
     }
+	static int lineOfCode = 0;
     
     strcpy(objMeshModel.fileName, path);
     while(!eofReached)
@@ -419,6 +420,7 @@ bool OBJMesh::ParseFileInfo(const char* path)
             case 'v': // Loading the vertices.
                 c = fgetc(pFile); // The next character will let us know what vertex attribute to load
                 ScanVertexNormalAndUV( pFile, c );
+				lineOfCode++;
                 break;
                 
 			case 'f':// 'f' means it is a face index information in the form of v/u/n
@@ -431,6 +433,7 @@ bool OBJMesh::ParseFileInfo(const char* path)
 
         }
     }
+	printf("\n Mesh vertices count: %d", lineOfCode);
     fclose (pFile);
     return true;
 }

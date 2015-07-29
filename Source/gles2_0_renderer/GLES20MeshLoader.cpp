@@ -41,6 +41,7 @@ GLES20MeshLoader::GLES20MeshLoader(Mesh* inMesh, Model* parent)
 		imageItem->getTextureID() = textureObj.getTextureID();
 	}
 
+	// States are not automated yet
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
@@ -146,16 +147,14 @@ void GLES20MeshLoader::Render(bool(*customRender)())
 	
 	textureObj.BindTexture();
 
-	// Calculate the Model-View Matrix
-	//tempMatrix = *ViewMatrix * *ModelMatrix;
+	// Send the Model-View Matrix
 	MVUniform->SetValue((GLfloat*)&tempMatrix[0]);
 
-	// Calculate the Normal Matrix
+	// Send the Normal Matrix
 	normalMat = glm::mat3(glm::vec3(tempMatrix[0]), glm::vec3(tempMatrix[1]), glm::vec3(tempMatrix[2]));
 	NormalMatrixUniform->SetValue((GLfloat*)&normalMat[0]);
 
-	// Calculate the Model-View-Projection Matrix
-	//tempMVPMatrix = *ProjectionMatrix * tempMatrix;
+	// Send the Model-View-Projection Matrix
 	MVPUniform->SetValue((GLfloat*)&tempMVPMatrix[0]);
     
 	geoBuffer->update();
@@ -168,10 +167,10 @@ void GLES20MeshLoader::Render(bool(*customRender)())
 // Apply material on the object
 void GLES20MeshLoader::ApplyMaterial()
 {
-	MaterialAmbientUniform->SetValue((GLfloat*)&matObj->ambient);
+	MaterialAmbientUniform->SetValue ((GLfloat*)&matObj->ambient);
 	MaterialSpecularUniform->SetValue((GLfloat*)&matObj->specular);    
-	MaterialDiffuseUniform->SetValue((GLfloat*)&matObj->diffuse);
-	ShininessFactorUniform->SetValue((GLfloat*)&matObj->shiness);
+	MaterialDiffuseUniform->SetValue ((GLfloat*)&matObj->diffuse);
+	ShininessFactorUniform->SetValue ((GLfloat*)&matObj->shiness);
 }
 
 void GLES20MeshLoader::ApplyLight()
@@ -179,9 +178,9 @@ void GLES20MeshLoader::ApplyLight()
 	// Presently, there is only one light, for multiple ligths this loop does not satisfy the uniform arrays.
     for(int i =0; i<parentModel->scene()->getLights().size(); i++){
         Light*& light = parentModel->scene()->getLights().at(i);
-		LightAmbientUniform->SetValue((GLfloat*)&light->material.ambient);
+		LightAmbientUniform->SetValue ((GLfloat*)&light->material.ambient);
 		LightSpecularUniform->SetValue((GLfloat*)&light->material.specular);
-		LightDiffuseUniform->SetValue((GLfloat*)&light->material.diffuse);
+		LightDiffuseUniform->SetValue ((GLfloat*)&light->material.diffuse);
 		LightPositionUniform->SetValue((GLfloat*)&light->position);
     }
 }
@@ -197,8 +196,9 @@ void GLES20MeshLoader::processTexture()
 	if (it != imageManagerObject->imageMap.end()){
 		imageItem = (*it).second;
 	}
-	else{   // Load the image here and pass the Image pointer to the Pixmap
-		imageItem = new PngImage(); // This hardcoding need to be fixed, the image should be loaded on the basis of fileextension.
+	else{   
+		// Load the image here and pass the Image pointer to the Pixmap
+		imageItem = new PngImage();
 		imageItem->loadImage(imagePath);
 		imageManagerObject->imageMap[imagePath] = imageItem;
 	}

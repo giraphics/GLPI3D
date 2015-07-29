@@ -295,7 +295,7 @@ CubeFBOModel::CubeFBOModel(Scene* scene, Model* model, ModelType type, std::stri
    this->SetProgram(ProgramID);
 
    // Car
-    Car =  new MeshObject("../Resource/Models/mbclass.obj", scene, this, MESH, "Mercedes Benz");
+    Car =  new MeshObject("../Resource/Models/mbclass.obj", scene, this, MESH, false, "Mercedes Benz");
 	Car->SetProgram(ProgramID);
     Car->Scale(.01, .01, .01);
     Car->Rotate(-90.0, 1.0, 0.0, 0.0);

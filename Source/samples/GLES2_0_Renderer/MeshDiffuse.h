@@ -40,11 +40,16 @@ void DiffuseMeshSample(){
    camera->Viewport(0, 0, renderer->getWindowWidth(), renderer->getWindowHeight());
 
    ProgramManager* ProgramManagerObj = ProgramManager::GetInstance();
+
+   // Load the shader, provide name and path of shader
    unsigned int ProgramID = ProgramManagerObj->LoadShader("Meshshader", VERTEX_SHADER_PRG_DIFFUSE, FRAGMENT_SHADER_DIFFUSE)->ProgramID;
-   meshObj = new MeshObject("../Resource/Models/mbclass.obj", scene, NULL, MESH, "");
    
-   meshObj->SetName(std::string("My Mesh 41"));
+   // Pass the location of path of mesh to loaded
+   meshObj = new MeshObject("../Resource/Models/mbclass.obj", scene, NULL, MESH, false, "MyDiffuseMatCar");   
+   
+   // Attach the Diffuse Shader to the Mesh
    meshObj->SetProgram(ProgramID);
+   
    meshObj->SetMaterial(Material(MaterialWhite));
 
    meshObj->Scale(.01, .01, .01);

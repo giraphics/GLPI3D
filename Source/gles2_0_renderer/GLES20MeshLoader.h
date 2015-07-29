@@ -52,58 +52,33 @@ private:
 	void ApplyLight();
 	
 	// Mesh data structure holding temparary array of geometry
-	Mesh* meshModel;
-
-	// Index count of the geometry
-	//unsigned int indexCount;
-
-	glm::mat3 normalMat;
-	Image* imageItem;
-	Texture textureObj;
-	//GLuint OBJ_VAO_Id;
-
-	int stride;
-	GLvoid* offsetNormal, *offsetTexCoord, *offsetTangent;
-	//char MVP, MV;
-	//GLint NormalMatrix;
-	//GLint Tex;
-	//GLuint vertexBuffer;
-
-	//char MaterialAmbient;	
-	//char MaterialSpecular;	
-	//char MaterialDiffuse;	
-	//char LightAmbient;	
-	//char LightSpecular;		
-	//char LightDiffuse;	
-	//char ShininessFactor;	
-	//char LightPosition;		
-	Material* matObj;
+	Mesh*				meshModel;
+	glm::mat3			normalMat;
+	Image*				imageItem;
+	Texture				textureObj;
+	int					stride;
+	GLvoid*				offsetNormal, *offsetTexCoord, *offsetTangent;
+	Material*			matObj;
 
 protected:
-	float* MVPMatrix;
-	Model* parentModel;
+	float*				MVPMatrix;
+	Model*				parentModel;
+
 private:
-	//GeometryBuffer* geoBuffer;
-	Uniform3f*		MaterialAmbientUniform;	
-	Uniform3f*		MaterialSpecularUniform;	
-	Uniform3f*		MaterialDiffuseUniform;	
-	Uniform3f*		LightAmbientUniform;	
-	Uniform3f*		LightSpecularUniform;		
-	Uniform3f*		LightDiffuseUniform;	
-	Uniform1f*		ShininessFactorUniform;	
-	Uniform3fv*		LightPositionUniform;		
+	Uniform3f*			MaterialAmbientUniform;	
+	Uniform3f*			MaterialSpecularUniform;	
+	Uniform3f*			MaterialDiffuseUniform;	
+	Uniform3f*			LightAmbientUniform;	
+	Uniform3f*			LightSpecularUniform;		
+	Uniform3f*			LightDiffuseUniform;	
+	Uniform1f*			ShininessFactorUniform;	
+	Uniform3fv*			LightPositionUniform;		
 
 	UniformMatrix4fv*	MVPUniform;
 	UniformMatrix4fv*	MVUniform;
 	UniformMatrix3fv*	NormalMatrixUniform;
 	Uniform1i*			TexUniform;
-	GLint textureUnit;
-
-	//glm::vec3 ambientTemp, diffuseTemp, specularTemp;
-	//glm::vec3 positionTemp;
-	//glm::vec3 ambientMat, diffuseMat, specularMat;
-
-
+	GLint				textureUnit;
 };
 
 #endif // GLES20MESHLOADER_H

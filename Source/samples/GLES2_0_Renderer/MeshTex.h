@@ -81,7 +81,7 @@ void MeshRectSample(){
 
    ProgramManager* ProgramManagerObj = ProgramManager::GetInstance();
    unsigned int ProgramID = ProgramManagerObj->LoadShader("Meshshader", VERTEX_SHADER_PRG_TEX, FRAGMENT_SHADER_TEX)->ProgramID;
-   meshObj = new MeshObject("../Resource/Models/mbclass.obj", scene, NULL, MESH, "MyMeshDemo");   
+   meshObj = new MeshObject("../Resource/Models/mbclass.obj", scene, NULL, MESH, false, "MyMeshDemo");   
    meshObj->SetProgram(ProgramID);
    meshObj->Scale(.01, .01, .01);
    scene->addModel(meshObj);

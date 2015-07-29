@@ -19,8 +19,6 @@ public:
     //! Renderer Destructor
     ~GLES20Renderer();
 
-    Object* createObject(Scene* handler, Model* parent, ModelType type, std::string objectName = "");
-
     //! Gesture Press Event
     void TouchEventDown( float a, float b );
     
