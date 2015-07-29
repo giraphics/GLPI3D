@@ -446,8 +446,20 @@
     <ClInclude Include="..\Source\common\SceneGraphParser.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\gles2_0_renderer\scene_graph\Camera.h">
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20Viewport.h">
       <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\scene_graph\Camera.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\gles2_0_renderer\GLES20FBO.h">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\FlatSmooth.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\ProceduralShading.h">
+      <Filter>sample\gles2_0_renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -764,7 +776,13 @@
     <ClCompile Include="..\Source\common\SceneGraphParser.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20Viewport.cpp">
+      <Filter>renderer\gles2_0_renderer</Filter>
+    </ClCompile>
     <ClCompile Include="..\Source\gles2_0_renderer\scene_graph\Camera.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\gles2_0_renderer\GLES20FBO.cpp">
       <Filter>renderer\gles2_0_renderer</Filter>
     </ClCompile>
   </ItemGroup>
