@@ -15,6 +15,7 @@ class IGeoBuffer{
 public:
 	IGeoBuffer(){}
 	~IGeoBuffer(){}
+	GeometryBuffer* getGeometry(){ return geoBuffer; }
 protected:
 GeometryBuffer* geoBuffer;
 

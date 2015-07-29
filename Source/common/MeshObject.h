@@ -43,7 +43,7 @@ public:
 	void setTransformationForOpenGLES20Pipeline();
 	void setTransformationForOpenGLES31Pipeline(){/*Not Supported*/}
 	void setTransformationForVulkanPipeline(){/*Not Supported*/}
-
+	GeometryBuffer* GeometryBuffer();
 public:
    MeshObject(const char* meshPath, Scene* parent, Model* model, ModelType type, bool flatShading = false,std::string objectName = "");
    virtual ~MeshObject();

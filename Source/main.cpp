@@ -74,6 +74,7 @@
    #include "samples\GLES2_0_Renderer\City.h"
    #include "samples\GLES2_0_Renderer\XMLDemonstrator.h"
    #include "samples\GLES2_0_Renderer\FlatSmooth.h"
+   #include "samples\GLES2_0_Renderer\ProceduralShading.h"
 #endif
 std::vector<void (*)()> demoList;
 int demoNumber = 0;
@@ -88,8 +89,6 @@ int main()
 #ifdef OLDENGINE
    GLPISample();
 #else
-	demoList.push_back(XMLDemo);
-
 	demoList.push_back(DrawScheme);
 	
 	demoList.push_back(BufferScheme);
@@ -131,6 +130,9 @@ int main()
     // Light and Material interaction demo
 	demoList.push_back(LighMaterailDemo);
 
+	// Procedural shading
+	demoList.push_back(ProceduralShadingDemo);
+
 	// Flat and Smooth shading
 	demoList.push_back(FlatAndSmoothShadingDemo);
 
@@ -143,6 +145,8 @@ int main()
 	// Cube Frame Buffer Object Demo
 	demoList.push_back(CubeFBODemo);
 	
+	demoList.push_back(XMLDemo);
+
 	int totalSize = demoList.size();
 	while(totalSize){
 		demoList.at(demoNumber<0 ? demoNumber=0 : demoNumber%(totalSize))();

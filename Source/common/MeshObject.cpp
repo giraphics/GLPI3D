@@ -113,3 +113,33 @@ void MeshObject::setTransformationForOpenGLES20Pipeline(){
 	//gles20Mesh->SetViewMat(TransformObj->TransformGetViewMatrix());
 	//gles20Mesh->SetProjectionMat(TransformObj->TransformGetProjectionMatrix());
 }
+
+GeometryBuffer* MeshObject::GeometryBuffer()
+{ 
+	switch(scene()->getRenderer()->getRendererType())
+	{
+		case PluginType::OPENGLES20_STATIC_PLUGIN:
+			return ((GLES20MeshLoader*)specificMesh)->getGeometry();
+			break;
+
+		case PluginType::OPENGLES31_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::OPENGLES31_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+
+		case PluginType::VULKAN_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::VULKAN_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+
+		case PluginType::JCP2016_STATIC_PLUGIN:
+			printf("\n Pipeline not implemented PluginType::VULKAN_STATIC_PLUGIN: %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+		
+		default:
+			printf("\n Undefined pipeline %s, %s.", __FUNCTION__, __LINE__);
+			assert(0);
+			break;
+	}
+} 
