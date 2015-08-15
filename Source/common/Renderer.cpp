@@ -97,7 +97,7 @@ void Renderer::Render(bool (*customRender)())
      scenes.at(i)->Render();
    }
 	
-   for(int i=0; i<	this->initFlatList.size(); i++){
+   for (int i = 0; i< this->renderFlatList.size(); i++){
 	   this->renderFlatList.at(i)->Render();
    }
 

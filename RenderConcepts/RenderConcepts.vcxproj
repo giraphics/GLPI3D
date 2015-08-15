@@ -183,6 +183,8 @@
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\DrawScheme.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\FlatSmooth.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\FrameBufferObj.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\InDashBoard.h" />
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\InDashBoardPrespective.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\LightMaterial.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\luaSample1.h" />
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\MeshCustomScene.h" />

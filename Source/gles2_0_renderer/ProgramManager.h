@@ -135,7 +135,7 @@ public:
 private:
 	//! We need some mechanism to recognize the program for each model.
 	//! Parminder temporarily using a array, must use a list instead.
-	static PROGRAM* programList[20]; 
+	static PROGRAM* programList[50]; 
 
 	//! Keeps track of the number of program in the renderer.
 	static unsigned char programCounter;

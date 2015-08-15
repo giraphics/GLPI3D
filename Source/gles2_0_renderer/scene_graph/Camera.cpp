@@ -88,7 +88,7 @@ bool Camera::Reset()
     
     // PERESPECTIVE CAMERA VIEW PARAMETERS
     cameraViewParameters.fov        = 60.0f;
-    cameraViewParameters.nearPlane  = 1.0f;
+    cameraViewParameters.nearPlane  = 0.1f;
     cameraViewParameters.farPlane   = 500.0f;
     clearBitFieldMask               = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT;
 	((GLES20Viewport*)specificViewport)->clearBitFieldMask = clearBitFieldMask;

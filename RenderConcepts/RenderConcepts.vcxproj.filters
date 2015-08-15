@@ -461,6 +461,12 @@
     <ClInclude Include="..\Source\samples\GLES2_0_Renderer\ProceduralShading.h">
       <Filter>sample\gles2_0_renderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\InDashBoard.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\samples\GLES2_0_Renderer\InDashBoardPrespective.h">
+      <Filter>sample\gles2_0_renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\common\Event.cpp">

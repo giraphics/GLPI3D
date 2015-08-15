@@ -42,6 +42,7 @@
 * Real-time Shadow                   													| Infrasture is avialable, the demo required to test		| No
 * Post processing on real time scenes                   								| Infrasture is avialable, the demo required to test		| No
 * Bump Mapping                   														| Infrasture is avialable, the demo required to test		| No
+* Streaming                                                                             | Demo      | Yes
 * *
 */
 
@@ -75,6 +76,8 @@
    #include "samples\GLES2_0_Renderer\XMLDemonstrator.h"
    #include "samples\GLES2_0_Renderer\FlatSmooth.h"
    #include "samples\GLES2_0_Renderer\ProceduralShading.h"
+   #include "samples\GLES2_0_Renderer\InDashBoard.h"
+   #include "samples\GLES2_0_Renderer\InDashBoardPrespective.h"
 #endif
 std::vector<void (*)()> demoList;
 int demoNumber = 0;
@@ -88,8 +91,12 @@ int main()
 {
 #ifdef OLDENGINE
    GLPISample();
-#else
-	demoList.push_back(DrawScheme);
+#else    
+    demoList.push_back(StartUpAnimationPrespective);
+
+    demoList.push_back(StartUpAnimation);
+
+    demoList.push_back(DrawScheme);
 	
 	demoList.push_back(BufferScheme);
 

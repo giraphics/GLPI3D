@@ -559,7 +559,7 @@ bool SceneGraphParser::parseTagMesh(tinyxml2::XMLElement* element){
 	const char* translate		 = element->Attribute("translate");
 	const char* flatShade		 = element->Attribute("flatShade");
 	bool flatShadingFlag		 = false;
-	
+		
 	if(!strcmp(flatShade, "true")){
 		flatShadingFlag = true;
 	}

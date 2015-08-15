@@ -5,7 +5,7 @@
 
 // Static member variables initialiazation; Temporary solution globals should be removed with elegant data structs.
 ProgramManager* ProgramManager::singleTon = NULL;
-PROGRAM* ProgramManager::programList[20]; 
+PROGRAM* ProgramManager::programList[50]; 
 unsigned char ProgramManager::programCounter;
 
 ProgramManager::ProgramManager(void) {

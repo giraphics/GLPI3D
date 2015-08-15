@@ -5,7 +5,7 @@
 // Demo Description: In this demo, we will draw two rectangle with Array and Element (Indices) drawing scheme.
 void XMLDemo(){
 	SceneGraphParser parser;
-	Application* application = parser.LoadXML("E:/renderconcept/RenderConcept2010-ILifeCycle/RenderConcepts/Source/samples/GLES2_0_Renderer/MenuXML.xml");
+	Application* application = parser.LoadXML("../Source/samples/GLES2_0_Renderer/MenuXML.xml");
 	if(!application){
 		printf("Unable to create the application.");
 		assert(0);
